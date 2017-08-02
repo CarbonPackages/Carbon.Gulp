@@ -151,7 +151,7 @@ Plugin                                                                          
 **[postcss-round-subpixels](https://www.npmjs.com/package/postcss-round-subpixels)**    | Plugin that rounds sub-pixel (eg: 12.87378px) values to the nearest full pixel.
 **[postcss-reporter](https://www.npmjs.com/package/postcss-reporter)**                  | Log PostCSS messages in the console
 **[postcss-pxtorem](https://www.npmjs.com/package/postcss-pxtorem)**                    | A plugin for PostCSS that generates rem units from pixel units.
-**[cssnano](http://cssnano.co)**   
+**[cssnano](http://cssnano.co)**                                                        | Modern CSS compression
 
 
 ## Configuration
