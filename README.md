@@ -7,7 +7,8 @@ Carbon/Gulp
 
 Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to
 form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
-Based on https://github.com/jonnitto/gulpfile.js
+Based on https://github.com/jonnitto/gulpfile.js and the inspiration of 
+[@dfeyer](https://github.com/dfeyer) from [ttree ltd](https://github.com/ttreeagency).
 
 ## Installation
 
