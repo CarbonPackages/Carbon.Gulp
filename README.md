@@ -1,6 +1,10 @@
 Carbon/Gulp
 ===========
 
+[![Latest Stable Version](https://poser.pugx.org/carbon/gulp/v/stable)](https://packagist.org/packages/carbon/gulp)
+[![Total Downloads](https://poser.pugx.org/carbon/gulp/downloads)](https://packagist.org/packages/carbon/gulp)
+[![License](https://poser.pugx.org/carbon/gulp/license)](LICENSE)
+
 Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to
 form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
 Based on https://github.com/jonnitto/gulpfile.js
