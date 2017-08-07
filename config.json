@@ -116,7 +116,7 @@
             }
         },
         "scss": true,
-        "scssLint": false,
+        "scssLint": true,
         "jsLint": true,
         "js": {
             "src": "Assets",

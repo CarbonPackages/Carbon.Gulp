@@ -48,23 +48,27 @@ if (config.tasks.css) {
 
 	gulp.task('scss', task.scss);
 	gulp.task('scss').description = 'Render _all.scss, _allsub.scss and _allFusion.scss Files';
-
-	if (config.tasks.scssLint) {
-		gulp.task('scssLint', task.scssLint);
-		gulp.task('scssLint').description = 'Lint CSS Files';
-	}
 }
 
 if (config.tasks.js) {
 	gulp.task('js', bach.parallel(task.js, task.jsLint));
 	gulp.task('js').description = 'Render Javascript Files';
 	gulp.task('js').flags = flags;
+}
 
-	if (config.tasks.jsLint) {
-		gulp.task('jsLint', task.jsLint);
-		gulp.task('jsLint').description = 'Lint Javascript files';
+if (config.tasks.scssLint || config.tasks.jsLint) {
+	if (config.tasks.scssLint && config.tasks.jsLint) {
+		gulp.task('lint', bach.parallel(task.scssLint, task.jsLint));
+		gulp.task('lint').description = 'Lint Javascript and CSS files';
+	} else if (config.tasks.scssLint) {
+		gulp.task('lint', task.scssLint);
+		gulp.task('lint').description = 'Lint CSS files';
+	} else {
+		gulp.task('lint', task.jsLint);
+		gulp.task('lint').description = 'Lint Javascript files';
 	}
 }
+
 
 gulp.task('optimizeImages', task.optimizeImages);
 gulp.task('optimizeImages').description = 'Optimize images and overrite them in the public folder';

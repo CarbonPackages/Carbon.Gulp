@@ -1,0 +1,34 @@
+{
+  "ignoreFiles": ["**/Public/**","**/Private/Templates/**","node_modules/**"],
+  "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules": {
+    "at-rule-empty-line-before": null,
+    "at-rule-no-unknown": null,
+    "indentation": "tab",
+    "max-empty-lines": 3,
+    "max-nesting-depth": 5,
+    "no-invalid-double-slash-comments": true,
+    "property-no-unknown": [true, {
+      ignoreProperties: [
+        "box","box-item",
+        "grid-kiss",
+        "font-range","min-font-size","max-font-size","lower-font-range","upper-font-range",
+        "font-awesome"
+      ]
+    }],
+    "selector-pseudo-class-no-unknown": [true, {
+      "ignorePseudoClasses": [
+        "at-least","at-most","between","exactly"
+      ]
+    }],
+    "selector-pseudo-element-no-unknown": [true, {
+      "ignorePseudoElements": [
+        "track","thumb"
+      ]
+    }],
+    "selector-type-no-unknown": null
+  }
+}

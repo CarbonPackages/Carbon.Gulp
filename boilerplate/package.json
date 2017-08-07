@@ -25,6 +25,7 @@
     "pipeline": "yarn run gulp -- pipeline",
     "css": "yarn run gulp -- css",
     "scss": "yarn run gulp -- scss",
+    "lint": "yarn run gulp -- lint",
     "js": "yarn run gulp -- js",
     "images": "yarn run gulp -- optimizeImages",
     "compress": "yarn run gulp -- compress"
@@ -65,9 +66,9 @@
     "gulp-rename": "^1.2.2",
     "gulp-rollup": "^2.14.0",
     "gulp-sass": "^3.1.0",
-    "gulp-scss-lint": "^0.5.0",
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^2.6.0",
+    "gulp-stylelint": "^4.0.0",
     "gulp-svgstore": "^6.1.0",
     "gulp-util": "^3.0.8",
     "gulp-zopfli": "^1.0.0",
@@ -105,6 +106,9 @@
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-uglify": "^2.0.1",
     "rucksack-css": "^1.0.2",
+    "stylelint": "^8.0.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-scss": "^2.0.1",
     "text-table": "^0.2.0",
     "through2": "^2.0.3"
   },

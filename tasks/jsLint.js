@@ -10,7 +10,7 @@ const filesToWatch = func.getFilesToWatch('js');
 
 
 function esLint(argument) {
-	return gulp.src(filesToWatch, {since: gulp.lastRun('jsLint')})
+	return gulp.src(filesToWatch)
 		.pipe(plumber(handleErrors))
 		.pipe(eslint())
 		.pipe(eslint.results(results => {

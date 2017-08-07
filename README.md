@@ -7,7 +7,7 @@ Carbon/Gulp
 
 Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to
 form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
-Based on https://github.com/jonnitto/gulpfile.js and the inspiration of 
+Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 [@dfeyer](https://github.com/dfeyer) from [ttree ltd](https://github.com/ttreeagency).
 
 ## Installation
@@ -30,11 +30,8 @@ official templates.
 
 ### Install Dependencies
 Make sure Node & [Yarn](https://yarnpkg.com) installed. I recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
-If you use this library the first time, you need to be shure all global dependencies are installed correctly:
 
 ```bash
-# Install ScssLint
-gem install scss_lint
 # Enable the correct nvm
 nvm use
 # Install the package dependencies
@@ -68,7 +65,7 @@ Tasks
 │   --b, --beautify  … Beautify and dont't compress files
 │   --d, --debug     … Files dont't get compressed and sourcemaps get genereated
 │   --m, --maps      … Write sourcemaps
-├── jsLint           Lint Javascript files
+├── lint             Lint Javascript and CSS files
 ├── optimizeImages   Optimize images and overrite them in the public folder
 ├─┬ pipeline         Build task for pipeline
 │ └─┬ <series>
@@ -108,7 +105,7 @@ Features       | Tools Used
 **Javascript** | [Rollup JS](http://rollupjs.org) with [Bublé](https://buble.surge.sh/guide) or [Babel](https://babeljs.io/)
 **Images**     | Compression with [imagemin](https://www.npmjs.com/package/gulp-imagemin). Run width `gulp optimizeImages`. Overwrites files in the resource folder.
 **Icons**      | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore) and/or [Icon Fonts](https://www.npmjs.com/package/gulp-iconfont)
-**Lint**       | [ScssLint](https://github.com/brigade/scss-lint) and [ESLint](http://eslint.org/) included
+**Lint**       | [ESLint](http://eslint.org/) and [stylelint](https://stylelint.io) included
 
 ## CSS
 
