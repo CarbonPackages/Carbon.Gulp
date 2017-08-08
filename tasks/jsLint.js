@@ -8,7 +8,6 @@ const func = require('../functions');
 const eslint = require('gulp-eslint');
 const filesToWatch = func.getFilesToWatch('js');
 
-
 function esLint(argument) {
 	return gulp.src(filesToWatch)
 		.pipe(plumber(handleErrors))
