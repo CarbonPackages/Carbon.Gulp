@@ -1,11 +1,11 @@
 node_modules
 
-.DS_Store
 ._*
 *.example
 .thumbs
 .idea
 .DS_Store
+.sass-cache
 
 /*.txt
 /*.rst
