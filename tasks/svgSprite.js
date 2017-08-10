@@ -18,6 +18,7 @@ function svgSprite() {
 		.pipe(cache('svgSprite'))
 		.pipe(imagemin([imagemin.svgo({plugins:[config.tasks.svgSprite.svgo]})]))
 		.pipe(svgstore())
+		.pipe(config.root.inlineAssets ? gulp.dest(path.join(config.root.base, config.root.src, config.root.inlinePath)) : util.noop())
 		.pipe(gulp.dest(paths.dest))
 		.pipe(size({
 			title: 'SVG:',

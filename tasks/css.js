@@ -70,7 +70,7 @@ function css() {
 		.pipe(postcss(postScss))
 		.pipe(mode.minimize ? postcss([cssnano(pc.cssnano)]) : postcss([autoprefixer(pc.cssnano.autoprefixer)]))
 		.pipe(mode.beautify ? beautify(config.tasks.css.cssbeautifyOptions) : util.noop())
-		.pipe(config.root.inlineAssets ? gulp.dest(path.join(config.root.base, config.root.inlineAssets)) : util.noop())
+		.pipe(config.root.inlineAssets ? gulp.dest(path.join(config.root.base, config.root.src, config.root.inlinePath)) : util.noop())
 		.pipe(config.banner ? header(config.banner, {
 			info: config.info,
 			timestamp: getTimestamp()

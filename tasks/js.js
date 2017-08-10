@@ -71,7 +71,7 @@ function js() {
 			plugins: rollupPlugins,
 			format: rollupConfig.format
 		}))
-		.pipe(config.root.inlineAssets ? gulp.dest(path.join(config.root.base, config.root.inlineAssets)) : util.noop())
+		.pipe(config.root.inlineAssets ? gulp.dest(path.join(config.root.base, config.root.src, config.root.inlinePath)) : util.noop())
 		.pipe(config.banner ? header(config.banner, {
 			info: config.info,
 			timestamp: getTimestamp()

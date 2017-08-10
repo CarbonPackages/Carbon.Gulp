@@ -12,6 +12,7 @@
         "dest": "GesagtGetan.Theme/Resources/Public",
         "watch": ["**/Private/**"],
         "dontWatch": ["**/Private/Templates/**", "**/WebRoot/**"],
+        "inlinePath": "Templates/InlineAssets",
         "inlineAssets": false,
         "notifications": false
     },
