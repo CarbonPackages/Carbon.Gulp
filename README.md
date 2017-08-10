@@ -161,7 +161,7 @@ the `Configuration` directory, like this:
 ```json
 {
     "root": {
-        "inlineAssets": "Your.SitePackage/Resources/Private/Templates/InlineAssets"
+        "inlineAssets": true
     },
     "tasks": {
         "js": {
@@ -171,7 +171,7 @@ the `Configuration` directory, like this:
                   "namedExports": {
                       "node_modules/barba.js/dist/barba.js": [ "Barba" ]
                   }
-              },
+              }
             }
           }
         }
