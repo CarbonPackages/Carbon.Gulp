@@ -165,15 +165,15 @@ the `Configuration` directory, like this:
     },
     "tasks": {
         "js": {
-          "rollup": {
-            "plugins": {
-              "commonjs": {
-                  "namedExports": {
-                      "node_modules/barba.js/dist/barba.js": [ "Barba" ]
-                  }
-              }
+            "rollup": {
+                "plugins": {
+                    "commonjs": {
+                        "namedExports": {
+                            "node_modules/barba.js/dist/barba.js": [ "Barba" ]
+                        }
+                    }
+                }
             }
-          }
         }
     }
 }
