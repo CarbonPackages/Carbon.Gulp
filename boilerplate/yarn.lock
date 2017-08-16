@@ -6136,9 +6136,9 @@ postcss-round-subpixels@^1.2.0:
     postcss "^5.0.2"
     postcss-value-parser "^3.1.2"
 
-postcss-rtl@^0.5.10:
-  version "0.5.10"
-  resolved "https://registry.yarnpkg.com/postcss-rtl/-/postcss-rtl-0.5.10.tgz#9d22eb384eec1f7a82bfac6e0b5cf8ac3c6ed570"
+postcss-rtl@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-rtl/-/postcss-rtl-1.0.0.tgz#98cece8d6c9235298ab124f6910347f3f82ab9ac"
   dependencies:
     rtlcss "^2.0.6"
 
