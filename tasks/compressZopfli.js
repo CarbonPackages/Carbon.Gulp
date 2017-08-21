@@ -1,7 +1,7 @@
 'use strict';
 
 if (!config.tasks.compress) {
-	return false;
+    return false;
 }
 
 const zopfli = require('gulp-zopfli');
@@ -9,11 +9,11 @@ const zopfli = require('gulp-zopfli');
 let src = path.join(config.root.base, config.root.dest, '/**/*.{js,css}');
 
 function compressZopfli() {
-	return gulp.src(src)
-		.pipe(zopfli())
-		.pipe(gulp.dest(function(file) {
-			return file.base;
-	}));
+    return gulp.src(src)
+        .pipe(zopfli())
+        .pipe(gulp.dest(function(file) {
+            return file.base;
+    }));
 }
 
 module.exports = compressZopfli;

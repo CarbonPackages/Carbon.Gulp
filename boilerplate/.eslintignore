@@ -1,5 +1,5 @@
 node_modules/
-gulpfile.js/
+Build/
 Packages/
 **/Public/
 /.src/**/Resources/Private/Templates/

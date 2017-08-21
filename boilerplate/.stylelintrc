@@ -7,7 +7,6 @@
   "rules": {
     "at-rule-empty-line-before": null,
     "at-rule-no-unknown": null,
-    "indentation": "tab",
     "max-empty-lines": 3,
     "max-nesting-depth": 5,
     "no-invalid-double-slash-comments": true,

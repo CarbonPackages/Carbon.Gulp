@@ -14,15 +14,15 @@ func.globalImport('through2');
 global.browserSync = null;
 
 global.flags = {
-	'--b, --beautify': ' Beautify and dont\'t compress files',
-	'--d, --debug':    ' Files dont\'t get compressed',
-	'--n, --nomaps':     ' Don\'t write sourcemaps',
+    '--b, --beautify': ' Beautify and dont\'t compress files',
+    '--d, --debug': ' Files dont\'t get compressed',
+    '--n, --nomaps': ' Don\'t write sourcemaps',
 };
 
 global.gulpIcons = {
-	error:   path.join(__dirname, 'assets/gulp-error.png'),
-	warning: path.join(__dirname, 'assets/gulp-warning.png'),
-	normal:  path.join(__dirname, 'assets/gulp.png')
+    error:   path.join(__dirname, 'assets/gulp-error.png'),
+    warning: path.join(__dirname, 'assets/gulp-warning.png'),
+    normal:  path.join(__dirname, 'assets/gulp.png')
 };
 
 global.getTimestamp = func.getTimestamp;

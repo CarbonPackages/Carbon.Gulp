@@ -112,7 +112,7 @@
                 }
             },
             "cssbeautifyOptions": {
-                "indent": "\t",
+                "indent": "  ",
                 "autosemicolon": true
             }
         },
