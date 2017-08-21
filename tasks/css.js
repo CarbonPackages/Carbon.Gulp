@@ -76,7 +76,7 @@ function css() {
 			timestamp: getTimestamp()
 		}) : util.noop())
 		.pipe(chmod(config.chmod))
-		.pipe(mode.maps ? sourcemaps.write() : util.noop())
+		.pipe(mode.maps ? sourcemaps.write('') : util.noop())
 		.pipe(gulp.dest(paths.dest))
 		.pipe(browserSync ? browserSync.stream() : util.noop())
 		.pipe(size({

@@ -61,7 +61,7 @@ function js() {
 		.pipe(plumber(handleErrors))
 		.pipe(mode.maps ? sourcemaps.init({loadMaps: true}) : util.noop())
 		.pipe(gulpRollup({
-			rollup: require('rollup'),
+			//rollup: require('rollup'),
 			entry: new Promise((resolve, reject) => {
 				glob(paths.src, (error, files) => {
 					resolve(files);
@@ -76,7 +76,7 @@ function js() {
 			info: config.info,
 			timestamp: getTimestamp()
 		}) : util.noop())
-		.pipe(mode.maps ? sourcemaps.write() : util.noop())
+		.pipe(mode.maps ? sourcemaps.write('') : util.noop())
 		.pipe(gulp.dest(paths.dest))
 		.pipe(browserSync ? browserSync.stream() : util.noop())
 		.pipe(size({

@@ -15,8 +15,8 @@ global.browserSync = null;
 
 global.flags = {
 	'--b, --beautify': ' Beautify and dont\'t compress files',
-	'--d, --debug':    ' Files dont\'t get compressed and sourcemaps get genereated',
-	'--m, --maps':     ' Write sourcemaps',
+	'--d, --debug':    ' Files dont\'t get compressed',
+	'--n, --nomaps':     ' Don\'t write sourcemaps',
 };
 
 global.gulpIcons = {

@@ -140,7 +140,7 @@ function setMode() {
 	global.mode = {
 		beautify: env.beautify || env.b ? true : false,
 		minimize: env.debug || env.d ? false : true,
-		maps: env.maps || env.debug || env.m || env.d ? true : false,
+		maps: env.nomaps || env.n ? false : true,
 		debug: env.debug || env.d ? true : false
 	};
 }
