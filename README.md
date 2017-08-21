@@ -45,26 +45,26 @@ You must see something like this:
 
 ```bash
 Tasks
-├── build             Generates all  Assets, Javascript and CSS files
+├── build             Generates all Assets, Javascript and CSS files
 │   --b, --beautify  … Beautify and dont't compress files
-│   --d, --debug     … Files dont't get compressed and sourcemaps get genereated
-│   --m, --maps      … Write sourcemaps
+│   --d, --debug     … Files dont't get compressed
+│   --n, --nomaps    … Don't write sourcemaps
 ├── compress         Compress all CSS/JS with Brotli and Zopfli
 ├── css              Render CSS Files
 │   --b, --beautify  … Beautify and dont't compress files
-│   --d, --debug     … Files dont't get compressed and sourcemaps get genereated
-│   --m, --maps      … Write sourcemaps
-├─┬ default           Generates all  Assets, Javascript and CSS files &  watch them
+│   --d, --debug     … Files dont't get compressed
+│   --n, --nomaps    … Don't write sourcemaps
+├─┬ default           Generates all Assets, Javascript and CSS files & watch them
 │ │ --b, --beautify  … Beautify and dont't compress files
-│ │ --d, --debug     … Files dont't get compressed and sourcemaps get genereated
-│ │ --m, --maps      … Write sourcemaps
+│ │ --d, --debug     … Files dont't get compressed
+│ │ --n, --nomaps    … Don't write sourcemaps
 │ └─┬ <series>
 │   ├── build
 │   └── watch
 ├── js               Render Javascript Files
 │   --b, --beautify  … Beautify and dont't compress files
-│   --d, --debug     … Files dont't get compressed and sourcemaps get genereated
-│   --m, --maps      … Write sourcemaps
+│   --d, --debug     … Files dont't get compressed
+│   --n, --nomaps    … Don't write sourcemaps
 ├── lint             Lint Javascript and CSS files
 ├── optimizeImages   Optimize images and overrite them in the public folder
 ├─┬ pipeline         Build task for pipeline
@@ -86,8 +86,8 @@ Command             | Watcher | Behaviour
 `yarn start`        |    x    | Generates all Assets, Javascript and CSS files
 `yarn run tasks`    |         | Show all available tasks
 `yarn run beautify` |    x    | Beautify and dont't compress files
-`yarn run debug`    |    x    | Files dont't get compressed and sourcemaps get genereated
-`yarn run maps`     |    x    | Write sourcemaps
+`yarn run debug`    |    x    | Files dont't get compressed
+`yarn run nomaps`   |    x    | Don't write sourcemaps
 `yarn run build`    |         | Runs the build process for production
 `yarn run css`      |         | Render CSS Files
 `yarn run scss`     |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files
