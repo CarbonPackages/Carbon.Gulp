@@ -1,23 +1,11 @@
 {
-  "parserOptions": {
-    "ecmaVersion": 7,
-    "sourceType": "module",
-    "extends": "eslint:recommended",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "env": {
-    "browser": true
-  },
-  "globals": {
-    "module": true,
-    "exports": true,
-    "dataLayer": true,
-    "s3_log": true,
-    "csrfToken": true
-  },
+  "extends": [
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
   "rules": {
-    "no-console": 0
+    "prettier/prettier": "error"
   }
 }
