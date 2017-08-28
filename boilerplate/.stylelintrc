@@ -5,6 +5,9 @@
     "stylelint-scss"
   ],
   "rules": {
+    "block-closing-brace-newline-after": ["always", {
+      ignoreAtRules: ["if", "else"]
+    }],
     "declaration-colon-newline-after": null,
     "at-rule-empty-line-before": null,
     "at-rule-no-unknown": null,
