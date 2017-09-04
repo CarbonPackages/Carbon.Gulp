@@ -37,7 +37,7 @@ nvm use
 # Install the package dependencies
 yarn
 # Show available tasks
-yarn run tasks
+yarn tasks
 
 ```
 
@@ -81,20 +81,20 @@ Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 
 ### Overview of commands
 
-Command             | Watcher | Behaviour
-------------------- | ------- | ---------------------------------------------------------------
-`yarn start`        |    x    | Generates all Assets, Javascript and CSS files
-`yarn run tasks`    |         | Show all available tasks
-`yarn run beautify` |    x    | Beautify and dont't compress files
-`yarn run debug`    |    x    | Files dont't get compressed
-`yarn run nomaps`   |    x    | Don't write sourcemaps
-`yarn run build`    |         | Runs the build process for production
-`yarn run css`      |         | Render CSS Files
-`yarn run scss`     |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files
-`yarn run js`       |         | Render Javascript Files
-`yarn run images`   |         | Optimize images and overwrite them in the source folder
-`yarn run pipeline` |         | Build, optimize and compress (if enabled) files
-`yarn run compress` |         | Compress all CSS/JS with Brotli and Zopfli
+Command         | Watcher | Behaviour
+----------------| ------- | ---------------------------------------------------------------
+`yarn start`    |    x    | Generates all Assets, Javascript and CSS files
+`yarn tasks`    |         | Show all available tasks
+`yarn beautify` |    x    | Beautify and dont't compress files
+`yarn debug`    |    x    | Files dont't get compressed
+`yarn nomaps`   |    x    | Don't write sourcemaps
+`yarn build`    |         | Runs the build process for production
+`yarn css`      |         | Render CSS Files
+`yarn scss`     |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files
+`yarn js`       |         | Render Javascript Files
+`yarn images`   |         | Optimize images and overwrite them in the source folder
+`yarn pipeline` |         | Build, optimize and compress (if enabled) files
+`yarn compress` |         | Compress all CSS/JS with Brotli and Zopfli
 
 
 ## Overview of tools
