@@ -39,7 +39,9 @@ let postScss = [
     require('postcss-media-minmax'),
     require('postcss-quantity-queries'),
     require('postcss-fixes')(pc.fixes),
-    require('css-mqpacker')(pc.mqpacker),
+    require('css-mqpacker')({
+        sort: pc.mqpacker.sort ? require('sort-css-media-queries') : false
+    }),
     require('postcss-round-subpixels'),
     require('postcss-reporter')
 ];

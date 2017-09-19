@@ -82,7 +82,7 @@ Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 ### Overview of commands
 
 Command         | Watcher | Behaviour
-----------------| ------- | ---------------------------------------------------------------
+--------------- | ------- | ---------------------------------------------------------------
 `yarn start`    |    x    | Generates all Assets, Javascript and CSS files
 `yarn tasks`    |         | Show all available tasks
 `yarn beautify` |    x    | Beautify and dont't compress files
@@ -146,6 +146,7 @@ Plugin                                                                          
 **[postcss-quantity-queries](https://www.npmjs.com/package/postcss-quantity-queries)**  | PostCSS plugin enabling quantity-queries
 **[postcss-fixes](https://www.npmjs.com/package/postcss-fixes)**                        | PostCSS plugin to fix known Browser Bugs.
 **[css-mqpacker](https://www.npmjs.com/package/css-mqpacker)**                          | Pack same CSS media query rules into one media query rule.
+**[sort-css-media-queries](https://www.npmjs.com/package/sort-css-media-queries)**      | The custom sort method (mobile-first / desktop-first) for css-mqpacker.
 **[postcss-round-subpixels](https://www.npmjs.com/package/postcss-round-subpixels)**    | Plugin that rounds sub-pixel (eg: 12.87378px) values to the nearest full pixel.
 **[postcss-reporter](https://www.npmjs.com/package/postcss-reporter)**                  | Log PostCSS messages in the console
 **[postcss-pxtorem](https://www.npmjs.com/package/postcss-pxtorem)**                    | A plugin for PostCSS that generates rem units from pixel units.

@@ -16,7 +16,6 @@ const globals = require('rollup-plugin-node-globals');
 
 const uglify = require('rollup-plugin-uglify');
 
-
 let rollupConfig = config.tasks.js.rollup;
 let paths = {
     src: path.join(config.root.base, config.root.src, config.tasks.js.src, getExtensions(config.tasks.js.extensions)),

@@ -33,7 +33,7 @@ function writeImportStatements(partials, file, prepend = '') {
     partials.forEach(partial => {
         let regex = new RegExp(path.sep, 'g');
         partial = partial.replace('.scss', '').replace(regex, '/');
-        fs.appendFileSync(file, `@import '${prepend}${partial}';\n`);
+        fs.appendFileSync(file, `@import "${prepend}${partial}";\n`);
     });
 }
 
