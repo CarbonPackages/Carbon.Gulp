@@ -9,11 +9,7 @@
     "type": "git",
     "url": "https://github.com/jonnitto/Carbon.Gulp.git"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "Explorer > 9"
-  ],
+  "browserslist": ["> 1%", "last 2 versions", "Explorer > 9"],
   "prettier": {
     "overrides": [
       {
@@ -38,19 +34,19 @@
   },
   "scripts": {
     "gulp": "gulp --cwd ./ --gulpfile ./Build/Gulp",
-    "tasks": "yarn run gulp -- -T",
+    "tasks": "yarn run gulp -T",
     "start": "yarn run gulp",
-    "debug": "yarn run gulp -- --debug",
-    "beautify": "yarn run gulp -- --beautify",
-    "nomaps": "yarn run gulp -- --nomaps",
-    "build": "yarn run gulp -- build",
-    "pipeline": "yarn run gulp -- pipeline",
-    "css": "yarn run gulp -- css",
-    "scss": "yarn run gulp -- scss",
-    "lint": "yarn run gulp -- lint",
-    "js": "yarn run gulp -- js",
-    "images": "yarn run gulp -- optimizeImages",
-    "compress": "yarn run gulp -- compress"
+    "debug": "yarn run gulp --debug",
+    "beautify": "yarn run gulp --beautify",
+    "nomaps": "yarn run gulp --nomaps",
+    "build": "yarn run gulp build",
+    "pipeline": "yarn run gulp pipeline",
+    "css": "yarn run gulp css",
+    "scss": "yarn run gulp scss",
+    "lint": "yarn run gulp lint",
+    "js": "yarn run gulp js",
+    "images": "yarn run gulp optimizeImages",
+    "compress": "yarn run gulp compress"
   },
   "dependencies": {},
   "devDependencies": {
@@ -136,7 +132,5 @@
     "text-table": "^0.2.0",
     "through2": "^2.0.3"
   },
-  "keywords": [
-    "gulp"
-  ]
+  "keywords": ["gulp"]
 }
