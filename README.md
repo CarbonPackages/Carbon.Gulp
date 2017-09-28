@@ -102,7 +102,7 @@ Command         | Watcher | Behaviour
 Features       | Tools Used
 -------------- | ---------------------
 **CSS**        | [Sass](http://sass-lang.com) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)) and [PostCSS](http://postcss.org)
-**Javascript** | [Rollup JS](http://rollupjs.org) with [Bublé](https://buble.surge.sh/guide) or [Babel](https://babeljs.io/)
+**Javascript** | [Rollup JS](http://rollupjs.org) with [Bublé](https://buble.surge.sh/guide)
 **Images**     | Compression with [imagemin](https://www.npmjs.com/package/gulp-imagemin). Run width `gulp optimizeImages`. Overwrites files in the resource folder.
 **Icons**      | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore) and/or [Icon Fonts](https://www.npmjs.com/package/gulp-iconfont)
 **Lint**       | [ESLint](http://eslint.org/) and [stylelint](https://stylelint.io) included

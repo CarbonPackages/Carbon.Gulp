@@ -1,7 +1,12 @@
-'use strict';
+"use strict";
 
 function isObject(item) {
-    return (item && typeof item === 'object' && !Array.isArray(item) && item !== null);
+    return (
+        item &&
+        typeof item === "object" &&
+        !Array.isArray(item) &&
+        item !== null
+    );
 }
 
 function mergeDeep(target, source) {
@@ -24,11 +29,11 @@ function globalImport(target, module) {
     if (!module) {
         module = target;
 
-        if (target.indexOf('gulp-') === 0) {
-            target = target.replace('gulp-', '');
+        if (target.indexOf("gulp-") === 0) {
+            target = target.replace("gulp-", "");
         }
     }
-    if (typeof module === 'string' && typeof target === 'string') {
+    if (typeof module === "string" && typeof target === "string") {
         global[target] = require(module);
     }
 }
@@ -37,28 +42,37 @@ function getTimestamp() {
     let timestamp;
     let now = new Date();
     timestamp = now.getFullYear().toString();
-    timestamp += '-';
-    timestamp += (now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1).toString();
-    timestamp += '-';
-    timestamp += (now.getDate() < 10 ? '0' : '') + now.getDate().toString();
-    timestamp += ' ';
-    timestamp += (now.getHours() < 10 ? '0' : '') + now.getHours().toString();
-    timestamp += ':';
-    timestamp += (now.getMinutes() < 10 ? '0' : '') + now.getMinutes().toString();
+    timestamp += "-";
+    timestamp +=
+        (now.getMonth() < 9 ? "0" : "") + (now.getMonth() + 1).toString();
+    timestamp += "-";
+    timestamp += (now.getDate() < 10 ? "0" : "") + now.getDate().toString();
+    timestamp += " ";
+    timestamp += (now.getHours() < 10 ? "0" : "") + now.getHours().toString();
+    timestamp += ":";
+    timestamp +=
+        (now.getMinutes() < 10 ? "0" : "") + now.getMinutes().toString();
     //timestamp += ':';
     //timestamp += (now.getSeconds() < 10 ? '0' : '') + now.getSeconds().toString();
     return timestamp;
 }
 
-function getExtensions(extensions, prepend = '') {
+function getExtensions(extensions, prepend = "") {
     if (Array.isArray(extensions)) {
-        return '/' + prepend + '*.' + (extensions.length > 1 ? '{' + extensions.join(',') + '}' : extensions);
+        return (
+            "/" +
+            prepend +
+            "*." +
+            (extensions.length > 1
+                ? "{" + extensions.join(",") + "}"
+                : extensions)
+        );
     } else {
-        return '/' + prepend + '*.' + extensions;
+        return "/" + prepend + "*." + extensions;
     }
 }
 
-function getInfoFromComposer(path = '') {
+function getInfoFromComposer(path = "") {
     try {
         let composer = require(`../../${path}composer.json`);
         let author = composer.author ? composer.author : config.info.author;
@@ -71,20 +85,21 @@ function getInfoFromComposer(path = '') {
             };
         }
     } catch (error) {}
-};
+}
 
 function mergeRootConfig(filename) {
     try {
         const configFromRoot = require(`../../${filename}`);
         mergeDeep(config, configFromRoot);
-        console.info(`Loaded config file ${util.colors.red(filename)} from root`);
-    } catch (error) {
-    }
+        console.info(
+            `Loaded config file ${util.colors.red(filename)} from root`
+        );
+    } catch (error) {}
 }
 
 function getFolderSiteName(files) {
     for (let i = 0; i < files.length; i++) {
-        if (!files[i].startsWith('.') && !files[i].startsWith('_')) {
+        if (!files[i].startsWith(".") && !files[i].startsWith("_")) {
             return files[i];
         }
     }
@@ -99,36 +114,41 @@ function mergeSiteConfig(path) {
         try {
             const packageConfig = require(`../../${path}/${siteFolder}/Configuration/Gulp.json`);
             mergeDeep(config, packageConfig);
-            console.info(`Loaded config file ${util.colors.red('Gulp.json')} from the package ${util.colors.red(siteFolder)}`);
-        } catch (error) {
-        }
+            console.info(
+                `Loaded config file ${util.colors.red(
+                    "Gulp.json"
+                )} from the package ${util.colors.red(siteFolder)}`
+            );
+        } catch (error) {}
         try {
             getInfoFromComposer(`${path}/${siteFolder}/`);
-        } catch (error) {
-        }
-    } catch (error) {
-    }
+        } catch (error) {}
+    } catch (error) {}
 }
 
 function loadTasks() {
     setMode();
-    require('./tasks');
+    require("./tasks");
 }
 
 function mergeConfigAndLoadTasks() {
     importLibs();
     getInfoFromComposer();
-    mergeRootConfig('gulp.json');
-    mergeSiteConfig('Packages/Sites');
+    mergeRootConfig("gulp.json");
+    mergeSiteConfig("Packages/Sites");
 
     if (config.browserSync.proxyRootFolder) {
-        let prepend = typeof config.browserSync.proxyRootFolder == 'string' ? config.browserSync.proxyRootFolder : '';
-        config.browserSync.proxy = prepend + path.basename(path.join(__dirname, '../..'));
+        let prepend =
+            typeof config.browserSync.proxyRootFolder == "string"
+                ? config.browserSync.proxyRootFolder
+                : "";
+        config.browserSync.proxy =
+            prepend + path.basename(path.join(__dirname, "../.."));
     }
 
     if (config.browserSync.enable) {
         delete config.browserSync.enable;
-        browserSync = require('browser-sync').create();
+        browserSync = require("browser-sync").create();
     }
 
     loadTasks();
@@ -146,27 +166,27 @@ function setMode() {
 }
 
 function importLibs() {
-    globalImport('gulp');
+    globalImport("gulp");
     // Gulp Plugins
-    globalImport('cache', 'gulp-memory-cache');
-    globalImport('gulp-changed');
-    globalImport('gulp-chmod');
-    globalImport('gulp-flatten');
-    globalImport('gulp-header');
-    globalImport('gulp-imagemin');
-    globalImport('gulp-plumber');
-    globalImport('gulp-rename');
-    globalImport('gulp-size');
-    globalImport('gulp-sourcemaps');
-    globalImport('gulp-util');
+    globalImport("cache", "gulp-memory-cache");
+    globalImport("gulp-changed");
+    globalImport("gulp-chmod");
+    globalImport("gulp-flatten");
+    globalImport("gulp-header");
+    globalImport("gulp-imagemin");
+    globalImport("gulp-plumber");
+    globalImport("gulp-rename");
+    globalImport("gulp-size");
+    globalImport("gulp-sourcemaps");
+    globalImport("gulp-util");
 
-    globalImport('handleErrors', './handleErrors');
+    globalImport("handleErrors", "./handleErrors");
 }
 
 function shureArray(input) {
     let array = input;
     // Make shure it's an array
-    if (typeof input === 'string') {
+    if (typeof input === "string") {
         array = [input];
     }
     return array;
@@ -180,22 +200,50 @@ function getFilesToWatch(taskName) {
 
     if (conf && watchConfig && watchConfig.length) {
         if (conf.watchOnlySrc) {
-            filesToWatch.push(path.join(config.root.base, config.root.src, conf.src, '/**', getExtensions(conf.extensions)));
+            filesToWatch.push(
+                path.join(
+                    config.root.base,
+                    config.root.src,
+                    conf.src,
+                    "/**",
+                    getExtensions(conf.extensions)
+                )
+            );
         } else {
-            filesToWatch = watchConfig.map(value => path.join(config.root.base, value, getExtensions(conf.extensions)));
+            filesToWatch = watchConfig.map(value =>
+                path.join(
+                    config.root.base,
+                    value,
+                    getExtensions(conf.extensions)
+                )
+            );
         }
 
         if (dontWatch && dontWatch.length) {
             dontWatch.forEach(value => {
                 if (value) {
-                    filesToWatch.push('!' + path.join(config.root.base, value, getExtensions(conf.extensions)));
+                    filesToWatch.push(
+                        "!" +
+                            path.join(
+                                config.root.base,
+                                value,
+                                getExtensions(conf.extensions)
+                            )
+                    );
                 }
             });
         }
 
-        if (taskName === 'css') {
+        if (taskName === "css") {
             watchConfig.forEach(value => {
-                filesToWatch.push('!' + path.join(config.root.base, value, '**/_{all,allsub}.scss'));
+                filesToWatch.push(
+                    "!" +
+                        path.join(
+                            config.root.base,
+                            value,
+                            "**/_{all,allsub}.scss"
+                        )
+                );
             });
         }
     }
@@ -204,7 +252,7 @@ function getFilesToWatch(taskName) {
 
 function pluralize(string, count) {
     if (count > 1) {
-        string += 's';
+        string += "s";
     }
     return string;
 }
@@ -212,25 +260,32 @@ function pluralize(string, count) {
 function notifyText(object) {
     if (object.warning || object.error || object.warnings || object.errors) {
         let warning;
-        let message = ' found';
-        let hasError = (object.error || object.errors) ? true : false;
+        let message = " found";
+        let hasError = object.error || object.errors ? true : false;
         let options = {
-            title: hasError ? 'Error' : 'Warning',
+            title: hasError ? "Error" : "Warning",
             icon: hasError ? gulpIcons.error : gulpIcons.warning,
             wait: hasError,
-            sound: hasError ? 'Basso' : false
+            sound: hasError ? "Basso" : false
         };
 
-        if (object.warning || object.error && (!object.warnings && !object.errors)) {
-            message = 'Some issues found';
+        if (
+            object.warning ||
+            (object.error && (!object.warnings && !object.errors))
+        ) {
+            message = "Some issues found";
         }
         if (object.warnings) {
-            warning = pluralize(' warning', object.warnings);
+            warning = pluralize(" warning", object.warnings);
             message = object.warnings + warning + message;
         }
         if (object.errors) {
-            let error = pluralize(' error', object.warnings);
-            message = object.errors + error + (object.warnings ? ' and ' : '') + message;
+            let error = pluralize(" error", object.warnings);
+            message =
+                object.errors +
+                error +
+                (object.warnings ? " and " : "") +
+                message;
         }
 
         if (config.root.notifications) {
@@ -244,7 +299,7 @@ function notifyText(object) {
             });
         } else {
             // Output an error message in the console
-            let text = ' (' + object.subtitle + '): ' + message;
+            let text = " (" + object.subtitle + "): " + message;
             if (hasError) {
                 util.log(util.colors.red(options.title) + text);
             } else {

@@ -25,7 +25,8 @@
         "xip": false
     },
 
-    "banner": "/*!\n * <%= info.description %> - powered by <%= info.system %> & <%= info.author %>\n * @build <%= timestamp %>\n * @link <%= info.homepage %>\n */\n",
+    "banner":
+        "/*!\n * <%= info.description %> - powered by <%= info.system %> & <%= info.author %>\n * @build <%= timestamp %>\n * @link <%= info.homepage %>\n */\n",
 
     "chmod": {
         "owner": {
@@ -67,14 +68,19 @@
                     "loadPaths": ["Assets", "../Private/Sprite"],
                     "cachebuster": false
                 },
-                "magicAnimations": {"atRoot": true},
+                "magicAnimations": { "atRoot": true },
                 "gridKiss": {
                     "fallback": true,
                     "optimize": true
                 },
                 "pseudoelements": {
                     "single": true,
-                    "selectors": ["before","after","first-letter","first-line"]
+                    "selectors": [
+                        "before",
+                        "after",
+                        "first-letter",
+                        "first-line"
+                    ]
                 },
                 "rucksack": {
                     "fallbacks": false
@@ -85,7 +91,12 @@
                 "pxtorem": {
                     "rootValue": 16,
                     "unitPrecision": 5,
-                    "propList": ["font", "font-size", "line-height", "letter-spacing"],
+                    "propList": [
+                        "font",
+                        "font-size",
+                        "line-height",
+                        "letter-spacing"
+                    ],
                     "selectorBlackList": [],
                     "replace": true,
                     "mediaQuery": false,
@@ -127,7 +138,6 @@
                 "enable": true,
                 "comment": "Available formats are amd, cjs, es6, iife or umd",
                 "format": "iife",
-                "buble": true,
                 "plugins": {
                     "nodeResolve": {
                         "module": true,
@@ -137,16 +147,13 @@
                     },
                     "includePaths": {
                         "include": {},
-                        "paths": [
-                            "",
-                            "Packages/Plugins"
-                        ],
+                        "paths": ["", "Packages/Plugins"],
                         "external": [],
                         "extensions": [".js", ".json", ".jsx"]
                     },
                     "commonjs": {
                         "exclude": "node_modules/process-es6/**",
-                        "include": [ "node_modules/**" ]
+                        "include": ["node_modules/**"]
                     },
                     "amd": false
                 }
@@ -174,9 +181,7 @@
             "src": "Sprite",
             "dest": "Assets",
             "watchOnlySrc": true,
-            "svgo": {
-
-            },
+            "svgo": {},
             "extensions": ["svg"]
         },
         "compress": false

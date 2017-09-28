@@ -6,6 +6,7 @@ node_modules
 .idea
 .DS_Store
 .sass-cache
+composer.lock
 
 /*.txt
 /*.rst

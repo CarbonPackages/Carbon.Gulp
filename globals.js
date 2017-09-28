@@ -1,28 +1,28 @@
-'use strict';
+"use strict";
 
-const func = require('./functions');
+const func = require("./functions");
 
-func.globalImport('config', './config');
-func.globalImport('bach');
-func.globalImport('glob');
-func.globalImport('notifier', 'node-notifier');
-func.globalImport('path');
-func.globalImport('fs');
-func.globalImport('textTable', 'text-table');
-func.globalImport('through2');
+func.globalImport("config", "./config");
+func.globalImport("bach");
+func.globalImport("glob");
+func.globalImport("notifier", "node-notifier");
+func.globalImport("path");
+func.globalImport("fs");
+func.globalImport("textTable", "text-table");
+//func.globalImport("through2");
 
 global.browserSync = null;
 
 global.flags = {
-    '--b, --beautify': ' Beautify and dont\'t compress files',
-    '--d, --debug': ' Files dont\'t get compressed',
-    '--n, --nomaps': ' Don\'t write sourcemaps',
+    "--b, --beautify": " Beautify and dont't compress files",
+    "--d, --debug": " Files dont't get compressed",
+    "--n, --nomaps": " Don't write sourcemaps"
 };
 
 global.gulpIcons = {
-    error:   path.join(__dirname, 'assets/gulp-error.png'),
-    warning: path.join(__dirname, 'assets/gulp-warning.png'),
-    normal:  path.join(__dirname, 'assets/gulp.png')
+    error: path.join(__dirname, "assets/gulp-error.png"),
+    warning: path.join(__dirname, "assets/gulp-warning.png"),
+    normal: path.join(__dirname, "assets/gulp.png")
 };
 
 global.getTimestamp = func.getTimestamp;
