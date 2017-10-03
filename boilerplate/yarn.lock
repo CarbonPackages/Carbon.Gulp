@@ -1242,9 +1242,9 @@ caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
   version "1.0.30000717"
   resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000717.tgz#27ddf5feccdd338c99a62c9788c2694f99f67ed7"
 
-caniuse-db@^1.0.30000739:
-  version "1.0.30000739"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000739.tgz#be734deb6bed4ed8a69d72fb9078bc6ea6d76ad0"
+caniuse-db@^1.0.30000741:
+  version "1.0.30000741"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000741.tgz#0be59111d4221f21f612b50ee5d67871a2c4a7a5"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000697, caniuse-lite@^1.0.30000715:
   version "1.0.30000717"
@@ -2381,9 +2381,9 @@ eslint@^4.0.0:
     table "^4.0.1"
     text-table "~0.2.0"
 
-eslint@^4.7.2:
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.7.2.tgz#ff6f5f5193848a27ee9b627be3e73fb9cb5e662e"
+eslint@^4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.8.0.tgz#229ef0e354e0e61d837c7a80fdfba825e199815e"
   dependencies:
     ajv "^5.2.0"
     babel-code-frame "^6.22.0"
@@ -5552,13 +5552,14 @@ postcss-animation.css-data@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/postcss-animation.css-data/-/postcss-animation.css-data-0.1.0.tgz#3a33a351f18df7a9cb70abe1188f8809bc750eab"
 
-postcss-animations@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/postcss-animations/-/postcss-animations-0.2.3.tgz#9fd9c6b8ad7490b22d2f218a4834711bad5b7366"
+postcss-animations@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/postcss-animations/-/postcss-animations-0.3.0.tgz#563f09a9be59e49c2f12956ae29c52fba3e312aa"
   dependencies:
-    postcss "^6.0.2"
+    postcss "^6.0.12"
     postcss-animation.css-data "^0.1.0"
     postcss-magic.css-data "^0.1.0"
+    postcss-mimic.css-data "^0.0.2"
     postcss-tuesday.css-data "^0.1.0"
     postcss-value-parser "^3.3.0"
 
@@ -5839,6 +5840,10 @@ postcss-merge-rules@^2.0.3:
 postcss-message-helpers@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/postcss-message-helpers/-/postcss-message-helpers-2.0.0.tgz#a4f2f4fab6e4fe002f0aed000478cdf52f9ba60e"
+
+postcss-mimic.css-data@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/postcss-mimic.css-data/-/postcss-mimic.css-data-0.0.2.tgz#2f2e14e5d8767dcc19c3a6a6b847bc067cf1b1a3"
 
 postcss-minify-font-values@^1.0.2:
   version "1.0.5"
@@ -6172,7 +6177,7 @@ postcss@^5.0.0, postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.
     source-map "^0.5.6"
     supports-color "^3.2.3"
 
-postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.2, postcss@^6.0.3, postcss@^6.0.6, postcss@^6.0.7, postcss@^6.0.8:
+postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.3, postcss@^6.0.6, postcss@^6.0.7, postcss@^6.0.8:
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.9.tgz#54819766784a51c65b1ec4d54c2f93765438c35a"
   dependencies:
@@ -6216,9 +6221,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@^1.7.0:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.7.2.tgz#81371e64018aafc69cf1031956c70e029339f54e"
+prettier@^1.7.4:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.7.4.tgz#5e8624ae9363c80f95ec644584ecdf55d74f93fa"
 
 pretty-bytes@^3.0.1:
   version "3.0.1"
