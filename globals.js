@@ -9,7 +9,6 @@ func.globalImport("notifier", "node-notifier");
 func.globalImport("path");
 func.globalImport("fs");
 func.globalImport("textTable", "text-table");
-//func.globalImport("through2");
 
 global.browserSync = null;
 

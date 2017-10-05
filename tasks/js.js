@@ -4,16 +4,17 @@ if (!config.tasks.js) {
     return false;
 }
 
-const gulpRollup = require("gulp-rollup");
-const nodeResolve = require("rollup-plugin-node-resolve");
-const includePaths = require("rollup-plugin-includepaths");
-const rollupSourcemaps = require("rollup-plugin-sourcemaps");
-const commonjs = require("rollup-plugin-commonjs");
 const amd = require("rollup-plugin-amd");
 const buble = require("rollup-plugin-buble");
+const cjs = require("rollup-plugin-commonjs");
 const globals = require("rollup-plugin-node-globals");
-
+const gulpRollup = require("gulp-rollup");
+const includePaths = require("rollup-plugin-includepaths");
+const replace = require("rollup-plugin-replace");
+const resolve = require("rollup-plugin-node-resolve");
+const rollupSourcemaps = require("rollup-plugin-sourcemaps");
 const uglify = require("rollup-plugin-uglify");
+
 
 let rollupConfig = config.tasks.js.rollup;
 let paths = {
@@ -39,17 +40,21 @@ if (rollupConfig) {
 }
 
 let rollupPlugins = [
+    buble(),
     includePaths(rollupConfig.plugins.includePaths),
-    nodeResolve(rollupConfig.plugins.nodeResolve)
+    resolve(rollupConfig.plugins.nodeResolve),
+    replace({
+        "process.env.NODE_ENV": JSON.stringify(mode.minimize ? 'production' : 'development')
+    })
 ];
+
 if (rollupConfig.plugins.commonjs) {
     if (typeof rollupConfig.plugins.commonjs == "boolean") {
-        rollupPlugins.push(commonjs());
+        rollupPlugins.push(cjs());
     } else {
-        rollupPlugins.push(commonjs(rollupConfig.plugins.commonjs));
+        rollupPlugins.push(cjs(rollupConfig.plugins.commonjs));
     }
 }
-
 if (rollupConfig.plugins.amd) {
     if (typeof rollupConfig.plugins.amd == "boolean") {
         rollupPlugins.push(amd());
@@ -57,10 +62,8 @@ if (rollupConfig.plugins.amd) {
         rollupPlugins.push(amd(rollupConfig.plugins.amd));
     }
 }
-
-rollupPlugins.push(rollupSourcemaps());
 rollupPlugins.push(globals());
-rollupPlugins.push(buble());
+rollupPlugins.push(rollupSourcemaps());
 
 if (mode.minimize) {
     rollupPlugins.push(uglify({ mangle: true }));
@@ -73,8 +76,8 @@ function js() {
         .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : util.noop())
         .pipe(
             gulpRollup({
-                //rollup: require('rollup'),
-                entry: new Promise((resolve, reject) => {
+                rollup: require('rollup'),
+                input: new Promise((resolve, reject) => {
                     glob(paths.src, (error, files) => {
                         resolve(files);
                     });
