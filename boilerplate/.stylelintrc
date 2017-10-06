@@ -19,7 +19,8 @@
         "box","box-item",
         "grid-kiss",
         "font-range","min-font-size","max-font-size","lower-font-range","upper-font-range",
-        "font-awesome"
+        "font-awesome",
+        "border-top-radius", "border-right-radius", "border-bottom-radius", "border-left-radius"
       ]
     }],
     "selector-pseudo-class-no-unknown": [true, {
