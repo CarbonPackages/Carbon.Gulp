@@ -80,7 +80,6 @@ function getInfoFromComposer(path = "") {
             config.info = {
                 description: composer.description,
                 author: author,
-                system: config.info.system,
                 homepage: composer.homepage
             };
         }

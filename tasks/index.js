@@ -46,7 +46,6 @@ task.info = callback => {
     let table = textTable(
         [
             ["  Project", ":", config.info.description],
-            ["  System", ":", config.info.system],
             ["  Author", ":", config.info.author],
             ["  Homepage", ":", config.info.homepage]
         ],

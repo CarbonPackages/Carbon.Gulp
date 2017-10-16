@@ -1,7 +1,6 @@
 {
     "info": {
         "description": "Website",
-        "system": "Neos",
         "author": "gesagt-getan.at",
         "homepage": "https://www.example.com"
     },
@@ -26,7 +25,7 @@
     },
 
     "banner":
-        "/*!\n * <%= info.description %> - powered by <%= info.system %> & <%= info.author %>\n * @build <%= timestamp %>\n * @link <%= info.homepage %>\n */\n",
+        "/*!\n * <%= info.description %> - created by <%= info.author %>\n * @build <%= timestamp %>\n * @link <%= info.homepage %>\n */\n",
 
     "chmod": {
         "owner": {
