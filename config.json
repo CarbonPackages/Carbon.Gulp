@@ -183,6 +183,7 @@
             "svgo": {},
             "extensions": ["svg"]
         },
-        "compress": false
+        "compress": false,
+        "pipeline": false
     }
 }

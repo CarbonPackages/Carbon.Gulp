@@ -1,4 +1,9 @@
 "use strict";
+
+if (!config.tasks.images) {
+    return false;
+}
+
 let paths = {
     src: path.join(
         config.root.base,

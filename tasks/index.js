@@ -84,9 +84,11 @@ if (config.tasks.scssLint || config.tasks.jsLint) {
     }
 }
 
-gulp.task("optimizeImages", task.optimizeImages);
-gulp.task("optimizeImages").description =
-    "Optimize images and overrite them in the public folder";
+if (config.tasks.images) {
+    gulp.task("optimizeImages", task.optimizeImages);
+    gulp.task("optimizeImages").description =
+        "Optimize images and overrite them in the public folder";
+}
 
 if (config.tasks.svgSprite) {
     gulp.task("sprite", task.svgSprite);
@@ -110,7 +112,7 @@ if (config.tasks.compress) {
         callback();
     });
     gulp.task("compress").description =
-        "Compress all CSS/JS with Brotli and Zopfli";
+        "If you want to use compress, you have to enable it in the configuration";
 }
 
 // Build Task
@@ -187,9 +189,14 @@ gulp.task("default").description =
     util.colors.inverse(" watch them ");
 gulp.task("default").flags = flags;
 
-if (config.tasks.compress) {
-    gulp.task("pipeline", gulp.series("build", "optimizeImages", "compress"));
-} else {
-    gulp.task("pipeline", gulp.series("build", "optimizeImages"));
+if (config.tasks.pipeline) {
+    let series;
+    if (config.tasks.optimizeImages) {
+        series = gulp.series("build", "optimizeImages", "compress");
+    } else {
+        series = gulp.series("build", "compress");
+    }
+
+    gulp.task("pipeline", series);
+    gulp.task("pipeline").description = "Build task for pipeline";
 }
-gulp.task("pipeline").description = "Build task for pipeline";
