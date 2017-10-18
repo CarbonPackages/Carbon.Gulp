@@ -69,7 +69,7 @@ let paths = {
         config.root.base,
         config.root.src,
         config.tasks.css.src,
-        getExtensions(config.tasks.css.extensions)
+        config.tasks.css.file || getExtensions(config.tasks.css.extensions)
     ),
     dest: path.join(config.root.base, config.root.dest, config.tasks.css.dest)
 };

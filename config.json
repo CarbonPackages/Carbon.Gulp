@@ -46,11 +46,12 @@
     },
 
     "tasks": {
-        "clean": ["Assets", "Styles", "Scripts", "*.css", "*.js"],
+        "clean": ["Assets", "Styles", "Scripts", "*.css", "*.js", "*.map"],
         "css": {
             "src": "Assets",
-            "extensions": ["sass", "scss", "css"],
             "dest": "Styles",
+            "file": null,
+            "extensions": ["sass", "scss", "css"],
             "sass": {
                 "imagePath": "Assets",
                 "precision": 10,
@@ -132,6 +133,7 @@
         "js": {
             "src": "Assets",
             "dest": "Scripts",
+            "file": null,
             "extensions": ["js", "jsx"],
             "rollup": {
                 "enable": true,

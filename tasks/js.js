@@ -15,14 +15,13 @@ const resolve = require("rollup-plugin-node-resolve");
 const rollupSourcemaps = require("rollup-plugin-sourcemaps");
 const uglify = require("rollup-plugin-uglify");
 
-
 let rollupConfig = config.tasks.js.rollup;
 let paths = {
     src: path.join(
         config.root.base,
         config.root.src,
         config.tasks.js.src,
-        getExtensions(config.tasks.js.extensions)
+        config.tasks.js.file || getExtensions(config.tasks.js.extensions)
     ),
     dest: path.join(config.root.base, config.root.dest, config.tasks.js.dest)
 };
@@ -44,7 +43,9 @@ let rollupPlugins = [
     includePaths(rollupConfig.plugins.includePaths),
     resolve(rollupConfig.plugins.nodeResolve),
     replace({
-        "process.env.NODE_ENV": JSON.stringify(mode.minimize ? 'production' : 'development')
+        "process.env.NODE_ENV": JSON.stringify(
+            mode.minimize ? "production" : "development"
+        )
     })
 ];
 
@@ -76,7 +77,7 @@ function js() {
         .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : util.noop())
         .pipe(
             gulpRollup({
-                rollup: require('rollup'),
+                rollup: require("rollup"),
                 input: new Promise((resolve, reject) => {
                     glob(paths.src, (error, files) => {
                         resolve(files);
