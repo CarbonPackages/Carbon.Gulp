@@ -3,3 +3,4 @@ Build/
 Packages/
 **/Public/
 /.src/**/Resources/Private/Templates/
+*.noLinter.*

@@ -107,6 +107,9 @@ Features       | Tools Used
 **Icons**      | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore) and/or [Icon Fonts](https://www.npmjs.com/package/gulp-iconfont)
 **Lint**       | [ESLint](http://eslint.org/) and [stylelint](https://stylelint.io) included
 
+## Lint
+If you want to disable linting for a specific file, just make sure that it contains `.noLinter.`. This is useful if you have to include third-party files.
+
 ## CSS
 
 ### SCSS

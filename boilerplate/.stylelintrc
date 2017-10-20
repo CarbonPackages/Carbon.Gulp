@@ -1,5 +1,10 @@
 {
-  "ignoreFiles": ["**/Public/**","**/Private/Templates/**","node_modules/**"],
+  "ignoreFiles": [
+    "**/Public/**",
+    "**/Private/Templates/**",
+    "node_modules/**",
+    "**/*.noLinter.*"
+],
   "extends": "stylelint-config-standard",
   "plugins": [
     "stylelint-scss"

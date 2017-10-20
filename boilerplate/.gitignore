@@ -6,12 +6,12 @@ node_modules
 .idea
 .DS_Store
 .sass-cache
-composer.lock
 
 /*.txt
 /*.rst
 /flow
 /flow.bat
+/composer.lock
 /gulp.json
 
 /bin
@@ -19,6 +19,7 @@ composer.lock
 /Configuration
 /Data
 /Packages
+/_Resources
 
 /Web/_Resources
 /Web/index.php
