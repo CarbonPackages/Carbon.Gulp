@@ -7,6 +7,15 @@
     "require": {
         "neos/composer-plugin": "^1.0.6|^2.0.0"
     },
+    "archive": {
+        "exclude": [
+            ".editorconfig",
+            ".gitignore",
+            ".github",
+            ".gitattributes",
+            "CODE_OF_CONDUCT.md"
+        ]
+    },
     "extra": {
         "installer-name": "Gulp"
     }
