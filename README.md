@@ -137,7 +137,7 @@ Plugin                                                                          
 **[postcss-short](https://www.npmjs.com/package/postcss-short)**                        | Short creates and extends shorthand properties in CSS
 **[postcss-center](https://www.npmjs.com/package/postcss-center)**                      | PostCSS plugin to center elements
 **[postcss-grid-kiss](https://www.npmjs.com/package/postcss-grid-kiss)**                | A PostCSS plugin to keep CSS grids stupidly simple
-**[rucksack-css](https://simplaio.github.io/rucksack/)**                                | A little bag of CSS superpowers
+**[rucksack-css](https://www.rucksackcss.org/)**                                        | A little bag of CSS superpowers
 **[postcss-flexbox](https://www.npmjs.com/package/postcss-flexbox)**                    | Flexbox layouts made easy with PostCSS
 **[pleeease-filters](https://www.npmjs.com/package/pleeease-filters)**                  | Convert CSS shorthand filters to SVG ones
 **[postcss-selector-matches](https://www.npmjs.com/package/postcss-selector-matches)**  | PostCSS plugin to transform :matches() W3C CSS pseudo class to more compatible CSS selectors
