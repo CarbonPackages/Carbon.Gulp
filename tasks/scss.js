@@ -20,20 +20,18 @@ let paths = {
 };
 
 function scanSubdirectories(directory) {
-    return read(directory, (file, numberOfFiles, files) => {
+    return read(directory, (name, index, dir) => {
         let check =
-            file[0] !== "_" &&
-            file[0] !== "." &&
-            (!path.extname(file) || path.extname(file) === ".scss");
-        // in allsub.scss files, ignore root directory
-        if (files.indexOf("_allsub.scss") !== -1) {
-            if (path.extname(file)) {
-                return (
-                    file[0] !== "_" && file[0] !== "." && !path.extname(file)
-                );
-            }
+            name[0] !== "_" && // Don't start with "_"
+            name[0] !== "." && // Don't start with "."
+            (!path.extname(name) || path.extname(name) === ".scss"); // Folder or scss file
+
+        // We have a folder or we are NOT in the same directory
+        if (check && (!path.extname(name) || directory !== dir)) {
+            return name;
+        } else {
+            return false;
         }
-        return check;
     });
 }
 
@@ -81,12 +79,13 @@ function scss(callback) {
         glob(folder, (error, files) => {
             files.forEach(allFile => {
                 fs.writeFileSync(allFile, banner);
-                let fusionPath = `${path
-                    .dirname(allFile)
-                    .split("Private/")[0]}Private/Fusion`;
+                let fusionPath = `${
+                    path.dirname(allFile).split("Private/")[0]
+                }Private/Fusion`;
+
                 let partials = scanSubdirectories(fusionPath);
                 let prepend = `${fusionPath.replace(
-                    /([\w]*Packages\/(Sites|Plugins)\/)/,
+                    /(^\.src\/|[\w]*Packages\/(Sites|Plugins)\/)/,
                     ""
                 )}/`;
                 writeImportStatements(partials, allFile, prepend);

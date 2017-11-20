@@ -1,6 +1,5 @@
 # Exclude some needed stuff
 !browser-sync-ui/lib/plugins/history
-!svgo/.svgo.yml
 !postcss-assets
 !assets
 
@@ -39,8 +38,6 @@ Gruntfile.js
 .flowconfig
 .documentup.json
 .yarn-metadata.json
-.*.yml
-*.yml
 
 # misc
 *.gz

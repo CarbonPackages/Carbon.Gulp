@@ -23,7 +23,6 @@ node_modules
 
 /Web/_Resources
 /Web/index.php
-# /Web/.htaccess
 
 # ignore the downloaded selenium server, config and the selenium
 # temporary directory (which starts with a quote, do not ask why...)
