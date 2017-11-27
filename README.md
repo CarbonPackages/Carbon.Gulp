@@ -82,12 +82,12 @@ Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 ### Overview of commands
 
 Command         | Watcher | Behaviour
---------------- | ------- | ---------------------------------------------------------------
-`yarn start`    |    x    | Generates all Assets, Javascript and CSS files
+--------------- | :-----: | ---------------------------------------------------------------
+`yarn start`    |    ✓    | Generates all Assets, Javascript and CSS files
 `yarn tasks`    |         | Show all available tasks
-`yarn beautify` |    x    | Beautify and dont't compress files
-`yarn debug`    |    x    | Files dont't get compressed
-`yarn nomaps`   |    x    | Don't write sourcemaps
+`yarn beautify` |    ✓    | Beautify and dont't compress files
+`yarn debug`    |    ✓    | Files dont't get compressed
+`yarn nomaps`   |    ✓    | Don't write sourcemaps
 `yarn build`    |         | Runs the build process for production
 `yarn css`      |         | Render CSS Files
 `yarn scss`     |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files
