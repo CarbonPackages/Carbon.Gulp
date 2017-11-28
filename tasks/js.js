@@ -6,6 +6,7 @@ if (!config.tasks.js) {
 
 const amd = require("rollup-plugin-amd");
 const buble = require("rollup-plugin-buble");
+const babel = require("rollup-plugin-babel");
 const cjs = require("rollup-plugin-commonjs");
 const globals = require("rollup-plugin-node-globals");
 const gulpRollup = require("gulp-rollup");
@@ -39,13 +40,10 @@ if (rollupConfig) {
 }
 
 let rollupPlugins = [
-    buble(),
     includePaths(rollupConfig.plugins.includePaths),
     resolve(rollupConfig.plugins.nodeResolve),
     replace({
-        "process.env.NODE_ENV": JSON.stringify(
-            mode.minimize ? "production" : "development"
-        )
+        "process.env.NODE_ENV": JSON.stringify(mode.minimize ? 'production' : 'development')
     })
 ];
 
@@ -63,6 +61,13 @@ if (rollupConfig.plugins.amd) {
         rollupPlugins.push(amd(rollupConfig.plugins.amd));
     }
 }
+
+if (config.tasks.js.compiler.toLowerCase() == "babel") {
+    rollupPlugins.push(babel(config.tasks.js.babel));
+} else {
+    rollupPlugins.push(buble(config.tasks.js.buble));
+}
+
 rollupPlugins.push(globals());
 rollupPlugins.push(rollupSourcemaps());
 

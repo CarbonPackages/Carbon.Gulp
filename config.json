@@ -135,6 +135,13 @@
             "dest": "Scripts",
             "file": null,
             "extensions": ["js", "jsx"],
+            "compiler": "Babel",
+            "babel": {
+
+            },
+            "buble": {
+                "objectAssign": "Object.assign"
+            },
             "rollup": {
                 "enable": true,
                 "comment": "Available formats are amd, cjs, es6, iife or umd",
