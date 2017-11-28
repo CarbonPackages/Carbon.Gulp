@@ -102,7 +102,7 @@ Command         | Watcher | Behaviour
 Features       | Tools Used
 -------------- | ---------------------
 **CSS**        | [Sass](http://sass-lang.com) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)) and [PostCSS](http://postcss.org)
-**Javascript** | [Rollup JS](http://rollupjs.org) with [Bublé](https://buble.surge.sh/guide)
+**Javascript** | [Rollup JS](http://rollupjs.org) with [Babel](https://babeljs.io) or [Bublé](https://buble.surge.sh/guide)
 **Images**     | Compression with [imagemin](https://www.npmjs.com/package/gulp-imagemin). Run width `gulp optimizeImages`. Overwrites files in the resource folder.
 **Icons**      | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore) and/or [Icon Fonts](https://www.npmjs.com/package/gulp-iconfont)
 **Lint**       | [ESLint](http://eslint.org/) and [stylelint](https://stylelint.io) included
@@ -136,7 +136,6 @@ Plugin                                                                          
 **[postcss-vmax](https://www.npmjs.com/package/postcss-vmax)**                          | Use vmax units in Edge and Internet Explorer
 **[postcss-short](https://www.npmjs.com/package/postcss-short)**                        | Short creates and extends shorthand properties in CSS
 **[postcss-center](https://www.npmjs.com/package/postcss-center)**                      | PostCSS plugin to center elements
-**[postcss-grid-kiss](https://www.npmjs.com/package/postcss-grid-kiss)**                | A PostCSS plugin to keep CSS grids stupidly simple
 **[rucksack-css](https://www.rucksackcss.org/)**                                        | A little bag of CSS superpowers
 **[postcss-flexbox](https://www.npmjs.com/package/postcss-flexbox)**                    | Flexbox layouts made easy with PostCSS
 **[pleeease-filters](https://www.npmjs.com/package/pleeease-filters)**                  | Convert CSS shorthand filters to SVG ones
