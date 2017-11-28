@@ -73,10 +73,6 @@
                     "cachebuster": false
                 },
                 "magicAnimations": { "atRoot": true },
-                "gridKiss": {
-                    "fallback": true,
-                    "optimize": true
-                },
                 "pseudoelements": {
                     "single": true,
                     "selectors": [

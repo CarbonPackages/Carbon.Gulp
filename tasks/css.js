@@ -37,7 +37,6 @@ let postScss = [
     require("postcss-vmax"),
     require("postcss-short"),
     require("postcss-center"),
-    require("postcss-grid-kiss")(pc.gridKiss),
     require("rucksack-css")(pc.rucksack),
     require("postcss-flexbox"),
     require("pleeease-filters"),

@@ -98,7 +98,6 @@
     "postcss-fixes": "^2.0.1",
     "postcss-flexbox": "^1.0.3",
     "postcss-font-awesome": "^0.3.4",
-    "postcss-grid-kiss": "^1.4.2",
     "postcss-magic-animations": "^0.3.0",
     "postcss-media-minmax": "^3.0.0",
     "postcss-pseudoelements": "^5.0.0",
