@@ -202,3 +202,64 @@ The settings from the different jsons get merged together.
 
 This configuration enable notifications and disable the
 proxy based by project folder name.
+
+
+## Compression
+
+To compress the asset with brotli and zopfli, you need to run `yarn compress` or `yarn pipeline`. To enable it on the server, please add following lines to your `.htaccess`:
+
+
+```
+# Specify Brotli-encoded assets
+<Files *.js.br>
+    AddType "text/javascript" .br
+    AddEncoding br .br
+</Files>
+<Files *.css.br>
+    AddType "text/css" .br
+    AddEncoding br .br
+</Files>
+<Files *.svg.br>
+    AddType "image/svg+xml" .br
+    AddEncoding br .br
+</Files>
+<Files *.html.br>
+    AddType "text/html" .br
+    AddEncoding br .br
+</Files>
+
+# Specify gzip-encoded assets
+<Files *.js.gz>
+    AddType "text/javascript" .gz
+    AddEncoding gz .gz
+</Files>
+<Files *.css.gz>
+    AddType "text/css" .gz
+    AddEncoding gz .gz
+</Files>
+<Files *.svg.gz>
+    AddType "image/svg+xml" .gz
+    AddEncoding gz .gz
+</Files>
+<Files *.html.gz>
+    AddType "text/html" .gz
+    AddEncoding gz .gz
+</Files>
+
+
+```
+
+and, in a section where you have RewriteEngine turned on, add following lines:
+
+```
+# Serve pre-compressed Brotli assets
+RewriteCond %{HTTP:Accept-Encoding} br
+RewriteCond %{REQUEST_FILENAME}.br -f
+RewriteRule ^(.*)$ $1.br [L]
+
+# Serve pre-compressed gzip assets
+RewriteCond %{HTTP:Accept-Encoding} gzip
+RewriteCond %{REQUEST_FILENAME}.gz -f
+RewriteRule ^(.*)$ $1.gz [L]
+```
+
