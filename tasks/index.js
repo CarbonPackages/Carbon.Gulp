@@ -189,14 +189,9 @@ gulp.task("default").description =
     util.colors.inverse(" watch them ");
 gulp.task("default").flags = flags;
 
-if (config.tasks.pipeline) {
-    let series;
-    if (config.tasks.optimizeImages) {
-        series = gulp.series("build", "optimizeImages", "compress");
-    } else {
-        series = gulp.series("build", "compress");
-    }
 
+if (config.tasks.pipeline && typeof config.tasks.pipeline == "object") {
+    let series = gulp.series(config.tasks.pipeline);
     gulp.task("pipeline", series);
-    gulp.task("pipeline").description = "Build task for pipeline";
+    gulp.task("pipeline").description = "Make files production ready";
 }

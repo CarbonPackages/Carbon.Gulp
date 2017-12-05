@@ -46,7 +46,7 @@
     },
 
     "tasks": {
-        "clean": ["Assets", "Styles", "Scripts", "*.css", "*.js", "*.map"],
+        "clean": ["Assets", "Styles", "Scripts", "*.css", "*.js", "*.map", "*.js.br", "*.js.gz", "*.css.br", "*.css.gz"] ,
         "css": {
             "src": "Assets",
             "dest": "Styles",
@@ -192,7 +192,17 @@
             "svgo": {},
             "extensions": ["svg"]
         },
-        "compress": false,
-        "pipeline": false
+        "compress": {
+            "brotli": {
+                "skipLarger": true,
+                "quality": 11
+            },
+            "zopfli": {
+                "format": "gzip",
+                "numiterations": 15,
+                "blocksplitting": true
+            }
+        },
+        "pipeline": ["build", "optimizeImages", "compress"]
     }
 }
