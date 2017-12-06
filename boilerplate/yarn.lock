@@ -1469,9 +1469,9 @@ caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
   version "1.0.30000717"
   resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000717.tgz#27ddf5feccdd338c99a62c9788c2694f99f67ed7"
 
-caniuse-db@^1.0.30000778:
-  version "1.0.30000778"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000778.tgz#167c60e9542a2aa60537c446fb3881d853a3072a"
+caniuse-db@^1.0.30000780:
+  version "1.0.30000780"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000780.tgz#8d1977561d00ff0f0ed2b6b66140328ab4504c0a"
 
 caniuse-lite@^1.0.30000697, caniuse-lite@^1.0.30000715:
   version "1.0.30000717"
@@ -6786,9 +6786,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.9.0.tgz#1a7205bdb6126b30cf8c0a7b2b86997162e1ee3e"
+prettier@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.9.1.tgz#41638a0d47c1efbd1b7d5a742aaa5548eab86d70"
 
 pretty-bytes@^3.0.1:
   version "3.0.1"
