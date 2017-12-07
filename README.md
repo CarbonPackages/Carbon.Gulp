@@ -209,7 +209,7 @@ proxy based by project folder name.
 To compress the asset with brotli and zopfli, you need to run `yarn compress` or `yarn pipeline`. To enable it on the server, please add following lines to your `.htaccess`:
 
 
-```
+```apache
 # Rules to correctly serve gzip compressed CSS and JS files.
 # Requires both mod_rewrite and mod_headers to be enabled.
 <IfModule mod_headers.c>
