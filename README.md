@@ -210,56 +210,46 @@ To compress the asset with brotli and zopfli, you need to run `yarn compress` or
 
 
 ```
-# Specify Brotli-encoded assets
-<Files *.js.br>
-    AddType "text/javascript" .br
-    AddEncoding br .br
-</Files>
-<Files *.css.br>
-    AddType "text/css" .br
-    AddEncoding br .br
-</Files>
-<Files *.svg.br>
-    AddType "image/svg+xml" .br
-    AddEncoding br .br
-</Files>
-<Files *.html.br>
-    AddType "text/html" .br
-    AddEncoding br .br
-</Files>
+# Rules to correctly serve gzip compressed CSS and JS files.
+# Requires both mod_rewrite and mod_headers to be enabled.
+<IfModule mod_headers.c>
+    # Serve brotli compressed CSS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} br
+    RewriteCond %{REQUEST_FILENAME}\.br -s
+    RewriteRule ^(.*)\.css $1\.css\.br [QSA]
 
-# Specify gzip-encoded assets
-<Files *.js.gz>
-    AddType "text/javascript" .gz
-    AddEncoding gz .gz
-</Files>
-<Files *.css.gz>
-    AddType "text/css" .gz
-    AddEncoding gz .gz
-</Files>
-<Files *.svg.gz>
-    AddType "image/svg+xml" .gz
-    AddEncoding gz .gz
-</Files>
-<Files *.html.gz>
-    AddType "text/html" .gz
-    AddEncoding gz .gz
-</Files>
+    # Serve gzip compressed CSS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}\.gz -s
+    RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
 
+    # Serve brotli compressed JS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} br
+    RewriteCond %{REQUEST_FILENAME}\.br -s
+    RewriteRule ^(.*)\.js $1\.js\.br [QSA]
 
+    # Serve gzip compressed JS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}\.gz -s
+    RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
+
+    # Serve correct content types, and prevent mod_deflate double gzip.
+    RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
+    RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
+    RewriteRule \.css\.br$ - [T=text/css,E=no-gzip:1]
+    RewriteRule \.js\.br$ - [T=text/javascript,E=no-gzip:1]
+
+    <FilesMatch "(\.js\.gz|\.css\.gz)$">
+      # Serve correct encoding type.
+      Header set Content-Encoding gzip
+      # Force proxies to cache gzipped & non-gzipped css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>
+    <FilesMatch "(\.js\.br|\.css\.br)$">
+      # Serve correct encoding type.
+      Header set Content-Encoding br
+      # Force proxies to cache gzipped & non-gzipped css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>
+</IfModule>
 ```
-
-and, in a section where you have RewriteEngine turned on, add following lines:
-
-```
-# Serve pre-compressed Brotli assets
-RewriteCond %{HTTP:Accept-Encoding} br
-RewriteCond %{REQUEST_FILENAME}.br -f
-RewriteRule ^(.*)$ $1.br [L]
-
-# Serve pre-compressed gzip assets
-RewriteCond %{HTTP:Accept-Encoding} gzip
-RewriteCond %{REQUEST_FILENAME}.gz -f
-RewriteRule ^(.*)$ $1.gz [L]
-```
-
