@@ -102,10 +102,8 @@
                     "mediaQuery": false,
                     "minPixelValue": 0
                 },
+                "autoprefixer": {},
                 "cssnano": {
-                    "autoprefixer": {
-                        "add": true
-                    },
                     "reduceIdents": false,
                     "zindex": false,
                     "discardComments": {

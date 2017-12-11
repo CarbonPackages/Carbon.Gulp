@@ -8,7 +8,6 @@ const sass = require("gulp-sass");
 const postcss = require("gulp-postcss");
 const beautify = require("gulp-cssbeautify");
 const cssnano = require("cssnano"); // https://github.com/ben-eb/cssnano
-const autoprefixer = require("autoprefixer");
 
 let pc = config.tasks.css.postcss;
 let assetspath = pc.assets.loadPaths;
@@ -63,6 +62,10 @@ if (pc.pxtorem) {
     postScss.push(require("postcss-pxtorem")(pc.pxtorem));
 }
 
+if (pc.autoprefixer) {
+    postScss.push(require("autoprefixer")(pc.autoprefixer));
+}
+
 let paths = {
     src: path.join(
         config.root.base,
@@ -86,9 +89,9 @@ function css() {
         .pipe(flatten())
         .pipe(postcss(postScss))
         .pipe(
-            mode.minimize
+            mode.minimize && pc.cssnano
                 ? postcss([cssnano(pc.cssnano)])
-                : postcss([autoprefixer(pc.cssnano.autoprefixer)])
+                : util.noop()
         )
         .pipe(
             mode.beautify
