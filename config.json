@@ -46,7 +46,18 @@
     },
 
     "tasks": {
-        "clean": ["Assets", "Styles", "Scripts", "*.css", "*.js", "*.map", "*.js.br", "*.js.gz", "*.css.br", "*.css.gz"] ,
+        "clean": [
+            "Assets",
+            "Styles",
+            "Scripts",
+            "*.css",
+            "*.js",
+            "*.map",
+            "*.js.br",
+            "*.js.gz",
+            "*.css.br",
+            "*.css.gz"
+        ],
         "css": {
             "src": "Assets",
             "dest": "Styles",
@@ -134,9 +145,7 @@
             "file": null,
             "extensions": ["js", "jsx"],
             "compiler": "Babel",
-            "babel": {
-
-            },
+            "babel": {},
             "buble": {
                 "objectAssign": "Object.assign"
             },
@@ -183,6 +192,7 @@
             "watchOnlySrc": true,
             "extensions": ["*"]
         },
+        "optimizeSvg": "src",
         "svgSprite": {
             "src": "Sprite",
             "dest": "Assets",

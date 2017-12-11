@@ -21,6 +21,7 @@ for (let taskName of [
     "fonts",
     "images",
     "optimizeImages",
+    "optimizeSvg",
     "static",
     "svgSprite",
     "compressBrotli",
@@ -87,12 +88,17 @@ if (config.tasks.scssLint || config.tasks.jsLint) {
 if (config.tasks.images) {
     gulp.task("optimizeImages", task.optimizeImages);
     gulp.task("optimizeImages").description =
-        "Optimize images and overrite them in the public folder";
+        "Optimize images and overwrite them in the public folder";
 }
 
 if (config.tasks.svgSprite) {
     gulp.task("sprite", task.svgSprite);
     gulp.task("sprite").description = "Create SVG Sprite";
+}
+
+if (config.tasks.optimizeSvg) {
+    gulp.task("optimizeSvg", task.optimizeSvg);
+    gulp.task("optimizeSvg").description = "Optimize SVGs and overwrite them";
 }
 
 if (config.tasks.compress) {
@@ -101,7 +107,7 @@ if (config.tasks.compress) {
         bach.parallel(task.compressBrotli, task.compressZopfli)
     );
     gulp.task("compress").description =
-        "Compress all CSS/JS with Brotli and Zopfli";
+        "Compress all CSS/JS/SVG with Brotli and Zopfli";
 } else {
     gulp.task("compress", callback => {
         util.log(
@@ -188,7 +194,6 @@ gulp.task("default").description =
     " Assets, Javascript and CSS files & " +
     util.colors.inverse(" watch them ");
 gulp.task("default").flags = flags;
-
 
 if (config.tasks.pipeline && typeof config.tasks.pipeline == "object") {
     let series = gulp.series(config.tasks.pipeline);

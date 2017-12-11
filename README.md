@@ -7,8 +7,7 @@
 [![GitHub followers](https://img.shields.io/github/followers/jonnitto.svg?style=social&label=Follow)](https://github.com/jonnitto/followers)
 [![Follow Jon on Twitter](https://img.shields.io/twitter/follow/jonnitto.svg?style=social&label=Follow)](https://twitter.com/jonnitto)
 
-Carbon/Gulp
-===========
+# Carbon/Gulp
 
 Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to
 form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
@@ -32,8 +31,8 @@ important stuffs on your distribution. Your are free to not use the provided tem
 or customize them to match your own requirements. The following document is based on the
 official templates.
 
-
 ### Install Dependencies
+
 Make sure Node & [Yarn](https://yarnpkg.com) installed. I recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
 
 ```bash
@@ -43,76 +42,78 @@ nvm use
 yarn
 # Show available tasks
 yarn tasks
-
 ```
 
 You must see something like this:
 
 ```bash
 Tasks
-├── build             Generates all Assets, Javascript and CSS files
-│   --b, --beautify  … Beautify and dont't compress files
-│   --d, --debug     … Files dont't get compressed
-│   --n, --nomaps    … Don't write sourcemaps
-├── compress         Compress all CSS/JS with Brotli and Zopfli
 ├── css              Render CSS Files
 │   --b, --beautify  … Beautify and dont't compress files
 │   --d, --debug     … Files dont't get compressed
 │   --n, --nomaps    … Don't write sourcemaps
-├─┬ default           Generates all Assets, Javascript and CSS files & watch them
+├── scss             Render _all.scss, _allsub.scss and _allFusion.scss Files
+├── js               Render Javascript Files
+│   --b, --beautify  … Beautify and dont't compress files
+│   --d, --debug     … Files dont't get compressed
+│   --n, --nomaps    … Don't write sourcemaps
+├── lint             Lint Javascript and CSS files
+├── optimizeImages   Optimize images and overwrite them in the public folder
+├── sprite           Create SVG Sprite
+├── optimizeSvg      Optimize SVGs and overwrite them
+├── compress         Compress all CSS/JS/SVG with Brotli and Zopfli
+├── build             Generates all  Assets, Javascript and CSS files
+│   --b, --beautify  … Beautify and dont't compress files
+│   --d, --debug     … Files dont't get compressed
+│   --n, --nomaps    … Don't write sourcemaps
+├── watch            Watch files and regenereate them
+├─┬ default           Generates all  Assets, Javascript and CSS files &  watch them
 │ │ --b, --beautify  … Beautify and dont't compress files
 │ │ --d, --debug     … Files dont't get compressed
 │ │ --n, --nomaps    … Don't write sourcemaps
 │ └─┬ <series>
 │   ├── build
 │   └── watch
-├── js               Render Javascript Files
-│   --b, --beautify  … Beautify and dont't compress files
-│   --d, --debug     … Files dont't get compressed
-│   --n, --nomaps    … Don't write sourcemaps
-├── lint             Lint Javascript and CSS files
-├── optimizeImages   Optimize images and overrite them in the public folder
-├─┬ pipeline         Build task for pipeline
-│ └─┬ <series>
-│   ├── build
-│   └── optimizeImages
-├── scss             Render _all.scss, _allsub.scss and _allFusion.scss Files
-├── sprite           Create SVG Sprite
-└── watch            Watch files and regenereate them
-
+└─┬ pipeline         Make files production ready
+  └─┬ <series>
+    ├── build
+    ├── optimizeImages
+    └── compress
 ```
 
 Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 
 ### Overview of commands
 
-Command         | Watcher | Behaviour
---------------- | :-----: | ---------------------------------------------------------------
-`yarn start`    |    ✓    | Generates all Assets, Javascript and CSS files
-`yarn tasks`    |         | Show all available tasks
-`yarn beautify` |    ✓    | Beautify and dont't compress files
-`yarn debug`    |    ✓    | Files dont't get compressed
-`yarn nomaps`   |    ✓    | Don't write sourcemaps
-`yarn build`    |         | Runs the build process for production
-`yarn css`      |         | Render CSS Files
-`yarn scss`     |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files
-`yarn js`       |         | Render Javascript Files
-`yarn images`   |         | Optimize images and overwrite them in the source folder
-`yarn pipeline` |         | Build, optimize and compress (if enabled) files
-`yarn compress` |         | Compress all CSS/JS with Brotli and Zopfli
-
+| Command         | Watcher | Behaviour                                                      |
+| --------------- | :-----: | -------------------------------------------------------------- |
+| `yarn start`    |    ✓    | Generates all Assets, Javascript and CSS files                 |
+| `yarn tasks`    |         | Show all available tasks                                       |
+| `yarn build`    |         | Generates all Assets, Javascript and CSS files                 |
+| `yarn pipeline` |         | Make files production ready                                    |
+| `yarn beautify` |    ✓    | Beautify and dont't compress files                             |
+| `yarn debug`    |    ✓    | Files dont't get compressed                                    |
+| `yarn nomaps`   |    ✓    | Don't write sourcemaps                                         |
+| `yarn css`      |         | Render CSS Files                                               |
+| `yarn js`       |         | Render Javascript Files                                        |
+| `yarn lint`     |         | Lint Javascript and CSS files                                  |
+| `yarn scss`     |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files |
+| `yarn compress` |         | Compress all CSS/JS/SVG with Brotli and Zopfli                 |
+| `yarn images`   |         | Optimize images and overwrite them in the public folder        |
+| `yarn svg`      |         | Optimize SVGs and overwrite them                               |
 
 ## Overview of tools
 
-Features       | Tools Used
--------------- | ---------------------
-**CSS**        | [Sass](http://sass-lang.com) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)) and [PostCSS](http://postcss.org)
-**Javascript** | [Rollup JS](http://rollupjs.org) with [Babel](https://babeljs.io) or [Bublé](https://buble.surge.sh/guide)
-**Images**     | Compression with [imagemin](https://www.npmjs.com/package/gulp-imagemin). Run width `gulp optimizeImages`. Overwrites files in the resource folder.
-**Icons**      | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore) and/or [Icon Fonts](https://www.npmjs.com/package/gulp-iconfont)
-**Lint**       | [ESLint](http://eslint.org/) and [stylelint](https://stylelint.io) included
+| Features       | Tools Used                                                                                                                                                  |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CSS**        | [Sass](http://sass-lang.com) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)) and [PostCSS](http://postcss.org) |
+| **Javascript** | [Rollup JS](http://rollupjs.org) with [Babel](https://babeljs.io) or [Bublé](https://buble.surge.sh/guide)                                                  |
+| **Images**     | Compression with [imagemin](https://www.npmjs.com/package/gulp-imagemin). Run width `gulp optimizeImages`. Overwrites files in the resource folder.         |
+| **Icons**      | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore) and/or [Icon Fonts](https://www.npmjs.com/package/gulp-iconfont)                        |
+| **Lint**       | [ESLint](http://eslint.org/) and [stylelint](https://stylelint.io) included                                                                                 |
 
 ## Lint
+
 If you want to disable linting for a specific file, just make sure that it contains `.noLinter.`. This is useful if you have to include third-party files.
 
 ## CSS
@@ -121,11 +122,11 @@ If you want to disable linting for a specific file, just make sure that it conta
 
 These small helpers can make your developer life much easier. These files get filled automatically by the task `scss`
 
-Filename              | Description
---------------------- | ----------------------
-**`_all.scss`**       | Every file from the same directory get an `@import` statement.
-**`_allsub.scss`**    | Every file from sub directories get an `@import` statement.
-**`_allFusion.scss`** | Every file from the Fusion folder get an `@import` statement.
+| Filename              | Description                                                    |
+| --------------------- | -------------------------------------------------------------- |
+| **`_all.scss`**       | Every file from the same directory get an `@import` statement. |
+| **`_allsub.scss`**    | Every file from sub directories get an `@import` statement.    |
+| **`_allFusion.scss`** | Every file from the Fusion folder get an `@import` statement.  |
 
 Files and folders with beginning underscore (`_`) get ignored.
 
@@ -133,32 +134,31 @@ Files and folders with beginning underscore (`_`) get ignored.
 
 Following plugins are included:
 
-Plugin                                                                                  | Description
---------------------------------------------------------------------------------------- | ----------------------
-**[postcss-rtl](https://www.npmjs.com/package/postcss-rtl)**                            | PostCSS plugin for RTL-optimizations. **Turned off by default**
-**[postcss-assets](https://www.npmjs.com/package/postcss-assets)**                      | PostCSS plugin to manage assets
-**[postcss-magic-animations](https://www.npmjs.com/package/postcss-magic-animations)**  | Plugin that adds `@keyframes` from [Magic Animations](https://github.com/miniMAC/magic)
-**[postcss-vmax](https://www.npmjs.com/package/postcss-vmax)**                          | Use vmax units in Edge and Internet Explorer
-**[postcss-short](https://www.npmjs.com/package/postcss-short)**                        | Short creates and extends shorthand properties in CSS
-**[postcss-center](https://www.npmjs.com/package/postcss-center)**                      | PostCSS plugin to center elements
-**[rucksack-css](https://www.rucksackcss.org/)**                                        | A little bag of CSS superpowers
-**[postcss-flexbox](https://www.npmjs.com/package/postcss-flexbox)**                    | Flexbox layouts made easy with PostCSS
-**[pleeease-filters](https://www.npmjs.com/package/pleeease-filters)**                  | Convert CSS shorthand filters to SVG ones
-**[postcss-selector-matches](https://www.npmjs.com/package/postcss-selector-matches)**  | PostCSS plugin to transform :matches() W3C CSS pseudo class to more compatible CSS selectors
-**[postcss-selector-not](https://www.npmjs.com/package/postcss-selector-not)**          | PostCSS plugin to transform :not() W3C CSS leve 4 pseudo class to :not() CSS level 3 selectors
-**[postcss-pseudoelements](https://www.npmjs.com/package/postcss-pseudoelements)**      | PostCSS plugin to add single-colon CSS 2.1 syntax pseudo selectors (i.e. :before)
-**[postcss-font-awesome](https://www.npmjs.com/package/postcss-font-awesome)**          | PostCSS plugin to pull in a Font Awesome's icon unicode using content.
-**[postcss-custom-media](https://www.npmjs.com/package/postcss-custom-media)**          | PostCSS plugin to transform W3C CSS Custom Media Queries syntax to more compatible CSS
-**[postcss-media-minmax](https://www.npmjs.com/package/postcss-media-minmax)**          | Writing simple and graceful media queries.
-**[postcss-quantity-queries](https://www.npmjs.com/package/postcss-quantity-queries)**  | PostCSS plugin enabling quantity-queries
-**[postcss-fixes](https://www.npmjs.com/package/postcss-fixes)**                        | PostCSS plugin to fix known Browser Bugs.
-**[css-mqpacker](https://www.npmjs.com/package/css-mqpacker)**                          | Pack same CSS media query rules into one media query rule.
-**[sort-css-media-queries](https://www.npmjs.com/package/sort-css-media-queries)**      | The custom sort method (mobile-first / desktop-first) for css-mqpacker.
-**[postcss-round-subpixels](https://www.npmjs.com/package/postcss-round-subpixels)**    | Plugin that rounds sub-pixel (eg: 12.87378px) values to the nearest full pixel.
-**[postcss-reporter](https://www.npmjs.com/package/postcss-reporter)**                  | Log PostCSS messages in the console
-**[postcss-pxtorem](https://www.npmjs.com/package/postcss-pxtorem)**                    | A plugin for PostCSS that generates rem units from pixel units.
-**[cssnano](http://cssnano.co)**                                                        | Modern CSS compression
-
+| Plugin                                                                                 | Description                                                                                    |
+| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| **[postcss-rtl](https://www.npmjs.com/package/postcss-rtl)**                           | PostCSS plugin for RTL-optimizations. **Turned off by default**                                |
+| **[postcss-assets](https://www.npmjs.com/package/postcss-assets)**                     | PostCSS plugin to manage assets                                                                |
+| **[postcss-magic-animations](https://www.npmjs.com/package/postcss-magic-animations)** | Plugin that adds `@keyframes` from [Magic Animations](https://github.com/miniMAC/magic)        |
+| **[postcss-vmax](https://www.npmjs.com/package/postcss-vmax)**                         | Use vmax units in Edge and Internet Explorer                                                   |
+| **[postcss-short](https://www.npmjs.com/package/postcss-short)**                       | Short creates and extends shorthand properties in CSS                                          |
+| **[postcss-center](https://www.npmjs.com/package/postcss-center)**                     | PostCSS plugin to center elements                                                              |
+| **[rucksack-css](https://www.rucksackcss.org/)**                                       | A little bag of CSS superpowers                                                                |
+| **[postcss-flexbox](https://www.npmjs.com/package/postcss-flexbox)**                   | Flexbox layouts made easy with PostCSS                                                         |
+| **[pleeease-filters](https://www.npmjs.com/package/pleeease-filters)**                 | Convert CSS shorthand filters to SVG ones                                                      |
+| **[postcss-selector-matches](https://www.npmjs.com/package/postcss-selector-matches)** | PostCSS plugin to transform :matches() W3C CSS pseudo class to more compatible CSS selectors   |
+| **[postcss-selector-not](https://www.npmjs.com/package/postcss-selector-not)**         | PostCSS plugin to transform :not() W3C CSS leve 4 pseudo class to :not() CSS level 3 selectors |
+| **[postcss-pseudoelements](https://www.npmjs.com/package/postcss-pseudoelements)**     | PostCSS plugin to add single-colon CSS 2.1 syntax pseudo selectors (i.e. :before)              |
+| **[postcss-font-awesome](https://www.npmjs.com/package/postcss-font-awesome)**         | PostCSS plugin to pull in a Font Awesome's icon unicode using content.                         |
+| **[postcss-custom-media](https://www.npmjs.com/package/postcss-custom-media)**         | PostCSS plugin to transform W3C CSS Custom Media Queries syntax to more compatible CSS         |
+| **[postcss-media-minmax](https://www.npmjs.com/package/postcss-media-minmax)**         | Writing simple and graceful media queries.                                                     |
+| **[postcss-quantity-queries](https://www.npmjs.com/package/postcss-quantity-queries)** | PostCSS plugin enabling quantity-queries                                                       |
+| **[postcss-fixes](https://www.npmjs.com/package/postcss-fixes)**                       | PostCSS plugin to fix known Browser Bugs.                                                      |
+| **[css-mqpacker](https://www.npmjs.com/package/css-mqpacker)**                         | Pack same CSS media query rules into one media query rule.                                     |
+| **[sort-css-media-queries](https://www.npmjs.com/package/sort-css-media-queries)**     | The custom sort method (mobile-first / desktop-first) for css-mqpacker.                        |
+| **[postcss-round-subpixels](https://www.npmjs.com/package/postcss-round-subpixels)**   | Plugin that rounds sub-pixel (eg: 12.87378px) values to the nearest full pixel.                |
+| **[postcss-reporter](https://www.npmjs.com/package/postcss-reporter)**                 | Log PostCSS messages in the console                                                            |
+| **[postcss-pxtorem](https://www.npmjs.com/package/postcss-pxtorem)**                   | A plugin for PostCSS that generates rem units from pixel units.                                |
+| **[cssnano](http://cssnano.co)**                                                       | Modern CSS compression                                                                         |
 
 ## Configuration
 
@@ -177,7 +177,7 @@ the `Configuration` directory, like this:
                 "plugins": {
                     "commonjs": {
                         "namedExports": {
-                            "node_modules/barba.js/dist/barba.js": [ "Barba" ]
+                            "node_modules/barba.js/dist/barba.js": ["Barba"]
                         }
                     }
                 }
@@ -208,11 +208,9 @@ The settings from the different jsons get merged together.
 This configuration enable notifications and disable the
 proxy based by project folder name.
 
-
 ## Compression
 
 To compress the asset with brotli and zopfli, you need to run `yarn compress` or `yarn pipeline`. To enable it on the server, please add following lines to your `.htaccess`:
-
 
 ```apache
 # Rules to correctly serve gzip compressed CSS and JS files.
