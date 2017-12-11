@@ -1,9 +1,14 @@
-Carbon/Gulp
-===========
-
 [![Latest Stable Version](https://poser.pugx.org/carbon/gulp/v/stable)](https://packagist.org/packages/carbon/gulp)
 [![Total Downloads](https://poser.pugx.org/carbon/gulp/downloads)](https://packagist.org/packages/carbon/gulp)
-[![License](https://poser.pugx.org/carbon/gulp/license)](LICENSE)
+[![License](https://poser.pugx.org/carbon/gulp/license)](https://packagist.org/packages/carbon/gulp)
+[![GitHub forks](https://img.shields.io/github/forks/jonnitto/Carbon.Gulp.svg?style=social&label=Fork)](https://github.com/jonnitto/Carbon.Gulp/fork)
+[![GitHub stars](https://img.shields.io/github/stars/jonnitto/Carbon.Gulp.svg?style=social&label=Stars)](https://github.com/jonnitto/Carbon.Gulp/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/jonnitto/Carbon.Gulp.svg?style=social&label=Watch)](https://github.com/jonnitto/Carbon.Gulp/subscription)
+[![GitHub followers](https://img.shields.io/github/followers/jonnitto.svg?style=social&label=Follow)](https://github.com/jonnitto/followers)
+[![Follow Jon on Twitter](https://img.shields.io/twitter/follow/jonnitto.svg?style=social&label=Follow)](https://twitter.com/jonnitto)
+
+Carbon/Gulp
+===========
 
 Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to
 form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
@@ -209,57 +214,47 @@ proxy based by project folder name.
 To compress the asset with brotli and zopfli, you need to run `yarn compress` or `yarn pipeline`. To enable it on the server, please add following lines to your `.htaccess`:
 
 
+```apache
+# Rules to correctly serve gzip compressed CSS and JS files.
+# Requires both mod_rewrite and mod_headers to be enabled.
+<IfModule mod_headers.c>
+    # Serve brotli compressed CSS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} br
+    RewriteCond %{REQUEST_FILENAME}\.br -s
+    RewriteRule ^(.*)\.css $1\.css\.br [QSA]
+
+    # Serve gzip compressed CSS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}\.gz -s
+    RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
+
+    # Serve brotli compressed JS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} br
+    RewriteCond %{REQUEST_FILENAME}\.br -s
+    RewriteRule ^(.*)\.js $1\.js\.br [QSA]
+
+    # Serve gzip compressed JS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}\.gz -s
+    RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
+
+    # Serve correct content types, and prevent mod_deflate double gzip.
+    RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
+    RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
+    RewriteRule \.css\.br$ - [T=text/css,E=no-gzip:1]
+    RewriteRule \.js\.br$ - [T=text/javascript,E=no-gzip:1]
+
+    <FilesMatch "(\.js\.gz|\.css\.gz)$">
+      # Serve correct encoding type.
+      Header set Content-Encoding gzip
+      # Force proxies to cache gzipped & non-gzipped css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>
+    <FilesMatch "(\.js\.br|\.css\.br)$">
+      # Serve correct encoding type.
+      Header set Content-Encoding br
+      # Force proxies to cache gzipped & non-gzipped css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>
+</IfModule>
 ```
-# Specify Brotli-encoded assets
-<Files *.js.br>
-    AddType "text/javascript" .br
-    AddEncoding br .br
-</Files>
-<Files *.css.br>
-    AddType "text/css" .br
-    AddEncoding br .br
-</Files>
-<Files *.svg.br>
-    AddType "image/svg+xml" .br
-    AddEncoding br .br
-</Files>
-<Files *.html.br>
-    AddType "text/html" .br
-    AddEncoding br .br
-</Files>
-
-# Specify gzip-encoded assets
-<Files *.js.gz>
-    AddType "text/javascript" .gz
-    AddEncoding gz .gz
-</Files>
-<Files *.css.gz>
-    AddType "text/css" .gz
-    AddEncoding gz .gz
-</Files>
-<Files *.svg.gz>
-    AddType "image/svg+xml" .gz
-    AddEncoding gz .gz
-</Files>
-<Files *.html.gz>
-    AddType "text/html" .gz
-    AddEncoding gz .gz
-</Files>
-
-
-```
-
-and, in a section where you have RewriteEngine turned on, add following lines:
-
-```
-# Serve pre-compressed Brotli assets
-RewriteCond %{HTTP:Accept-Encoding} br
-RewriteCond %{REQUEST_FILENAME}.br -f
-RewriteRule ^(.*)$ $1.br [L]
-
-# Serve pre-compressed gzip assets
-RewriteCond %{HTTP:Accept-Encoding} gzip
-RewriteCond %{REQUEST_FILENAME}.gz -f
-RewriteRule ^(.*)$ $1.gz [L]
-```
-
