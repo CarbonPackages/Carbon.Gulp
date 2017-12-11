@@ -38,6 +38,7 @@ function optimizeImages() {
             )
         )
         .pipe(chmod(config.chmod))
+        .pipe(gulp.dest(paths.dest))
         .pipe(
             size({
                 title: "Images:",
