@@ -18,15 +18,9 @@
         }
       ]
     ],
-    "plugins": [
-      "external-helpers"
-    ]
+    "plugins": ["external-helpers"]
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "Explorer > 10"
-  ],
+  "browserslist": ["> 1%", "last 2 versions", "Explorer > 10"],
   "prettier": {
     "overrides": [
       {
@@ -62,8 +56,8 @@
     "scss": "yarn gulp scss",
     "lint": "yarn gulp lint",
     "js": "yarn gulp js",
-    "images": "yarn gulp optimizeImages",
-    "svg": "yarn gulp optimizeSvg",
+    "optimizeImages": "yarn gulp optimizeImages",
+    "optimizeSvg": "yarn gulp optimizeSvg",
     "compress": "yarn gulp compress"
   },
   "dependencies": {},
@@ -92,7 +86,6 @@
     "gulp-eslint": "^4.0.0",
     "gulp-flatten": "^0.3.1",
     "gulp-header": "^1.8.9",
-    "gulp-html-beautify": "^1.0.1",
     "gulp-imagemin": "^4.0.0",
     "gulp-memory-cache": "^0.3.0",
     "gulp-plumber": "^1.1.0",
@@ -103,6 +96,7 @@
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-stylelint": "^5.0.0",
+    "gulp-svgmin": "^1.2.4",
     "gulp-svgstore": "^6.1.0",
     "gulp-util": "^3.0.8",
     "gulp-zopfli": "^1.0.0",
@@ -147,9 +141,5 @@
     "stylelint-scss": "^2.2.0",
     "text-table": "^0.2.0"
   },
-  "keywords": [
-    "gulp",
-    "neoscms",
-    "flow"
-  ]
+  "keywords": ["gulp", "neoscms", "flow"]
 }

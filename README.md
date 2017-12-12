@@ -85,22 +85,24 @@ Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 
 ### Overview of commands
 
-| Command         | Watcher | Behaviour                                                      |
-| --------------- | :-----: | -------------------------------------------------------------- |
-| `yarn start`    |    ✓    | Generates all Assets, Javascript and CSS files                 |
-| `yarn tasks`    |         | Show all available tasks                                       |
-| `yarn build`    |         | Generates all Assets, Javascript and CSS files                 |
-| `yarn pipeline` |         | Make files production ready                                    |
-| `yarn beautify` |    ✓    | Beautify and dont't compress files                             |
-| `yarn debug`    |    ✓    | Files dont't get compressed                                    |
-| `yarn nomaps`   |    ✓    | Don't write sourcemaps                                         |
-| `yarn css`      |         | Render CSS Files                                               |
-| `yarn js`       |         | Render Javascript Files                                        |
-| `yarn lint`     |         | Lint Javascript and CSS files                                  |
-| `yarn scss`     |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files |
-| `yarn compress` |         | Compress all CSS/JS/SVG with Brotli and Zopfli                 |
-| `yarn images`   |         | Optimize images and overwrite them in the public folder        |
-| `yarn svg`      |         | Optimize SVGs and overwrite them                               |
+| Command               | Watcher | Behaviour                                                      |
+| --------------------- | :-----: | -------------------------------------------------------------- |
+| `yarn start`          |    ✓    | Generates all Assets, Javascript and CSS files                 |
+| `yarn tasks`          |         | Show all available tasks                                       |
+| `yarn build`          |         | Generates all Assets, Javascript and CSS files                 |
+| `yarn pipeline`       |         | Make files production ready                                    |
+| `yarn beautify`       |    ✓    | Beautify and dont't compress files                             |
+| `yarn debug`          |    ✓    | Files dont't get compressed                                    |
+| `yarn nomaps`         |    ✓    | Don't write sourcemaps                                         |
+| `yarn css`            |         | Render CSS Files                                               |
+| `yarn js`             |         | Render Javascript Files                                        |
+| `yarn lint`           |         | Lint Javascript and CSS files                                  |
+| `yarn scss`           |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files |
+| `yarn compress`       |         | Compress all CSS/JS/SVG with Brotli and Zopfli                 |
+| `yarn optimizeImages` |         | Optimize images and overwrite them in the public folder        |
+| `yarn optimizeSvg`    |         | Optimize SVGs and overwrite them                               |
+
+**You can also run `yarn gulp GULP_TASK_NAME`, for example `yarn gulp watch --nomaps`.**
 
 ## Overview of tools
 
