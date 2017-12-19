@@ -148,7 +148,7 @@ function css() {
     let tasks = PACKAGES_CONFIG.map(packageConfig => {
         return gulp
             .src(packageConfig.src, {
-                since: cache.lastMtime(`${packageConfig.key}.css`)
+                since: cache.lastMtime("css")
             })
             .pipe(plumber(handleErrors))
             .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : util.noop())

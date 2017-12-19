@@ -115,7 +115,7 @@ function js() {
     let tasks = PACKAGES_CONFIG.map(packageConfig => {
         return gulp
             .src(packageConfig.src, {
-                since: cache.lastMtime(`${packageConfig.key}.js`)
+                since: cache.lastMtime("js")
             })
             .pipe(plumber(handleErrors))
             .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : util.noop())

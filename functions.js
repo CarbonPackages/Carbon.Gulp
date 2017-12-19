@@ -51,8 +51,12 @@ function getInfoFromComposer(path = "") {
     try {
         let composer = require(`../../${path}composer.json`);
 
-        config.info.author = composer.author ? composer.author : config.info.author;
-        config.info.homepage = composer.homepage ? composer.homepage : config.info.homepage;
+        config.info.author = composer.author
+            ? composer.author
+            : config.info.author;
+        config.info.homepage = composer.homepage
+            ? composer.homepage
+            : config.info.homepage;
     } catch (error) {}
 }
 
@@ -99,14 +103,18 @@ function mergePackageConfig(path) {
                     JSON: require(`../../${gulpJsonFiles[key]}`)
                 };
 
-                config.packages[key] = objectAssignDeep({}, CONFIG.DEFAULT, CONFIG.PACKAGE, CONFIG.JSON);
+                config.packages[key] = objectAssignDeep(
+                    {},
+                    CONFIG.DEFAULT,
+                    CONFIG.PACKAGE,
+                    CONFIG.JSON
+                );
 
                 console.info(
                     `Loaded config file ${util.colors.red(
                         "Gulp.json"
                     )} from the package ${util.colors.red(key)}`
                 );
-
             } catch (error) {
                 handleErrors({
                     name: key,
@@ -130,10 +138,14 @@ function mergeConfigAndLoadTasks() {
     mergeRootConfig("gulp_global.json");
     mergeRootConfig("gulp_local.json");
 
-    if (config.global && config.global.mergeConfigFromPackages && config.global.mergeConfigFromPackages.length) {
+    if (
+        config.global &&
+        config.global.mergeConfigFromPackages &&
+        config.global.mergeConfigFromPackages.length
+    ) {
         config.global.mergeConfigFromPackages.forEach(folder => {
             mergePackageConfig(folder);
-        })
+        });
     }
 
     if (config.global.browserSync.proxyRootFolder) {
@@ -165,7 +177,7 @@ function setMode() {
 }
 
 function importLibs() {
-    globalImport("objectAssignDeep", "object-assign-deep")
+    globalImport("objectAssignDeep", "object-assign-deep");
     globalImport("gulp");
     // Gulp Plugins
     globalImport("cache", "gulp-memory-cache");
@@ -193,7 +205,7 @@ function shureArray(input) {
     return array;
 }
 
-function getFilesToWatch(taskName, configuration = config, key = '') {
+function getFilesToWatch(taskName, configuration = config, key = "**") {
     let conf = configuration.tasks[taskName];
     let watchConfig = shureArray(configuration.root.watch);
     let dontWatch = shureArray(configuration.root.dontWatch);

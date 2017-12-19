@@ -34,10 +34,10 @@ function images() {
     let tasks = PACKAGES_CONFIG.map(packageConfig => {
         return gulp
             .src(packageConfig.src, {
-                since: cache.lastMtime(`${packageConfig.key}.images`)
+                since: cache.lastMtime("images")
             })
             .pipe(plumber(handleErrors))
-            .pipe(cache(`${packageConfig.key}.images`))
+            .pipe(cache("images"))
             .pipe(changed(packageConfig.dest)) // Ignore unchanged files
             .pipe(flatten())
             .pipe(chmod(config.global.chmod))

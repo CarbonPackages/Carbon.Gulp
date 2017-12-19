@@ -34,10 +34,10 @@ function copy() {
     let tasks = PACKAGES_CONFIG.map(packageConfig => {
         return gulp
             .src(packageConfig.src, {
-                since: cache.lastMtime(`${packageConfig.key}.static`)
+                since: cache.lastMtime("static")
             })
             .pipe(plumber(handleErrors))
-            .pipe(cache(`${packageConfig.key}.static`))
+            .pipe(cache("static"))
             .pipe(changed(packageConfig.dest)) // Ignore unchanged files
             .pipe(chmod(config.global.chmod))
             .pipe(gulp.dest(packageConfig.dest))

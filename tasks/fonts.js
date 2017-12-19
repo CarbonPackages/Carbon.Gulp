@@ -34,10 +34,10 @@ function fonts() {
     let tasks = PACKAGES_CONFIG.map(packageConfig => {
         return gulp
             .src(packageConfig.src, {
-                since: cache.lastMtime(`${packageConfig.key}.fonts`)
+                since: cache.lastMtime("fonts")
             })
             .pipe(plumber(handleErrors))
-            .pipe(cache(`${packageConfig.key}.fonts`))
+            .pipe(cache("fonts"))
             .pipe(changed(packageConfig.dest)) // Ignore unchanged files
             .pipe(flatten())
             .pipe(chmod(config.global.chmod))
