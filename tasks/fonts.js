@@ -4,32 +4,44 @@ if (!config.tasks.fonts) {
     return false;
 }
 
-let paths = {
-    src: path.join(
-        config.root.base,
-        config.root.src,
-        config.tasks.fonts.src,
-        "/**",
-        getExtensions(config.tasks.fonts.extensions)
-    ),
-    dest: path.join(config.root.base, config.root.dest, config.tasks.fonts.dest)
-};
+const PACKAGES_CONFIG = [];
+for (let key in config.packages) {
+    const CONFIG = config.packages[key];
+    const FONTS_CONFIG = CONFIG.tasks.fonts;
+
+    if (FONTS_CONFIG) {
+        PACKAGES_CONFIG.push({
+            key: key,
+            src: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.src,
+                FONTS_CONFIG.src,
+                "/**",
+                getExtensions(FONTS_CONFIG.extensions)
+            ),
+            dest: path.join(CONFIG.root.base, key, CONFIG.root.dest, FONTS_CONFIG.dest)
+        });
+    }
+}
 
 function fonts() {
-    return gulp
-        .src(paths.src, { since: cache.lastMtime("fonts") })
-        .pipe(plumber(handleErrors))
-        .pipe(cache("fonts"))
-        .pipe(changed(paths.dest)) // Ignore unchanged files
-        .pipe(flatten())
-        .pipe(chmod(config.chmod))
-        .pipe(gulp.dest(paths.dest))
-        .pipe(
-            size({
-                title: "Fonts:",
-                showFiles: false
-            })
-        );
+    let tasks = PACKAGES_CONFIG.map(packageConfig => {
+        return gulp.src(packageConfig.src, { since: cache.lastMtime(`${packageConfig.key}.fonts`)})
+            .pipe(plumber(handleErrors))
+            .pipe(cache(`${packageConfig.key}.fonts`))
+            .pipe(changed(packageConfig.dest)) // Ignore unchanged files
+            .pipe(flatten())
+            .pipe(chmod(config.global.chmod))
+            .pipe(gulp.dest(packageConfig.dest))
+            .pipe(
+                size({
+                    title: `${packageConfig.key} Fonts: `,
+                    showFiles: false
+                })
+            );
+    });
+    return merge(tasks);
 }
 
 module.exports = fonts;
