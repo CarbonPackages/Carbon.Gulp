@@ -1,49 +1,51 @@
 {
     "info": {
-        "description": "Website",
-        "author": "gesagt-getan.at",
-        "homepage": "https://www.example.com"
+        "author": false,
+        "homepage": false,
+        "banner":
+            "/*!\n * <%= package %> - created by <%= author %>\n * @build <%= timestamp %>\n * @link <%= homepage %>\n */\n"
+    },
+
+    "global": {
+        "mergeConfigFromPackages": [".src"],
+        "notifications": false,
+        "browserSync": {
+            "enable": true,
+            "proxy": "127.0.0.1:8081",
+            "proxyRootFolder": "https://",
+            "open": false,
+            "xip": false
+        },
+        "chmod": {
+            "owner": {
+                "read": true,
+                "write": true,
+                "execute": false
+            },
+            "group": {
+                "read": true,
+                "write": false,
+                "execute": false
+            },
+            "others": {
+                "read": true,
+                "write": false,
+                "execute": false
+            }
+        }
     },
 
     "root": {
         "base": "./.src/",
-        "src": "GesagtGetan.Theme/Resources/Private",
-        "dest": "GesagtGetan.Theme/Resources/Public",
+        "src": "Resources/Private",
+        "dest": "Resources/Public",
         "watch": ["**/Private/**"],
         "dontWatch": ["**/Private/Templates/**", "**/WebRoot/**"],
         "inlinePath": "Templates/InlineAssets",
-        "inlineAssets": false,
-        "notifications": false
+        "inlineAssets": false
     },
 
-    "browserSync": {
-        "enable": true,
-        "proxy": "127.0.0.1:8081",
-        "proxyRootFolder": "https://",
-        "open": false,
-        "xip": false
-    },
-
-    "banner":
-        "/*!\n * <%= info.description %> - created by <%= info.author %>\n * @build <%= timestamp %>\n * @link <%= info.homepage %>\n */\n",
-
-    "chmod": {
-        "owner": {
-            "read": true,
-            "write": true,
-            "execute": false
-        },
-        "group": {
-            "read": true,
-            "write": false,
-            "execute": false
-        },
-        "others": {
-            "read": true,
-            "write": false,
-            "execute": false
-        }
-    },
+    "packages": {},
 
     "tasks": {
         "clean": [

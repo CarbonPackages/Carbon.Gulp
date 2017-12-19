@@ -1,30 +1,5 @@
 "use strict";
 
-function isObject(item) {
-    return (
-        item &&
-        typeof item === "object" &&
-        !Array.isArray(item) &&
-        item !== null
-    );
-}
-
-function mergeDeep(target, source) {
-    if (isObject(target) && isObject(source)) {
-        Object.keys(source).forEach(key => {
-            if (isObject(source[key])) {
-                if (!target[key]) {
-                    Object.assign(target, { [key]: {} });
-                }
-                mergeDeep(target[key], source[key]);
-            } else {
-                Object.assign(target, { [key]: source[key] });
-            }
-        });
-    }
-    return target;
-}
-
 function globalImport(target, module) {
     if (!module) {
         module = target;
@@ -75,21 +50,16 @@ function getExtensions(extensions, prepend = "") {
 function getInfoFromComposer(path = "") {
     try {
         let composer = require(`../../${path}composer.json`);
-        let author = composer.author ? composer.author : config.info.author;
-        if (composer.description && composer.homepage) {
-            config.info = {
-                description: composer.description,
-                author: author,
-                homepage: composer.homepage
-            };
-        }
+
+        config.info.author = composer.author ? composer.author : config.info.author;
+        config.info.homepage = composer.homepage ? composer.homepage : config.info.homepage;
     } catch (error) {}
 }
 
 function mergeRootConfig(filename) {
     try {
         const configFromRoot = require(`../../${filename}`);
-        mergeDeep(config, configFromRoot);
+        objectAssignDeep(config, configFromRoot);
         console.info(
             `Loaded config file ${util.colors.red(filename)} from root`
         );
@@ -105,24 +75,47 @@ function getFolderSiteName(files) {
     return false;
 }
 
-function mergeSiteConfig(path) {
-    try {
-        const files = fs.readdirSync(path);
-        const siteFolder = getFolderSiteName(files);
+function mergePackageConfig(path) {
+    let gulpJsonFiles = {};
+    fs.readdirSync(path).forEach(folder => {
+        if (!folder.startsWith(".") && !folder.startsWith("_")) {
+            const GULP_JSON_PATH = `${path}/${folder}/Configuration/Gulp.json`;
 
-        try {
-            const packageConfig = require(`../../${path}/${siteFolder}/Configuration/Gulp.json`);
-            mergeDeep(config, packageConfig);
-            console.info(
-                `Loaded config file ${util.colors.red(
-                    "Gulp.json"
-                )} from the package ${util.colors.red(siteFolder)}`
-            );
-        } catch (error) {}
-        try {
-            getInfoFromComposer(`${path}/${siteFolder}/`);
-        } catch (error) {}
-    } catch (error) {}
+            if (fs.existsSync(GULP_JSON_PATH)) {
+                gulpJsonFiles[folder] = GULP_JSON_PATH;
+            }
+        }
+    });
+    for (let key in gulpJsonFiles) {
+        if (gulpJsonFiles.hasOwnProperty(key)) {
+            try {
+                const CONFIG = {
+                    DEFAULT: {
+                        info: config.info ? config.info : false,
+                        root: config.root ? config.root : false,
+                        tasks: config.tasks ? config.tasks : false
+                    },
+                    PACKAGE: config.packages[key] || {},
+                    JSON: require(`../../${gulpJsonFiles[key]}`)
+                };
+
+                config.packages[key] = objectAssignDeep({}, CONFIG.DEFAULT, CONFIG.PACKAGE, CONFIG.JSON);
+
+                console.info(
+                    `Loaded config file ${util.colors.red(
+                        "Gulp.json"
+                    )} from the package ${util.colors.red(key)}`
+                );
+
+            } catch (error) {
+                handleErrors({
+                    name: key,
+                    plugin: "Error in merging configuration",
+                    message: "There is an error in the Gulp.json file"
+                });
+            }
+        }
+    }
 }
 
 function loadTasks() {
@@ -133,20 +126,27 @@ function loadTasks() {
 function mergeConfigAndLoadTasks() {
     importLibs();
     getInfoFromComposer();
-    mergeRootConfig("gulp.json");
-    mergeSiteConfig("Packages/Sites");
 
-    if (config.browserSync.proxyRootFolder) {
+    mergeRootConfig("gulp_global.json");
+    mergeRootConfig("gulp_local.json");
+
+    if (config.global && config.global.mergeConfigFromPackages && config.global.mergeConfigFromPackages.length) {
+        config.global.mergeConfigFromPackages.forEach(folder => {
+            mergePackageConfig(folder);
+        })
+    }
+
+    if (config.global.browserSync.proxyRootFolder) {
         let prepend =
-            typeof config.browserSync.proxyRootFolder == "string"
-                ? config.browserSync.proxyRootFolder
+            typeof config.global.browserSync.proxyRootFolder == "string"
+                ? config.global.browserSync.proxyRootFolder
                 : "";
-        config.browserSync.proxy =
+        config.global.browserSync.proxy =
             prepend + path.basename(path.join(__dirname, "../.."));
     }
 
-    if (config.browserSync.enable) {
-        delete config.browserSync.enable;
+    if (config.global.browserSync.enable) {
+        delete config.global.browserSync.enable;
         browserSync = require("browser-sync").create();
     }
 
@@ -165,6 +165,7 @@ function setMode() {
 }
 
 function importLibs() {
+    globalImport("objectAssignDeep", "object-assign-deep")
     globalImport("gulp");
     // Gulp Plugins
     globalImport("cache", "gulp-memory-cache");
@@ -178,6 +179,7 @@ function importLibs() {
     globalImport("gulp-size");
     globalImport("gulp-sourcemaps");
     globalImport("gulp-util");
+    globalImport("merge", "merge-stream");
 
     globalImport("handleErrors", "./handleErrors");
 }
@@ -287,7 +289,7 @@ function notifyText(object) {
                 message;
         }
 
-        if (config.root.notifications) {
+        if (config.global.notifications) {
             notifier.notify({
                 title: options.title,
                 subtitle: object.subtitle,
