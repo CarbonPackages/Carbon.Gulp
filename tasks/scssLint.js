@@ -24,9 +24,11 @@ function scssLint(callback) {
         return gulp
             .src(packageConfig.watch)
             .pipe(plumber(handleErrors))
-            .pipe(STYLELINT({
-                reporters: [{ formatter: "string", console: true }]
-            }))
+            .pipe(
+                STYLELINT({
+                    reporters: [{ formatter: "string", console: true }]
+                })
+            );
     });
 
     return merge(tasks);
