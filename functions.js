@@ -193,18 +193,18 @@ function shureArray(input) {
     return array;
 }
 
-function getFilesToWatch(taskName) {
-    let conf = config.tasks[taskName];
-    let watchConfig = shureArray(config.root.watch);
-    let dontWatch = shureArray(config.root.dontWatch);
+function getFilesToWatch(taskName, configuration = config, key = '') {
+    let conf = configuration.tasks[taskName];
+    let watchConfig = shureArray(configuration.root.watch);
+    let dontWatch = shureArray(configuration.root.dontWatch);
     let filesToWatch = [];
-
     if (conf && watchConfig && watchConfig.length) {
         if (conf.watchOnlySrc) {
             filesToWatch.push(
                 path.join(
-                    config.root.base,
-                    config.root.src,
+                    configuration.root.base,
+                    key,
+                    configuration.root.src,
                     conf.src,
                     "/**",
                     getExtensions(conf.extensions)
@@ -213,7 +213,8 @@ function getFilesToWatch(taskName) {
         } else {
             filesToWatch = watchConfig.map(value =>
                 path.join(
-                    config.root.base,
+                    configuration.root.base,
+                    key,
                     value,
                     getExtensions(conf.extensions)
                 )
@@ -226,7 +227,8 @@ function getFilesToWatch(taskName) {
                     filesToWatch.push(
                         "!" +
                             path.join(
-                                config.root.base,
+                                configuration.root.base,
+                                key,
                                 value,
                                 getExtensions(conf.extensions)
                             )
@@ -240,7 +242,8 @@ function getFilesToWatch(taskName) {
                 filesToWatch.push(
                     "!" +
                         path.join(
-                            config.root.base,
+                            configuration.root.base,
+                            key,
                             value,
                             "**/_{all,allsub}.scss"
                         )
@@ -311,11 +314,12 @@ function notifyText(object) {
 }
 
 module.exports = {
-    globalImport: globalImport,
-    getTimestamp: getTimestamp,
     getExtensions: getExtensions,
-    mergeConfigAndLoadTasks: mergeConfigAndLoadTasks,
     getFilesToWatch: getFilesToWatch,
+    getTimestamp: getTimestamp,
+    globalImport: globalImport,
+    mergeConfigAndLoadTasks: mergeConfigAndLoadTasks,
+    notifyText: notifyText,
     pluralize: pluralize,
-    notifyText: notifyText
+    shureArray: shureArray
 };

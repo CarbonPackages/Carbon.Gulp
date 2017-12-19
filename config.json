@@ -39,8 +39,8 @@
         "base": "./.src/",
         "src": "Resources/Private",
         "dest": "Resources/Public",
-        "watch": ["**/Private/**"],
-        "dontWatch": ["**/Private/Templates/**", "**/WebRoot/**"],
+        "watch": "Resources/Private/**",
+        "dontWatch": "Resources/Private/Templates/**",
         "inlinePath": "Templates/InlineAssets",
         "inlineAssets": false
     },
