@@ -4,123 +4,163 @@ if (!config.tasks.js) {
     return false;
 }
 
-const amd = require("rollup-plugin-amd");
-const buble = require("rollup-plugin-buble");
-const babel = require("rollup-plugin-babel");
-const cjs = require("rollup-plugin-commonjs");
-const globals = require("rollup-plugin-node-globals");
-const gulpRollup = require("gulp-rollup");
-const includePaths = require("rollup-plugin-includepaths");
-const replace = require("rollup-plugin-replace");
-const resolve = require("rollup-plugin-node-resolve");
-const rollupSourcemaps = require("rollup-plugin-sourcemaps");
-const uglify = require("rollup-plugin-uglify");
-
-let rollupConfig = config.tasks.js.rollup;
-let paths = {
-    src: path.join(
-        config.root.base,
-        config.root.src,
-        config.tasks.js.src,
-        config.tasks.js.file || getExtensions(config.tasks.js.extensions)
-    ),
-    dest: path.join(config.root.base, config.root.dest, config.tasks.js.dest)
+const ROLLUP_PLUGIN = {
+    AMD: require("rollup-plugin-amd"),
+    BABEL: require("rollup-plugin-babel"),
+    BUBLE: require("rollup-plugin-buble"),
+    CJS: require("rollup-plugin-commonjs"),
+    GLOBALS: require("rollup-plugin-node-globals"),
+    GULP: require("gulp-rollup"),
+    INCLUDEPATHS: require("rollup-plugin-includepaths"),
+    REPLACE: require("rollup-plugin-replace"),
+    RESOLVE: require("rollup-plugin-node-resolve"),
+    SOURCEMAPS: require("rollup-plugin-sourcemaps"),
+    UGLIFY: require("rollup-plugin-uglify")
 };
 
-if (rollupConfig) {
-    if (
-        rollupConfig.plugins.includePaths.paths.length &&
-        rollupConfig.plugins.includePaths.paths[0] == ""
-    ) {
-        rollupConfig.plugins.includePaths.paths[0] = path.join(
-            config.root.base,
-            config.root.src
-        );
+const PACKAGES_CONFIG = [];
+for (let key in config.packages) {
+    const CONFIG = config.packages[key];
+    const JS_CONFIG = CONFIG.tasks.js;
+
+    if (JS_CONFIG) {
+        let rollup = {
+            config: JS_CONFIG.rollup,
+            plugins: []
+        };
+
+        if (rollup.config) {
+            if (
+                rollup.config.plugins.includePaths.paths.length &&
+                rollup.config.plugins.includePaths.paths[0] == ""
+            ) {
+                rollup.config.plugins.includePaths.paths[0] = path.join(
+                    CONFIG.root.base,
+                    CONFIG.root.src
+                );
+            }
+            rollup.plugins = [
+                ROLLUP_PLUGIN.INCLUDEPATHS(rollup.config.plugins.includePaths),
+                ROLLUP_PLUGIN.RESOLVE(rollup.config.plugins.nodeResolve),
+                ROLLUP_PLUGIN.REPLACE({
+                    "process.env.NODE_ENV": JSON.stringify(
+                        mode.minimize ? "production" : "development"
+                    )
+                })
+            ];
+
+            if (rollup.config.plugins.commonjs) {
+                if (typeof rollup.config.plugins.commonjs == "boolean") {
+                    rollup.plugins.push(ROLLUP_PLUGIN.CJS());
+                } else {
+                    rollup.plugins.push(
+                        ROLLUP_PLUGIN.CJS(rollup.config.plugins.commonjs)
+                    );
+                }
+            }
+            if (rollup.config.plugins.amd) {
+                if (typeof rollup.config.plugins.amd == "boolean") {
+                    rollup.plugins.push(ROLLUP_PLUGIN.AMD());
+                } else {
+                    rollup.plugins.push(
+                        ROLLUP_PLUGIN.AMD(rollup.config.plugins.amd)
+                    );
+                }
+            }
+
+            if (config.tasks.js.compiler.toLowerCase() == "babel") {
+                rollup.plugins.push(ROLLUP_PLUGIN.BABEL(config.tasks.js.babel));
+            } else {
+                rollup.plugins.push(ROLLUP_PLUGIN.BUBLE(config.tasks.js.buble));
+            }
+
+            rollup.plugins.push(ROLLUP_PLUGIN.GLOBALS());
+            rollup.plugins.push(ROLLUP_PLUGIN.SOURCEMAPS());
+        }
+
+        if (mode.minimize) {
+            rollup.plugins.push(ROLLUP_PLUGIN.UGLIFY({ mangle: true }));
+        }
+
+        PACKAGES_CONFIG.push({
+            key: key,
+            info: CONFIG.info,
+            rollup: rollup,
+            src: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.src,
+                JS_CONFIG.src,
+                JS_CONFIG.file || getExtensions(JS_CONFIG.extensions)
+            ),
+            dest: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.dest,
+                JS_CONFIG.dest
+            ),
+            inlinePath: CONFIG.root.inlineAssets
+                ? path.join(
+                      CONFIG.root.base,
+                      key,
+                      CONFIG.root.src,
+                      CONFIG.root.inlinePath
+                  )
+                : false
+        });
     }
-}
-
-let rollupPlugins = [
-    includePaths(rollupConfig.plugins.includePaths),
-    resolve(rollupConfig.plugins.nodeResolve),
-    replace({
-        "process.env.NODE_ENV": JSON.stringify(mode.minimize ? 'production' : 'development')
-    })
-];
-
-if (rollupConfig.plugins.commonjs) {
-    if (typeof rollupConfig.plugins.commonjs == "boolean") {
-        rollupPlugins.push(cjs());
-    } else {
-        rollupPlugins.push(cjs(rollupConfig.plugins.commonjs));
-    }
-}
-if (rollupConfig.plugins.amd) {
-    if (typeof rollupConfig.plugins.amd == "boolean") {
-        rollupPlugins.push(amd());
-    } else {
-        rollupPlugins.push(amd(rollupConfig.plugins.amd));
-    }
-}
-
-if (config.tasks.js.compiler.toLowerCase() == "babel") {
-    rollupPlugins.push(babel(config.tasks.js.babel));
-} else {
-    rollupPlugins.push(buble(config.tasks.js.buble));
-}
-
-rollupPlugins.push(globals());
-rollupPlugins.push(rollupSourcemaps());
-
-if (mode.minimize) {
-    rollupPlugins.push(uglify({ mangle: true }));
 }
 
 function js() {
-    return gulp
-        .src(paths.src, { since: cache.lastMtime("js") })
-        .pipe(plumber(handleErrors))
-        .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : util.noop())
-        .pipe(
-            gulpRollup({
-                rollup: require("rollup"),
-                input: new Promise((resolve, reject) => {
-                    glob(paths.src, (error, files) => {
-                        resolve(files);
-                    });
-                }),
-                allowRealFiles: true,
-                plugins: rollupPlugins,
-                format: rollupConfig.format
+    let tasks = PACKAGES_CONFIG.map(packageConfig => {
+        return gulp
+            .src(packageConfig.src, {
+                since: cache.lastMtime(`${packageConfig.key}.js`)
             })
-        )
-        .pipe(
-            config.root.inlineAssets
-                ? gulp.dest(
-                      path.join(
-                          config.root.base,
-                          config.root.src,
-                          config.root.inlinePath
-                      )
-                  )
-                : util.noop()
-        )
-        .pipe(
-            config.banner
-                ? header(config.banner, {
-                      info: config.info,
-                      timestamp: getTimestamp()
-                  })
-                : util.noop()
-        )
-        .pipe(mode.maps ? sourcemaps.write("") : util.noop())
-        .pipe(gulp.dest(paths.dest))
-        .pipe(browserSync ? browserSync.stream() : util.noop())
-        .pipe(
-            size({
-                title: "JS:",
-                showFiles: true
-            })
-        );
+            .pipe(plumber(handleErrors))
+            .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : util.noop())
+            .pipe(
+                ROLLUP_PLUGIN.GULP({
+                    rollup: require("rollup"),
+                    input: new Promise((resolve, reject) => {
+                        glob(packageConfig.src, (error, files) => {
+                            resolve(files);
+                        });
+                    }),
+                    allowRealFiles: true,
+                    plugins: packageConfig.rollup.plugins,
+                    format: packageConfig.rollup.config.format
+                })
+            )
+            .pipe(chmod(config.global.chmod))
+            .pipe(
+                packageConfig.inlinePath
+                    ? gulp.dest(packageConfig.inlinePath)
+                    : util.noop()
+            )
+            .pipe(
+                packageConfig.info.banner &&
+                packageConfig.info.author &&
+                packageConfig.info.homepage
+                    ? header(packageConfig.info.banner, {
+                          package: packageConfig.key,
+                          author: packageConfig.info.author,
+                          homepage: packageConfig.info.homepage,
+                          timestamp: getTimestamp()
+                      })
+                    : util.noop()
+            )
+            .pipe(mode.maps ? sourcemaps.write("") : util.noop())
+            .pipe(gulp.dest(packageConfig.dest))
+            .pipe(browserSync ? browserSync.stream() : util.noop())
+            .pipe(
+                size({
+                    title: `${packageConfig.key} JS:`,
+                    showFiles: true
+                })
+            );
+    });
+    return merge(tasks);
 }
 
 module.exports = js;
