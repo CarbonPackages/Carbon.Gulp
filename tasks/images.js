@@ -20,14 +20,22 @@ for (let key in config.packages) {
                 "/**",
                 getExtensions(IMAGES_CONFIG.extensions)
             ),
-            dest: path.join(CONFIG.root.base, key, CONFIG.root.dest, IMAGES_CONFIG.dest)
+            dest: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.dest,
+                IMAGES_CONFIG.dest
+            )
         });
     }
 }
 
 function images() {
     let tasks = PACKAGES_CONFIG.map(packageConfig => {
-        return gulp.src(packageConfig.src, { since: cache.lastMtime(`${packageConfig.key}.images`)})
+        return gulp
+            .src(packageConfig.src, {
+                since: cache.lastMtime(`${packageConfig.key}.images`)
+            })
             .pipe(plumber(handleErrors))
             .pipe(cache(`${packageConfig.key}.images`))
             .pipe(changed(packageConfig.dest)) // Ignore unchanged files
@@ -36,7 +44,7 @@ function images() {
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({
-                    title: `${packageConfig.key} Images: `,
+                    title: `${packageConfig.key} Images:`,
                     showFiles: false
                 })
             );

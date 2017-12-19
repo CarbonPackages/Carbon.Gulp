@@ -20,14 +20,22 @@ for (let key in config.packages) {
                 "/**",
                 getExtensions(FONTS_CONFIG.extensions)
             ),
-            dest: path.join(CONFIG.root.base, key, CONFIG.root.dest, FONTS_CONFIG.dest)
+            dest: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.dest,
+                FONTS_CONFIG.dest
+            )
         });
     }
 }
 
 function fonts() {
     let tasks = PACKAGES_CONFIG.map(packageConfig => {
-        return gulp.src(packageConfig.src, { since: cache.lastMtime(`${packageConfig.key}.fonts`)})
+        return gulp
+            .src(packageConfig.src, {
+                since: cache.lastMtime(`${packageConfig.key}.fonts`)
+            })
             .pipe(plumber(handleErrors))
             .pipe(cache(`${packageConfig.key}.fonts`))
             .pipe(changed(packageConfig.dest)) // Ignore unchanged files
@@ -36,7 +44,7 @@ function fonts() {
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({
-                    title: `${packageConfig.key} Fonts: `,
+                    title: `${packageConfig.key} Fonts:`,
                     showFiles: false
                 })
             );

@@ -12,11 +12,15 @@ for (let key in config.packages) {
     const CLEAN = CONFIG.tasks.clean;
 
     if (Array.isArray(CLEAN)) {
-        paths = paths.concat(CLEAN.map(entry =>
-            path.join(CONFIG.root.base, key, CONFIG.root.dest, entry)
-        ));
+        paths = paths.concat(
+            CLEAN.map(entry =>
+                path.join(CONFIG.root.base, key, CONFIG.root.dest, entry)
+            )
+        );
     } else if (typeof CLEAN == "string") {
-        paths = paths.concat(path.join(CONFIG.root.base, key, CONFIG.root.dest, CLEAN));
+        paths = paths.concat(
+            path.join(CONFIG.root.base, key, CONFIG.root.dest, CLEAN)
+        );
     }
 }
 

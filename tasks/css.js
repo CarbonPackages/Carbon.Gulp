@@ -43,13 +43,14 @@ for (let key in config.packages) {
 
     if (CSS_CONFIG) {
         // Assets Path
-        let assetsPath = path.join(
+        let assetsPath = path.join(CONFIG.root.base, key, CONFIG.root.dest);
+        // Dest Path
+        let destPath = path.join(
             CONFIG.root.base,
             key,
-            CONFIG.root.dest
+            CONFIG.root.dest,
+            CSS_CONFIG.dest
         );
-        // Dest Path
-        let destPath = path.join(CONFIG.root.base, key, CONFIG.root.dest, CSS_CONFIG.dest);
 
         // Saas Configuration
         let saasConfig = CSS_CONFIG.sass;
@@ -59,10 +60,13 @@ for (let key in config.packages) {
         // PostCSS Configuration
         const POSTCSS_CONFIGURATION = CSS_CONFIG.postcss;
 
-        let postcssAssetConfig = objectAssignDeep({},CSS_CONFIG.postcss.assets);
+        let postcssAssetConfig = objectAssignDeep(
+            {},
+            CSS_CONFIG.postcss.assets
+        );
         if (Array.isArray(postcssAssetConfig.loadPaths)) {
-            postcssAssetConfig.loadPaths = postcssAssetConfig.loadPaths.map(value =>
-                path.join(assetsPath, value)
+            postcssAssetConfig.loadPaths = postcssAssetConfig.loadPaths.map(
+                value => path.join(assetsPath, value)
             );
         } else {
             postcssAssetConfig.loadPaths = path.join(
@@ -90,12 +94,13 @@ for (let key in config.packages) {
             POSTCSS_PLUGIN.QUANTITY_QUERIES,
             POSTCSS_PLUGIN.FIXES(CSS_CONFIG.postcss.fixes),
             POSTCSS_PLUGIN.CSS_MQPACKER({
-                sort: CSS_CONFIG.postcss.mqpacker.sort ? POSTCSS_PLUGIN.SORT_CSS_MEDIA_QUERIES : false
+                sort: CSS_CONFIG.postcss.mqpacker.sort
+                    ? POSTCSS_PLUGIN.SORT_CSS_MEDIA_QUERIES
+                    : false
             }),
             POSTCSS_PLUGIN.ROUND_SUBPIXELS,
             POSTCSS_PLUGIN.REPORTER
         ];
-
 
         if (CSS_CONFIG.postcss.activateRtlCss) {
             postcss.unshift(POSTCSS_PLUGIN.RTL);
@@ -106,7 +111,9 @@ for (let key in config.packages) {
         }
 
         if (CSS_CONFIG.postcss.autoprefixer) {
-            postcss.push(POSTCSS_PLUGIN.AUTOPREFIXER(CSS_CONFIG.postcss.autoprefixer));
+            postcss.push(
+                POSTCSS_PLUGIN.AUTOPREFIXER(CSS_CONFIG.postcss.autoprefixer)
+            );
         }
 
         PACKAGES_CONFIG.push({
@@ -124,12 +131,14 @@ for (let key in config.packages) {
                 CSS_CONFIG.file || getExtensions(CSS_CONFIG.extensions)
             ),
             dest: destPath,
-            inlinePath: CONFIG.root.inlineAssets ? path.join(
-                CONFIG.root.base,
-                key,
-                CONFIG.root.src,
-                CONFIG.root.inlinePath
-            ) : false,
+            inlinePath: CONFIG.root.inlineAssets
+                ? path.join(
+                      CONFIG.root.base,
+                      key,
+                      CONFIG.root.src,
+                      CONFIG.root.inlinePath
+                  )
+                : false,
             beautifyOptions: CSS_CONFIG.cssbeautifyOptions
         });
     }
@@ -137,7 +146,10 @@ for (let key in config.packages) {
 
 function css() {
     let tasks = PACKAGES_CONFIG.map(packageConfig => {
-        return gulp.src(packageConfig.src, { since: cache.lastMtime(`${packageConfig.key}.css`)})
+        return gulp
+            .src(packageConfig.src, {
+                since: cache.lastMtime(`${packageConfig.key}.css`)
+            })
             .pipe(plumber(handleErrors))
             .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : util.noop())
             .pipe(sass(packageConfig.saas))
@@ -153,11 +165,16 @@ function css() {
                     ? beautify(packageConfig.beautifyOptions)
                     : util.noop()
             )
+            .pipe(chmod(config.global.chmod))
             .pipe(
-                packageConfig.inlinePath ? gulp.dest(packageConfig.inlinePath) : util.noop()
+                packageConfig.inlinePath
+                    ? gulp.dest(packageConfig.inlinePath)
+                    : util.noop()
             )
             .pipe(
-                packageConfig.info.banner && packageConfig.info.author && packageConfig.info.homepage
+                packageConfig.info.banner &&
+                packageConfig.info.author &&
+                packageConfig.info.homepage
                     ? header(packageConfig.info.banner, {
                           package: packageConfig.key,
                           author: packageConfig.info.author,
@@ -166,18 +183,16 @@ function css() {
                       })
                     : util.noop()
             )
-            .pipe(chmod(config.global.chmod))
             .pipe(mode.maps ? sourcemaps.write("") : util.noop())
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(browserSync ? browserSync.stream() : util.noop())
             .pipe(
                 size({
-                    title: `${packageConfig.key} CSS: `,
+                    title: `${packageConfig.key} CSS:`,
                     showFiles: true
                 })
-            )
-        }
-    );
+            );
+    });
 
     return merge(tasks);
 }

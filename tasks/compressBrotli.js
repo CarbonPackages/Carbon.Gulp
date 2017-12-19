@@ -11,7 +11,14 @@ let paths = [];
 for (let key in config.packages) {
     const CONFIG = config.packages[key];
     if (CONFIG.tasks.compress && CONFIG.tasks.compress.brotli) {
-        paths = paths.concat(path.join(CONFIG.root.base, key, CONFIG.root.dest, "/**/*.{js,css,svg,html}"));
+        paths = paths.concat(
+            path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.dest,
+                "/**/*.{js,css,svg,html}"
+            )
+        );
     }
 }
 
