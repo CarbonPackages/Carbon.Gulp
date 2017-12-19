@@ -2,57 +2,86 @@
 
 if (
     !config.tasks.optimizeSvg ||
-    !config.tasks.svgSprite ||
     (config.tasks.optimizeSvg != "src" && config.tasks.optimizeSvg != "dest")
 ) {
     return false;
 }
 
-let paths = {
-    src: [
-        path.join(
-            config.root.base,
-            config.root[config.tasks.optimizeSvg],
-            "**/*.svg"
-        ),
-        // we don't want the Sprite to be optimized
-        path.join(
-            "!" + config.root.base,
-            config.root.dest,
-            config.tasks.svgSprite.dest,
-            config.tasks.svgSprite.src + ".svg"
-        ),
-        path.join(
-            "!" + config.root.base,
-            config.root.src,
-            config.root.inlinePath,
-            config.tasks.svgSprite.src + ".svg"
-        )
-    ],
-    dest: path.join(config.root.base, config.root[config.tasks.optimizeSvg])
-};
+const PACKAGES_CONFIG = [];
+for (let key in config.packages) {
+    const CONFIG = config.packages[key];
+    const CONFIG_OPTIMIZE_SVG = CONFIG.tasks.optimizeSvg;
 
-const svgmin = require("gulp-svgmin");
-const prettyOptions = {
+    if (
+        CONFIG_OPTIMIZE_SVG &&
+        (CONFIG_OPTIMIZE_SVG == "src" || CONFIG_OPTIMIZE_SVG == "dest")
+    ) {
+        let configuration = {
+            key: key,
+            src: [
+                path.join(
+                    CONFIG.root.base,
+                    key,
+                    CONFIG.root[CONFIG_OPTIMIZE_SVG],
+                    "**/*.svg"
+                )
+            ],
+            dest: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root[CONFIG_OPTIMIZE_SVG]
+            ),
+            pretty: CONFIG_OPTIMIZE_SVG == "src" ? true : false
+        };
+
+        // we don't want the Sprite to be optimized
+        if (CONFIG.tasks.svgSprite) {
+            configuration.src.push(
+                path.join(
+                    "!" + CONFIG.root.base,
+                    CONFIG.root.dest,
+                    CONFIG.tasks.svgSprite.dest,
+                    CONFIG.tasks.svgSprite.src + ".svg"
+                )
+            );
+            configuration.src.push(
+                path.join(
+                    "!" + CONFIG.root.base,
+                    CONFIG.root.src,
+                    CONFIG.root.inlinePath,
+                    CONFIG.tasks.svgSprite.src + ".svg"
+                )
+            );
+        }
+
+        PACKAGES_CONFIG.push(configuration);
+    }
+}
+
+const SVGMIN = require("gulp-svgmin");
+const PRETTY_OPTIONS = {
     js2svg: {
         pretty: true
     }
 };
-const pretty = config.tasks.optimizeSvg == "src" ? true : false;
 
-function optimizeSvg() {
-    return gulp
-        .src(paths.src)
-        .pipe(plumber(handleErrors))
-        .pipe(pretty ? svgmin(prettyOptions) : svgmin())
-        .pipe(chmod(config.chmod))
-        .pipe(gulp.dest(paths.dest))
-        .pipe(
-            size({
-                title: "Optimize SVG Images:",
-                showFiles: true
-            })
-        );
+function optimize() {
+    let tasks = PACKAGES_CONFIG.map(packageConfig => {
+        return gulp
+            .src(packageConfig.src)
+            .pipe(plumber(handleErrors))
+            .pipe(packageConfig.pretty ? SVGMIN(PRETTY_OPTIONS) : SVGMIN())
+            .pipe(chmod(config.global.chmod))
+            .pipe(gulp.dest(packageConfig.dest))
+            .pipe(
+                size({
+                    title: `${packageConfig.key} Optimize SVG Images:`,
+                    showFiles: true
+                })
+            );
+    });
+
+    return merge(tasks);
 }
 
-module.exports = optimizeSvg;
+module.exports = optimize;
