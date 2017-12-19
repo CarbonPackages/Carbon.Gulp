@@ -4,25 +4,40 @@ if (!config.tasks.jsLint) {
     return false;
 }
 
-const func = require("../functions");
-const eslint = require("gulp-eslint");
-const filesToWatch = func.getFilesToWatch("js");
+const PACKAGES_CONFIG = [];
+const FUNCTIONS = require("../functions");
+const ESLINT = require("gulp-eslint");
 
-function esLint(argument) {
-    return gulp
-        .src(filesToWatch)
-        .pipe(plumber(handleErrors))
-        .pipe(eslint())
-        .pipe(
-            eslint.results(results => {
-                func.notifyText({
-                    warnings: results.warningCount,
-                    errors: results.errorCount,
-                    subtitle: "ES Lint"
-                });
-            })
-        )
-        .pipe(eslint.format());
+for (let key in config.packages) {
+    const CONFIG = config.packages[key];
+
+    if (CONFIG.tasks.jsLint) {
+        PACKAGES_CONFIG.push({
+            key: key,
+            watch: FUNCTIONS.getFilesToWatch("js", CONFIG, key)
+        });
+    }
 }
 
-module.exports = esLint;
+function lint() {
+    let tasks = PACKAGES_CONFIG.map(packageConfig => {
+        return gulp
+            .src(packageConfig.watch)
+            .pipe(plumber(handleErrors))
+            .pipe(ESLINT())
+            .pipe(
+                ESLINT.results(results => {
+                    FUNCTIONS.notifyText({
+                        warnings: results.warningCount,
+                        errors: results.errorCount,
+                        subtitle: `${packageConfig.key}: ES Lint`
+                    });
+                })
+            )
+            .pipe(ESLINT.format());
+    });
+
+    return merge(tasks);
+}
+
+module.exports = lint;
