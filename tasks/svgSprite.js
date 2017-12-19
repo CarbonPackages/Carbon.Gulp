@@ -4,54 +4,71 @@ if (!config.tasks.svgSprite) {
     return false;
 }
 
-const svgstore = require("gulp-svgstore");
-let paths = {
-    src: path.join(
-        config.root.base,
-        config.root.src,
-        config.tasks.svgSprite.src,
-        getExtensions(config.tasks.svgSprite.extensions)
-    ),
-    dest: path.join(
-        config.root.base,
-        config.root.dest,
-        config.tasks.svgSprite.dest
-    )
-};
-function svgSprite() {
-    return gulp
-        .src(paths.src, { since: cache.lastMtime("svgSprite") })
-        .pipe(plumber(handleErrors))
-        .pipe(
-            rename(path => {
-                path.basename = "icon-" + path.basename.toLowerCase();
-            })
-        )
-        .pipe(cache("svgSprite"))
-        .pipe(
-            imagemin([
-                imagemin.svgo({ plugins: [config.tasks.svgSprite.svgo] })
-            ])
-        )
-        .pipe(svgstore())
-        .pipe(
-            config.root.inlineAssets
-                ? gulp.dest(
-                      path.join(
-                          config.root.base,
-                          config.root.src,
-                          config.root.inlinePath
-                      )
+const SVGSTORE = require("gulp-svgstore");
+const PACKAGES_CONFIG = [];
+for (let key in config.packages) {
+    const CONFIG = config.packages[key];
+    const SPRITE_CONFIG = CONFIG.tasks.svgSprite;
+
+    if (SPRITE_CONFIG) {
+        PACKAGES_CONFIG.push({
+            key: key,
+            src: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.src,
+                SPRITE_CONFIG.src,
+                getExtensions(SPRITE_CONFIG.extensions)
+            ),
+            dest: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.dest,
+                SPRITE_CONFIG.dest
+            ),
+            inlinePath: CONFIG.root.inlineAssets
+                ? path.join(
+                      CONFIG.root.base,
+                      key,
+                      CONFIG.root.src,
+                      CONFIG.root.inlinePath
                   )
-                : util.noop()
-        )
-        .pipe(gulp.dest(paths.dest))
-        .pipe(
-            size({
-                title: "SVG:",
-                showFiles: true
+                : false,
+            svgo: SPRITE_CONFIG.svgo
+        });
+    }
+}
+
+function svgSprite() {
+    let tasks = PACKAGES_CONFIG.map(packageConfig => {
+        return gulp
+            .src(packageConfig.src, {
+                since: cache.lastMtime(`${packageConfig.key}.svgSprite`)
             })
-        );
+            .pipe(plumber(handleErrors))
+            .pipe(
+                rename(path => {
+                    path.basename = "icon-" + path.basename.toLowerCase();
+                })
+            )
+            .pipe(cache(`${packageConfig.key}.svgSprite`))
+            .pipe(imagemin([imagemin.svgo({ plugins: [packageConfig.svgo] })]))
+            .pipe(SVGSTORE())
+            .pipe(chmod(config.global.chmod))
+            .pipe(
+                packageConfig.inlinePath
+                    ? gulp.dest(packageConfig.inlinePath)
+                    : util.noop()
+            )
+            .pipe(gulp.dest(packageConfig.dest))
+            .pipe(
+                size({
+                    title: `${packageConfig.key} SVG:`,
+                    showFiles: true
+                })
+            );
+    });
+    return merge(tasks);
 }
 
 module.exports = svgSprite;
