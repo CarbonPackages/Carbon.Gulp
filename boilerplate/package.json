@@ -65,7 +65,8 @@
     "js": "yarn gulp js",
     "optimizeImages": "yarn gulp optimizeImages",
     "optimizeSvg": "yarn gulp optimizeSvg",
-    "compress": "yarn gulp compress"
+    "compress": "yarn gulp compress",
+    "showConfig": "yarn gulp showConfig"
   },
   "dependencies": {},
   "devDependencies": {
@@ -132,6 +133,7 @@
     "postcss-short": "^4.1.0",
     "postcss-vmax": "^1.0.0",
     "prettier": "^1.9.2",
+    "prettyjson": "^1.2.1",
     "rollup": "^0.52.3",
     "rollup-plugin-amd": "^2.0.0",
     "rollup-plugin-babel": "^3.0.3",

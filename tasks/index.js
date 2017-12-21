@@ -24,6 +24,7 @@ for (let taskName of [
     "optimizeImages",
     "optimizeSvg",
     "scssLint",
+    "showConfig",
     "static",
     "svgSprite"
 ]) {
@@ -45,20 +46,25 @@ for (let taskWithTimeout of ["scss"]) {
 
 task.info = callback => {
     let content = [];
-    if (config.info.description) {
-        content.push(["  Project", ":", config.info.description]);
+
+    if (config.info.homepage) {
+        content.push(["  Homepage", ":", config.info.homepage]);
     }
     if (config.info.author) {
         content.push(["  Author", ":", config.info.author]);
     }
-    if (config.info.homepage) {
-        content.push(["  Homepage", ":", config.info.homepage]);
-    }
+
     if (content.length) {
         let table = textTable(content, { align: ["r", "c", "l"] });
-        console.log("\n\n" + util.colors.dim(table) + "\n\n");
+        util.log(`\n\n${util.colors.dim(table)}\n\n`);
     }
     callback();
+};
+
+gulp.task("showConfig", task.showConfig);
+gulp.task("showConfig").description = "Show the merged configuration";
+gulp.task("showConfig").flags = {
+    "--p, --path": ` Pass path from the json file to reduce output. Slash ("/") seperated`
 };
 
 if (config.tasks.css) {

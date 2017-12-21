@@ -48,6 +48,8 @@ You must see something like this:
 
 ```bash
 Tasks
+├── showConfig       Show the merged configuration
+│   --p, --path      … Pass path from the json file to reduce output. Slash ("/") seperated
 ├── css              Render CSS Files
 │   --b, --beautify  … Beautify and dont't compress files
 │   --d, --debug     … Files dont't get compressed
@@ -101,6 +103,7 @@ Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 | `yarn compress`       |         | Compress all CSS/JS/SVG with Brotli and Zopfli                 |
 | `yarn optimizeImages` |         | Optimize images and overwrite them in the public folder        |
 | `yarn optimizeSvg`    |         | Optimize SVGs and overwrite them                               |
+| `yarn showConfig`     |         | Shows the merged configuration.                                |
 
 **You can also run `yarn gulp GULP_TASK_NAME`, for example `yarn gulp watch --nomaps`.**
 
@@ -216,6 +219,12 @@ The settings from the different jsons get merged together.
 
 This configuration enable notifications and disable the
 proxy based by project folder name.
+
+### Show the merged configuration
+
+You can output the merged configuration with `yarn showConfig`. To reduce output
+to a path, you can pass a slash-seperated path ("/") with the argument `--path`:  
+Example: `yarn showConfig --path tasks/js/rollup/plugins`
 
 ## Compression
 

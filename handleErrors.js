@@ -3,9 +3,7 @@
 function handleErrors(error) {
     // Output an error message in the console
     util.log(
-        util.colors.red(
-            error.name + " (" + error.plugin + "): " + error.message
-        )
+        util.colors.red(`${error.name} (${error.plugin}): ${error.message}`)
     );
 
     if (config.global.notifications) {
