@@ -4,47 +4,79 @@ if (!config.tasks.images) {
     return false;
 }
 
-let paths = {
-    src: path.join(
-        config.root.base,
-        config.root.src,
-        config.tasks.images.src,
-        "/**",
-        getExtensions(config.tasks.images.extensions)
-    ),
-    dest: path.join(
-        config.root.base,
-        config.root.dest,
-        config.tasks.images.dest
-    )
-};
-let conf = config.tasks.css.postcss.imagemin;
+const PACKAGES_CONFIG = [];
+for (let key in config.packages) {
+    const CONFIG = config.packages[key];
+    const IMAGES_CONFIG = CONFIG.tasks.images;
+    const IMAGEMIN_CONFIG = {
+        gifsicle: {},
+        jpegtran: {},
+        optipng: {},
+        svgo: {}
+    };
+    try {
+        IMAGEMIN_CONFIG.gifsicle = CONFIG.tasks.css.postcss.imagemin.gifsicle;
+    } catch (error) {}
+    try {
+        IMAGEMIN_CONFIG.jpegtran = CONFIG.tasks.css.postcss.imagemin.jpegtran;
+    } catch (error) {}
+    try {
+        IMAGEMIN_CONFIG.optipng = CONFIG.tasks.css.postcss.imagemin.optipng;
+    } catch (error) {}
+    try {
+        IMAGEMIN_CONFIG.svgo = CONFIG.tasks.css.postcss.imagemin.svgo;
+    } catch (error) {}
+
+    if (IMAGES_CONFIG) {
+        PACKAGES_CONFIG.push({
+            imagemin: IMAGEMIN_CONFIG,
+            key: key,
+            src: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.src,
+                IMAGES_CONFIG.src,
+                "/**",
+                getExtensions(IMAGES_CONFIG.extensions)
+            ),
+            dest: path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.dest,
+                IMAGES_CONFIG.dest
+            )
+        });
+    }
+}
 
 function optimizeImages() {
-    return gulp
-        .src(paths.src)
-        .pipe(plumber(handleErrors))
-        .pipe(
-            imagemin(
-                [
-                    imagemin.gifsicle(conf.gifsicle),
-                    imagemin.jpegtran(conf.jpegtran),
-                    imagemin.optipng(conf.optipng),
-                    imagemin.svgo(conf.svgo)
-                ],
-                {
-                    verbose: true
-                }
+    let tasks = PACKAGES_CONFIG.map(packageConfig => {
+        return gulp
+            .src(packageConfig.src)
+            .pipe(plumber(handleErrors))
+            .pipe(
+                imagemin(
+                    [
+                        imagemin.gifsicle(packageConfig.imagemin.gifsicle),
+                        imagemin.jpegtran(packageConfig.imagemin.jpegtran),
+                        imagemin.optipng(packageConfig.imagemin.optipng),
+                        imagemin.svgo(packageConfig.imagemin.svgo)
+                    ],
+                    {
+                        verbose: true
+                    }
+                )
             )
-        )
-        .pipe(chmod(config.chmod))
-        .pipe(gulp.dest(paths.dest))
-        .pipe(
-            size({
-                title: "Images:",
-                showFiles: false
-            })
-        );
+            .pipe(chmod(config.global.chmod))
+            .pipe(gulp.dest(packageConfig.dest))
+            .pipe(
+                size({
+                    title: `${packageConfig.key} Images:`,
+                    showFiles: false
+                })
+            );
+    });
+    return merge(tasks);
 }
 
 module.exports = optimizeImages;

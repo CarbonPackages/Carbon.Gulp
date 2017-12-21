@@ -8,7 +8,7 @@ function handleErrors(error) {
         )
     );
 
-    if (config.root.notifications) {
+    if (config.global.notifications) {
         notifier.notify({
             title: error.name,
             subtitle: error.plugin,
@@ -19,7 +19,9 @@ function handleErrors(error) {
         });
     }
 
-    this.emit("end");
+    if (this && typeof this.emit == "function") {
+        this.emit("end");
+    }
 }
 
 module.exports = handleErrors;

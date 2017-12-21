@@ -4,14 +4,28 @@ if (!config.tasks.compress || !config.tasks.compress.brotli) {
     return false;
 }
 
-const brotli = require("gulp-brotli");
+const BROTLI = require("gulp-brotli");
 
-let src = path.join(config.root.base, config.root.dest, "/**/*.{js,css,svg,html}");
+let paths = [];
+
+for (let key in config.packages) {
+    const CONFIG = config.packages[key];
+    if (CONFIG.tasks.compress && CONFIG.tasks.compress.brotli) {
+        paths = paths.concat(
+            path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.dest,
+                "/**/*.{js,css,svg,html}"
+            )
+        );
+    }
+}
 
 function compressBrotli() {
     return gulp
-        .src(src)
-        .pipe(brotli.compress(config.tasks.compress.brotli))
+        .src(paths)
+        .pipe(BROTLI.compress(config.tasks.compress.brotli))
         .pipe(
             gulp.dest(function(file) {
                 return file.base;

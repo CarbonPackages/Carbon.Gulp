@@ -1,5 +1,5 @@
 "use strict";
-const func = require("../functions");
+const FUNCTIONS = require("../functions");
 
 let task = {
     noop: callback => {
@@ -14,18 +14,18 @@ let task = {
 
 for (let taskName of [
     "clean",
+    "compressBrotli",
+    "compressZopfli",
     "css",
-    "js",
-    "jsLint",
-    "scssLint",
     "fonts",
     "images",
+    "js",
+    "jsLint",
     "optimizeImages",
     "optimizeSvg",
+    "scssLint",
     "static",
-    "svgSprite",
-    "compressBrotli",
-    "compressZopfli"
+    "svgSprite"
 ]) {
     let func = require("./" + taskName);
     if (typeof func !== "function") {
@@ -44,15 +44,20 @@ for (let taskWithTimeout of ["scss"]) {
 }
 
 task.info = callback => {
-    let table = textTable(
-        [
-            ["  Project", ":", config.info.description],
-            ["  Author", ":", config.info.author],
-            ["  Homepage", ":", config.info.homepage]
-        ],
-        { align: ["r", "c", "l"] }
-    );
-    console.log("\n\n" + util.colors.dim(table) + "\n\n");
+    let content = [];
+    if (config.info.description) {
+        content.push(["  Project", ":", config.info.description]);
+    }
+    if (config.info.author) {
+        content.push(["  Author", ":", config.info.author]);
+    }
+    if (config.info.homepage) {
+        content.push(["  Homepage", ":", config.info.homepage]);
+    }
+    if (content.length) {
+        let table = textTable(content, { align: ["r", "c", "l"] });
+        console.log("\n\n" + util.colors.dim(table) + "\n\n");
+    }
     callback();
 };
 
@@ -149,17 +154,17 @@ task.watch = () => {
     const TASK = ["css", "js", "fonts", "images", "static", "svgSprite"];
 
     if (browserSync) {
-        browserSync.init(config.browserSync);
+        browserSync.init(config.global.browserSync);
     }
 
     TASK.forEach(taskName => {
         if (config.tasks[taskName]) {
-            let filesToWatch = func.getFilesToWatch(taskName);
+            const FILES_TO_WATCH = FUNCTIONS.getFilesToWatch(taskName);
             switch (taskName) {
                 case "css":
                     gulp
                         .watch(
-                            filesToWatch,
+                            FILES_TO_WATCH,
                             bach.parallel(task.css, task.scssLint)
                         )
                         .on("change", cache.update(taskName));
@@ -167,18 +172,19 @@ task.watch = () => {
                 case "js":
                     gulp
                         .watch(
-                            filesToWatch,
+                            FILES_TO_WATCH,
                             bach.parallel(task.js, task.jsLint)
                         )
                         .on("change", cache.update(taskName));
                     break;
                 default:
                     gulp
-                        .watch(filesToWatch, task[taskName])
+                        .watch(FILES_TO_WATCH, task[taskName])
                         .on("change", cache.update(taskName));
             }
         }
     });
+
     console.log(
         util.colors.dim("\n\n     Watching source files for changes\n\n")
     );

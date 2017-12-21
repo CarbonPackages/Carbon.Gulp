@@ -4,19 +4,34 @@ if (!config.tasks.scssLint) {
     return false;
 }
 
-const func = require("../functions");
-const stylelint = require("gulp-stylelint");
-const filesToWatch = func.getFilesToWatch("css");
+const PACKAGES_CONFIG = [];
+const FUNCTIONS = require("../functions");
+const STYLELINT = require("gulp-stylelint");
+
+for (let key in config.packages) {
+    const CONFIG = config.packages[key];
+
+    if (CONFIG.tasks.scssLint) {
+        PACKAGES_CONFIG.push({
+            key: key,
+            watch: FUNCTIONS.getFilesToWatch("css", CONFIG, key)
+        });
+    }
+}
 
 function scssLint(callback) {
-    return gulp
-        .src(filesToWatch)
-        .pipe(plumber(handleErrors))
-        .pipe(
-            stylelint({
-                reporters: [{ formatter: "string", console: true }]
-            })
-        );
+    let tasks = PACKAGES_CONFIG.map(packageConfig => {
+        return gulp
+            .src(packageConfig.watch)
+            .pipe(plumber(handleErrors))
+            .pipe(
+                STYLELINT({
+                    reporters: [{ formatter: "string", console: true }]
+                })
+            );
+    });
+
+    return merge(tasks);
 }
 
 module.exports = scssLint;

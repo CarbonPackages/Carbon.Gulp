@@ -4,14 +4,28 @@ if (!config.tasks.compress || !config.tasks.compress.zopfli) {
     return false;
 }
 
-const zopfli = require("gulp-zopfli");
+const ZOPFLI = require("gulp-zopfli");
 
-let src = path.join(config.root.base, config.root.dest, "/**/*.{js,css,svg,html}");
+let paths = [];
+
+for (let key in config.packages) {
+    const CONFIG = config.packages[key];
+    if (CONFIG.tasks.compress && CONFIG.tasks.compress.zopfli) {
+        paths = paths.concat(
+            path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.dest,
+                "/**/*.{js,css,svg,html}"
+            )
+        );
+    }
+}
 
 function compressZopfli() {
     return gulp
-        .src(src)
-        .pipe(zopfli(config.tasks.compress.zopfli))
+        .src(paths)
+        .pipe(ZOPFLI(config.tasks.compress.zopfli))
         .pipe(
             gulp.dest(function(file) {
                 return file.base;

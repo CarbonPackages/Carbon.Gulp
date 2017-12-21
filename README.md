@@ -165,7 +165,7 @@ Following plugins are included:
 ## Configuration
 
 You can read the default configuration in `config.json`, if you need to override
-the configuration for a specific site package, you can create a `Gulp.json` in
+the configuration for a specific package, you can create a `Gulp.json` in
 the `Configuration` directory, like this:
 
 ```json
@@ -192,17 +192,24 @@ the `Configuration` directory, like this:
 This configuration render the `*.js` and `*.css` into the given folder
 and add a named export to `barba.js`
 
-If you want to enable a few settings just for you and not all your
-other workbuddies, you can create a `gulp.json` in your root directory.
+To enable the rendering for a specific package without overwriting configuration,
+you need to create also a `Gulp.json` file in the `Configuration` directory:
+
+```json
+{}
+```
+
+If you want to write your settings on the root directory, you can create there
+`gulp_local.json` (Just for you) or `gulp_global.json` (Also for your workbuddies).
 The settings from the different jsons get merged together.
 
 ```json
 {
-    "root": {
-        "notifications": true
-    },
-    "browserSync": {
-        "proxyRootFolder": false
+    "global": {
+        "notifications": true,
+        "browserSync": {
+            "proxyRootFolder": false
+        }
     }
 }
 ```
