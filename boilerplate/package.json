@@ -50,6 +50,7 @@
     ]
   },
   "scripts": {
+    "postinstall": "yarn start",
     "gulp": "gulp --cwd ./ --gulpfile ./Build/Gulp",
     "tasks": "yarn gulp -T",
     "start": "yarn gulp",
