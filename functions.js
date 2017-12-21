@@ -315,7 +315,7 @@ function notifyText(object) {
             });
         } else {
             // Output an error message in the console
-            let text = " (" + object.subtitle + "): " + message;
+            let text = ` (${object.subtitle}): ${message}`;
             if (hasError) {
                 util.log(util.colors.red(options.title) + text);
             } else {
