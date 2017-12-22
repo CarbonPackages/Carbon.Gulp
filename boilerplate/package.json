@@ -18,9 +18,15 @@
         }
       ]
     ],
-    "plugins": ["external-helpers"]
+    "plugins": [
+      "external-helpers"
+    ]
   },
-  "browserslist": ["> 1%", "last 2 versions", "Explorer > 10"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "Explorer > 10"
+  ],
   "prettier": {
     "overrides": [
       {
@@ -97,8 +103,8 @@
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-stylelint": "^5.0.0",
+    "gulp-svg-sprite": "^1.3.7",
     "gulp-svgmin": "^1.2.4",
-    "gulp-svgstore": "^6.1.0",
     "gulp-util": "^3.0.8",
     "gulp-zopfli": "^1.0.0",
     "merge-stream": "^1.0.1",
@@ -145,5 +151,9 @@
     "stylelint-scss": "^2.2.0",
     "text-table": "^0.2.0"
   },
-  "keywords": ["gulp", "neoscms", "flow"]
+  "keywords": [
+    "gulp",
+    "neoscms",
+    "flow"
+  ]
 }

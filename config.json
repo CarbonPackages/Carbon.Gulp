@@ -200,7 +200,33 @@
             "dest": "Assets",
             "watchOnlySrc": true,
             "svgo": {},
-            "extensions": ["svg"]
+            "extensions": ["svg"],
+            "config": {
+                "private": {
+                    "mode": {
+                        "inline": true,
+                        "symbol": {
+                            "inline": true,
+                            "dest": "",
+                            "sprite": "%srcFolderName%.svg",
+                            "bust": false
+                        }
+                    }
+                },
+                "public": {
+                    "svg": {
+                        "xmlDeclaration": true,
+                        "doctypeDeclaration": false
+                    },
+                    "mode": {
+                        "symbol": {
+                            "dest": "",
+                            "sprite": "%srcFolderName%.svg",
+                            "bust": false
+                        }
+                    }
+                }
+            }
         },
         "compress": {
             "brotli": {

@@ -4,13 +4,19 @@ if (!config.tasks.svgSprite) {
     return false;
 }
 
-const SVGSTORE = require("gulp-svgstore");
+const SVG_SPRITE = require("gulp-svg-sprite");
 const PACKAGES_CONFIG = [];
+
 for (let key in config.packages) {
     const CONFIG = config.packages[key];
     const SPRITE_CONFIG = CONFIG.tasks.svgSprite;
 
-    if (SPRITE_CONFIG) {
+    if (SPRITE_CONFIG && SPRITE_CONFIG.config) {
+        let config = JSON.stringify(SPRITE_CONFIG.config);
+        config = JSON.parse(
+            config.replace(/%srcFolderName%/g, SPRITE_CONFIG.src)
+        );
+
         PACKAGES_CONFIG.push({
             key: key,
             src: path.join(
@@ -34,39 +40,52 @@ for (let key in config.packages) {
                       CONFIG.root.inlinePath
                   )
                 : false,
-            svgo: SPRITE_CONFIG.svgo
+            svgo: SPRITE_CONFIG.svgo,
+            config: config
         });
     }
 }
 
 function svgSprite() {
     let tasks = PACKAGES_CONFIG.map(packageConfig => {
-        return gulp
+        let preSprite = gulp
             .src(packageConfig.src, {
-                since: cache.lastMtime(`${packageConfig.key}.svgSprite`)
+                since: cache.lastMtime("svgSprite")
             })
             .pipe(plumber(handleErrors))
             .pipe(
-                rename(path => {
-                    path.basename = "icon-" + path.basename.toLowerCase();
+                rename(file => {
+                    file.basename = "icon-" + file.basename.toLowerCase();
                 })
             )
-            .pipe(cache(`${packageConfig.key}.svgSprite`))
-            .pipe(imagemin([imagemin.svgo({ plugins: [packageConfig.svgo] })]))
-            .pipe(SVGSTORE())
-            .pipe(chmod(config.global.chmod))
-            .pipe(
-                packageConfig.inlinePath
-                    ? gulp.dest(packageConfig.inlinePath)
-                    : util.noop()
-            )
-            .pipe(gulp.dest(packageConfig.dest))
-            .pipe(
-                size({
-                    title: `${packageConfig.key} SVG:`,
-                    showFiles: true
-                })
-            );
+            .pipe(cache("svgSprite"))
+            .pipe(imagemin([imagemin.svgo({ plugins: [packageConfig.svgo] })]));
+
+        let privateTask = packageConfig.inlinePath
+            ? preSprite
+                  .pipe(SVG_SPRITE(packageConfig.config.private))
+                  .pipe(chmod(config.global.chmod))
+                  .pipe(gulp.dest(packageConfig.inlinePath))
+            : false;
+
+        let svgTasks = [
+            preSprite
+                .pipe(SVG_SPRITE(packageConfig.config.public))
+                .pipe(chmod(config.global.chmod))
+                .pipe(gulp.dest(packageConfig.dest))
+                .pipe(
+                    size({
+                        title: `${packageConfig.key} SVG:`,
+                        showFiles: true
+                    })
+                )
+        ];
+
+        if (privateTask) {
+            svgTasks.unshift(privateTask);
+        }
+
+        return merge(svgTasks);
     });
     return merge(tasks);
 }
