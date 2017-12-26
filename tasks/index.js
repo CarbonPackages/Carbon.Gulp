@@ -56,7 +56,7 @@ task.info = callback => {
 
     if (content.length) {
         let table = textTable(content, { align: ["r", "c", "l"] });
-        util.log(`\n\n${util.colors.dim(table)}\n\n`);
+        log(`\n\n${colors.dim(table)}\n\n`);
     }
     callback();
 };
@@ -121,8 +121,8 @@ if (config.tasks.compress) {
         "Compress all CSS/JS/SVG with Brotli and Zopfli";
 } else {
     gulp.task("compress", callback => {
-        util.log(
-            util.colors.red(
+        log(
+            colors.red(
                 "\n\nIf you want to use compress, you have to enable it in the configuration.\n"
             )
         );
@@ -151,7 +151,7 @@ gulp.task(
     )
 );
 gulp.task("build").description =
-    util.colors.inverse(" Generates all ") +
+    colors.inverse(" Generates all ") +
     " Assets, Javascript and CSS files";
 gulp.task("build").flags = flags;
 
@@ -192,7 +192,7 @@ task.watch = () => {
     });
 
     console.log(
-        util.colors.dim("\n\n     Watching source files for changes\n\n")
+        colors.dim("\n\n     Watching source files for changes\n\n")
     );
 };
 
@@ -202,9 +202,9 @@ gulp.task("watch").description = "Watch files and regenereate them";
 // Default Task
 gulp.task("default", gulp.series("build", "watch"));
 gulp.task("default").description =
-    util.colors.inverse(" Generates all ") +
+    colors.inverse(" Generates all ") +
     " Assets, Javascript and CSS files & " +
-    util.colors.inverse(" watch them ");
+    colors.inverse(" watch them ");
 gulp.task("default").flags = flags;
 
 if (config.tasks.pipeline && typeof config.tasks.pipeline == "object") {

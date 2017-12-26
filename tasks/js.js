@@ -118,7 +118,7 @@ function js() {
                 since: cache.lastMtime("js")
             })
             .pipe(plumber(handleErrors))
-            .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : util.noop())
+            .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
             .pipe(
                 ROLLUP_PLUGIN.GULP({
                     rollup: require("rollup"),
@@ -136,7 +136,7 @@ function js() {
             .pipe(
                 packageConfig.inlinePath
                     ? gulp.dest(packageConfig.inlinePath)
-                    : util.noop()
+                    : noop()
             )
             .pipe(
                 packageConfig.info.banner &&
@@ -148,11 +148,11 @@ function js() {
                           homepage: packageConfig.info.homepage,
                           timestamp: getTimestamp()
                       })
-                    : util.noop()
+                    : noop()
             )
-            .pipe(mode.maps ? sourcemaps.write("") : util.noop())
+            .pipe(mode.maps ? sourcemaps.write("") : noop())
             .pipe(gulp.dest(packageConfig.dest))
-            .pipe(browserSync ? browserSync.stream() : util.noop())
+            .pipe(browserSync ? browserSync.stream() : noop())
             .pipe(
                 size({
                     title: `${packageConfig.key} JS:`,

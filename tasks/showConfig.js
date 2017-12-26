@@ -5,10 +5,10 @@ function showConfig(callback) {
     let options = {
         inlineArrays: true
     };
-    let path = util.env.path || util.env.p;
+    let path = env.path || env.p;
     let output = config;
     let render = true;
-    let headline = `This is the ${util.colors.inverse(
+    let headline = `This is the ${colors.inverse(
         ` complete `
     )} merged configuration`;
 
@@ -17,7 +17,7 @@ function showConfig(callback) {
             if (part) {
                 if (typeof output[part] == "undefined") {
                     render = false;
-                    headline = `There is no configuration for ${util.colors.inverse(
+                    headline = `There is no configuration for ${colors.inverse(
                         ` ${path} `
                     )}`;
                 } else {
@@ -28,7 +28,7 @@ function showConfig(callback) {
         });
 
         if (render) {
-            headline = `This is the merged configuration for ${util.colors.inverse(
+            headline = `This is the merged configuration for ${colors.inverse(
                 ` ${path} `
             )}`;
         }
@@ -36,7 +36,7 @@ function showConfig(callback) {
 
     render = render ? `${prettyjson.render(output, options)}\n\n` : "";
 
-    util.log(`\n\n ${util.colors.white(headline)}\n\n${render}`);
+    log(`\n\n ${colors.white(headline)}\n\n${render}`);
     return callback();
 }
 

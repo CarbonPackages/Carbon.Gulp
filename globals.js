@@ -1,14 +1,46 @@
 "use strict";
 
-const func = require("./functions");
+const FUNCTIONS = require("./functions");
 
-func.globalImport("config", "./config");
-func.globalImport("bach");
-func.globalImport("glob");
-func.globalImport("notifier", "node-notifier");
-func.globalImport("path");
-func.globalImport("fs");
-func.globalImport("textTable", "text-table");
+const LIBRARIES = {
+    config: "./config",
+    bach: "bach",
+    cache: "gulp-memory-cache",
+    changed: "gulp-changed",
+    chmod: "gulp-chmod",
+    colors: "ansi-colors",
+    flatten: "gulp-flatten",
+    fs: "fs",
+    glob: "glob",
+    gulp: "gulp",
+    header: "gulp-header",
+    imagemin: "gulp-imagemin",
+    log: "fancy-log",
+    merge: "merge-stream",
+    noop: "gulp-noop",
+    notifier: "node-notifier",
+    objectAssignDeep: "object-assign-deep",
+    path: "path",
+    plumber: "gulp-plumber",
+    rename: "gulp-rename",
+    size: "gulp-size",
+    sourcemaps: "gulp-sourcemaps",
+    textTable: "text-table",
+    handleErrors: "./handleErrors"
+}
+
+for (let key in LIBRARIES) {
+    global[key] = require(LIBRARIES[key]);
+}
+
+global.env = require("minimist")(process.argv.slice(2));
+
+global.mode = {
+    beautify: env.beautify || env.b ? true : false,
+    minimize: env.debug || env.d ? false : true,
+    maps: env.nomaps || env.n ? false : true,
+    debug: env.debug || env.d ? true : false
+};
 
 global.browserSync = null;
 
@@ -24,8 +56,8 @@ global.gulpIcons = {
     normal: path.join(__dirname, "assets/gulp.png")
 };
 
-global.getTimestamp = func.getTimestamp;
-global.getExtensions = func.getExtensions;
+global.getTimestamp = FUNCTIONS.getTimestamp;
+global.getExtensions = FUNCTIONS.getExtensions;
 
 // Overwrite Config with an external files
-func.mergeConfigAndLoadTasks();
+FUNCTIONS.mergeConfigAndLoadTasks();

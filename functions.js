@@ -1,18 +1,5 @@
 "use strict";
 
-function globalImport(target, module) {
-    if (!module) {
-        module = target;
-
-        if (target.indexOf("gulp-") === 0) {
-            target = target.replace("gulp-", "");
-        }
-    }
-    if (typeof module === "string" && typeof target === "string") {
-        global[target] = require(module);
-    }
-}
-
 function getTimestamp() {
     let timestamp;
     let now = new Date();
@@ -111,9 +98,9 @@ function mergePackageConfig(path) {
                 );
 
                 console.info(
-                    `Loaded config file ${util.colors.red(
+                    `Loaded config file ${colors.red(
                         "Gulp.json"
-                    )} from the package ${util.colors.red(key)}`
+                    )} from the package ${colors.red(key)}`
                 );
             } catch (error) {
                 handleErrors({
@@ -127,12 +114,10 @@ function mergePackageConfig(path) {
 }
 
 function loadTasks() {
-    setMode();
     require("./tasks");
 }
 
 function mergeConfigAndLoadTasks() {
-    importLibs();
     getInfoFromComposer();
 
     mergeRootConfig("gulp_global.json");
@@ -163,37 +148,6 @@ function mergeConfigAndLoadTasks() {
     }
 
     loadTasks();
-}
-
-function setMode() {
-    const env = util.env;
-
-    global.mode = {
-        beautify: env.beautify || env.b ? true : false,
-        minimize: env.debug || env.d ? false : true,
-        maps: env.nomaps || env.n ? false : true,
-        debug: env.debug || env.d ? true : false
-    };
-}
-
-function importLibs() {
-    globalImport("objectAssignDeep", "object-assign-deep");
-    globalImport("gulp");
-    // Gulp Plugins
-    globalImport("cache", "gulp-memory-cache");
-    globalImport("gulp-changed");
-    globalImport("gulp-chmod");
-    globalImport("gulp-flatten");
-    globalImport("gulp-header");
-    globalImport("gulp-imagemin");
-    globalImport("gulp-plumber");
-    globalImport("gulp-rename");
-    globalImport("gulp-size");
-    globalImport("gulp-sourcemaps");
-    globalImport("gulp-util");
-    globalImport("merge", "merge-stream");
-
-    globalImport("handleErrors", "./handleErrors");
 }
 
 function shureArray(input) {
@@ -317,9 +271,9 @@ function notifyText(object) {
             // Output an error message in the console
             let text = ` (${object.subtitle}): ${message}`;
             if (hasError) {
-                util.log(util.colors.red(options.title) + text);
+                log(colors.red(options.title) + text);
             } else {
-                util.log(util.colors.yellow(options.title) + text);
+                log(colors.yellow(options.title) + text);
             }
         }
     }
@@ -329,7 +283,6 @@ module.exports = {
     getExtensions: getExtensions,
     getFilesToWatch: getFilesToWatch,
     getTimestamp: getTimestamp,
-    globalImport: globalImport,
     mergeConfigAndLoadTasks: mergeConfigAndLoadTasks,
     notifyText: notifyText,
     pluralize: pluralize,

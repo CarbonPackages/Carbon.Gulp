@@ -151,25 +151,25 @@ function css() {
                 since: cache.lastMtime("css")
             })
             .pipe(plumber(handleErrors))
-            .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : util.noop())
+            .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
             .pipe(sass(packageConfig.saas))
             .pipe(flatten())
             .pipe(postcss(packageConfig.postcss))
             .pipe(
                 mode.minimize && packageConfig.cssnano
                     ? postcss([POSTCSS_PLUGIN.CSSNANO(packageConfig.cssnano)])
-                    : util.noop()
+                    : noop()
             )
             .pipe(
                 mode.beautify
                     ? beautify(packageConfig.beautifyOptions)
-                    : util.noop()
+                    : noop()
             )
             .pipe(chmod(config.global.chmod))
             .pipe(
                 packageConfig.inlinePath
                     ? gulp.dest(packageConfig.inlinePath)
-                    : util.noop()
+                    : noop()
             )
             .pipe(
                 packageConfig.info.banner &&
@@ -181,11 +181,11 @@ function css() {
                           homepage: packageConfig.info.homepage,
                           timestamp: getTimestamp()
                       })
-                    : util.noop()
+                    : noop()
             )
-            .pipe(mode.maps ? sourcemaps.write("") : util.noop())
+            .pipe(mode.maps ? sourcemaps.write("") : noop())
             .pipe(gulp.dest(packageConfig.dest))
-            .pipe(browserSync ? browserSync.stream() : util.noop())
+            .pipe(browserSync ? browserSync.stream() : noop())
             .pipe(
                 size({
                     title: `${packageConfig.key} CSS:`,
