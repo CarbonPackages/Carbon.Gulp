@@ -20,16 +20,15 @@ Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 composer require --dev carbon/gulp
 ```
 
-When the package is installed you can copy the boilerplate files:
+To install or update your development dependencies you can simple run:
 
 ```bash
-cp -R Build/Gulp/boilerplate/ ./
+sh Build/Gulp/Init.sh
 ```
 
-**Warning**: Check the content of the `boilerplate` directory to not override
-important stuffs on your distribution. Your are free to not use the provided templates
-or customize them to match your own requirements. The following document is based on the
-official templates.
+This command copies all necessary files to your root folder. If the file
+`package.json` already exist, the dependencies will get merged with the
+`package.json` from the boilerplate.
 
 ### Install Dependencies
 
@@ -204,7 +203,6 @@ global:
   notifications: true
   browserSync:
     proxyRootFolder: false
-
 ```
 
 This configuration enable notifications and disable the
