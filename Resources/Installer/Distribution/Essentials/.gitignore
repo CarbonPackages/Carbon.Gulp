@@ -1,0 +1,33 @@
+node_modules
+
+._*
+*.example
+.thumbs
+.idea
+.DS_Store
+.sass-cache
+
+/*.txt
+/*.rst
+/flow
+/flow.bat
+/composer.lock
+/gulp_local.yaml
+
+/bin
+/Build
+/Configuration
+/Data
+/Packages
+/_Resources
+
+/Web/_Resources
+/Web/index.php
+/Web/robots.txt
+/Web/.user.ini
+
+# ignore the downloaded selenium server, config and the selenium
+# temporary directory (which starts with a quote, do not ask why...)
+/Tests/Selenium/settings.xml
+Build/Resources/Java/selenium-server-standalone*
+/"
