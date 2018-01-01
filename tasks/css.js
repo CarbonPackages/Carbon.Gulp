@@ -62,7 +62,7 @@ for (let key in config.packages) {
 
         let postcssAssetConfig = objectAssignDeep(
             {},
-            CSS_CONFIG.postcss.assets
+            POSTCSS_CONFIGURATION.assets
         );
         if (Array.isArray(postcssAssetConfig.loadPaths)) {
             postcssAssetConfig.loadPaths = postcssAssetConfig.loadPaths.map(
@@ -78,23 +78,23 @@ for (let key in config.packages) {
 
         let postcss = [
             POSTCSS_PLUGIN.ASSETS(postcssAssetConfig),
-            POSTCSS_PLUGIN.MAGIC_ANIMATIONS(CSS_CONFIG.postcss.magicAnimations),
+            POSTCSS_PLUGIN.MAGIC_ANIMATIONS(POSTCSS_CONFIGURATION.magicAnimations),
             POSTCSS_PLUGIN.VMAX,
             POSTCSS_PLUGIN.SHORT,
             POSTCSS_PLUGIN.CENTER,
-            POSTCSS_PLUGIN.RUCKSACK_CSS(CSS_CONFIG.postcss.rucksack),
+            POSTCSS_PLUGIN.RUCKSACK_CSS(POSTCSS_CONFIGURATION.rucksack),
             POSTCSS_PLUGIN.FLEXBOX,
             POSTCSS_PLUGIN.PLEEEASE_FILTERS,
             POSTCSS_PLUGIN.SELECTOR_MATCHES,
             POSTCSS_PLUGIN.SELECTOR_NOT,
-            POSTCSS_PLUGIN.PSEUDOELEMENTS(CSS_CONFIG.postcss.pseudoelements),
+            POSTCSS_PLUGIN.PSEUDOELEMENTS(POSTCSS_CONFIGURATION.pseudoelements),
             POSTCSS_PLUGIN.FONT_AWESOME,
             POSTCSS_PLUGIN.CUSTOM_MEDIA,
             POSTCSS_PLUGIN.MEDIA_MINMAX,
             POSTCSS_PLUGIN.QUANTITY_QUERIES,
-            POSTCSS_PLUGIN.FIXES(CSS_CONFIG.postcss.fixes),
+            POSTCSS_PLUGIN.FIXES(POSTCSS_CONFIGURATION.fixes),
             POSTCSS_PLUGIN.CSS_MQPACKER({
-                sort: CSS_CONFIG.postcss.mqpacker.sort
+                sort: POSTCSS_CONFIGURATION.mqpacker.sort
                     ? POSTCSS_PLUGIN.SORT_CSS_MEDIA_QUERIES
                     : false
             }),
@@ -102,17 +102,17 @@ for (let key in config.packages) {
             POSTCSS_PLUGIN.REPORTER
         ];
 
-        if (CSS_CONFIG.postcss.activateRtlCss) {
+        if (POSTCSS_CONFIGURATION.activateRtlCss) {
             postcss.unshift(POSTCSS_PLUGIN.RTL);
         }
 
-        if (CSS_CONFIG.postcss.pxtorem) {
-            postcss.push(POSTCSS_PLUGIN.PXTOREM(CSS_CONFIG.postcss.pxtorem));
+        if (POSTCSS_CONFIGURATION.pxtorem) {
+            postcss.push(POSTCSS_PLUGIN.PXTOREM(POSTCSS_CONFIGURATION.pxtorem));
         }
 
-        if (CSS_CONFIG.postcss.autoprefixer) {
+        if (POSTCSS_CONFIGURATION.autoprefixer) {
             postcss.push(
-                POSTCSS_PLUGIN.AUTOPREFIXER(CSS_CONFIG.postcss.autoprefixer)
+                POSTCSS_PLUGIN.AUTOPREFIXER(POSTCSS_CONFIGURATION.autoprefixer)
             );
         }
 
@@ -122,7 +122,7 @@ for (let key in config.packages) {
             assets: assetsPath,
             saas: saasConfig,
             postcss: postcss,
-            cssnano: CSS_CONFIG.postcss.cssnano,
+            cssnano: POSTCSS_CONFIGURATION.cssnano,
             src: path.join(
                 CONFIG.root.base,
                 key,

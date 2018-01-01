@@ -3,7 +3,6 @@
 const FUNCTIONS = require("./functions");
 
 const LIBRARIES = {
-    config: "./config",
     bach: "bach",
     cache: "gulp-memory-cache",
     changed: "gulp-changed",
@@ -26,12 +25,15 @@ const LIBRARIES = {
     size: "gulp-size",
     sourcemaps: "gulp-sourcemaps",
     textTable: "text-table",
+    yaml: "js-yaml",
     handleErrors: "./handleErrors"
 }
 
 for (let key in LIBRARIES) {
     global[key] = require(LIBRARIES[key]);
 }
+
+global.config = FUNCTIONS.readYaml("./Build/Gulp/config.yaml");
 
 global.env = require("minimist")(process.argv.slice(2));
 
