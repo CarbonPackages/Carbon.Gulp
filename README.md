@@ -16,6 +16,8 @@ Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 
 ## Installation
 
+Make sure Node & [Yarn](https://yarnpkg.com) installed. I recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
+
 ```bash
 composer require --dev carbon/gulp
 ```
@@ -31,8 +33,6 @@ This command copies all necessary files to your root folder. If the file
 `package.json` from the boilerplate.
 
 ### Install Dependencies
-
-Make sure Node & [Yarn](https://yarnpkg.com) installed. I recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
 
 ```bash
 # Enable the correct nvm

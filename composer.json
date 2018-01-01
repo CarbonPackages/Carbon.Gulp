@@ -16,7 +16,6 @@
             "CODE_OF_CONDUCT.md"
         ]
     },
-    "post-update-cmd": ["bash Build/Gulp/Init.sh"],
     "extra": {
         "installer-name": "Gulp"
     }
