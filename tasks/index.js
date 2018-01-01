@@ -191,7 +191,7 @@ task.watch = () => {
         }
     });
 
-    console.log(
+    log(
         colors.dim("\n\n     Watching source files for changes\n\n")
     );
 };

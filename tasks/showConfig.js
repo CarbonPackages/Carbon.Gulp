@@ -35,7 +35,6 @@ function showConfig(callback) {
     }
 
     render = render ? `${prettyjson.render(output, options)}\n\n` : "";
-
     log(`\n\n ${colors.white(headline)}\n\n${render}`);
     return callback();
 }

@@ -34,6 +34,10 @@ function getExtensions(extensions, prepend = "") {
     }
 }
 
+function readYaml(path) {
+    return yaml.safeLoad(fs.readFileSync(path));
+}
+
 function getInfoFromComposer(path = "") {
     try {
         let composer = require(`../../${path}composer.json`);
@@ -49,7 +53,7 @@ function getInfoFromComposer(path = "") {
 
 function mergeRootConfig(filename) {
     try {
-        const configFromRoot = require(`../../${filename}`);
+        const configFromRoot = readYaml(filename);
         objectAssignDeep(config, configFromRoot);
         console.info(
             `Loaded config file ${util.colors.red(filename)} from root`
@@ -67,48 +71,46 @@ function getFolderSiteName(files) {
 }
 
 function mergePackageConfig(path) {
-    let gulpJsonFiles = {};
+    let gulpYamlFiles = {};
     fs.readdirSync(path).forEach(folder => {
         if (!folder.startsWith(".") && !folder.startsWith("_")) {
-            const GULP_JSON_PATH = `${path}/${folder}/Configuration/Gulp.json`;
+            const GULP_YAML_PATH = `${path}/${folder}/Configuration/Gulp.yaml`;
 
-            if (fs.existsSync(GULP_JSON_PATH)) {
-                gulpJsonFiles[folder] = GULP_JSON_PATH;
+            if (fs.existsSync(GULP_YAML_PATH)) {
+                gulpYamlFiles[folder] = GULP_YAML_PATH;
             }
         }
     });
-    for (let key in gulpJsonFiles) {
-        if (gulpJsonFiles.hasOwnProperty(key)) {
-            try {
-                const CONFIG = {
-                    DEFAULT: {
-                        info: config.info ? config.info : false,
-                        root: config.root ? config.root : false,
-                        tasks: config.tasks ? config.tasks : false
-                    },
-                    PACKAGE: config.packages[key] || {},
-                    JSON: require(`../../${gulpJsonFiles[key]}`)
-                };
+    for (let key in gulpYamlFiles) {
+        try {
+            const CONFIG = {
+                DEFAULT: {
+                    info: config.info ? config.info : false,
+                    root: config.root ? config.root : false,
+                    tasks: config.tasks ? config.tasks : false
+                },
+                PACKAGE: config.packages[key] || {},
+                YAML: readYaml(gulpYamlFiles[key])
+            };
 
-                config.packages[key] = objectAssignDeep(
-                    {},
-                    CONFIG.DEFAULT,
-                    CONFIG.PACKAGE,
-                    CONFIG.JSON
-                );
+            config.packages[key] = objectAssignDeep(
+                {},
+                CONFIG.DEFAULT,
+                CONFIG.PACKAGE,
+                CONFIG.YAML
+            );
 
-                console.info(
-                    `Loaded config file ${colors.red(
-                        "Gulp.json"
-                    )} from the package ${colors.red(key)}`
-                );
-            } catch (error) {
-                handleErrors({
-                    name: key,
-                    plugin: "Error in merging configuration",
-                    message: "There is an error in the Gulp.json file"
-                });
-            }
+            console.info(
+                `Loaded config file ${colors.red(
+                    "Gulp.yaml"
+                )} from the package ${colors.red(key)}`
+            );
+        } catch (error) {
+            handleErrors({
+                name: key,
+                plugin: "Error in merging configuration",
+                message: "There is an error in the Gulp.yaml file"
+            });
         }
     }
 }
@@ -120,8 +122,8 @@ function loadTasks() {
 function mergeConfigAndLoadTasks() {
     getInfoFromComposer();
 
-    mergeRootConfig("gulp_global.json");
-    mergeRootConfig("gulp_local.json");
+    mergeRootConfig("gulp_global.yaml");
+    mergeRootConfig("gulp_local.yaml");
 
     if (
         config.global &&
@@ -280,6 +282,7 @@ function notifyText(object) {
 }
 
 module.exports = {
+    readYaml: readYaml,
     getExtensions: getExtensions,
     getFilesToWatch: getFilesToWatch,
     getTimestamp: getTimestamp,

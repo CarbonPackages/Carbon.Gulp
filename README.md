@@ -20,16 +20,15 @@ Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 composer require --dev carbon/gulp
 ```
 
-When the package is installed you can copy the boilerplate files:
+To install or update your development dependencies you can simple run:
 
 ```bash
-cp -R Build/Gulp/boilerplate/ ./
+sh Build/Gulp/Init.sh
 ```
 
-**Warning**: Check the content of the `boilerplate` directory to not override
-important stuffs on your distribution. Your are free to not use the provided templates
-or customize them to match your own requirements. The following document is based on the
-official templates.
+This command copies all necessary files to your root folder. If the file
+`package.json` already exist, the dependencies will get merged with the
+`package.json` from the boilerplate.
 
 ### Install Dependencies
 
@@ -49,7 +48,7 @@ You must see something like this:
 ```bash
 Tasks
 ├── showConfig       Show the merged configuration
-│   --p, --path      … Pass path from the json file to reduce output. Slash ("/") seperated
+│   --p, --path      … Pass path from the configuration file to reduce output. Slash ("/") seperated
 ├── css              Render CSS Files
 │   --b, --beautify  … Beautify and dont't compress files
 │   --d, --debug     … Files dont't get compressed
@@ -167,54 +166,43 @@ Following plugins are included:
 
 ## Configuration
 
-You can read the default configuration in `config.json`, if you need to override
-the configuration for a specific package, you can create a `Gulp.json` in
+You can read the default configuration in [`config.yaml`](config.yaml), if you need to override
+the configuration for a specific package, you can create a `Gulp.yaml` in
 the `Configuration` directory, like this:
 
-```json
-{
-    "root": {
-        "inlineAssets": true
-    },
-    "tasks": {
-        "js": {
-            "rollup": {
-                "plugins": {
-                    "commonjs": {
-                        "namedExports": {
-                            "node_modules/barba.js/dist/barba.js": ["Barba"]
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+```yaml
+root:
+  inlineAssets: true
+
+tasks:
+  js:
+    rollup:
+      plugins:
+        commonjs:
+          namedExports:
+            "node_modules/barba.js/dist/barba.js":
+              - Barba
 ```
 
 This configuration render the `*.js` and `*.css` into the given folder
 and add a named export to `barba.js`
 
 To enable the rendering for a specific package without overwriting configuration,
-you need to create also a `Gulp.json` file in the `Configuration` directory:
+you need to create also a `Gulp.yaml` file in the `Configuration` directory:
 
-```json
-{}
+```yaml
+---
 ```
 
 If you want to write your settings on the root directory, you can create there
-`gulp_local.json` (Just for you) or `gulp_global.json` (Also for your workbuddies).
-The settings from the different jsons get merged together.
+`gulp_local.yaml` (Just for you) or `gulp_global.yaml` (Also for your workbuddies).
+The settings from the different yaml files get merged together.
 
-```json
-{
-    "global": {
-        "notifications": true,
-        "browserSync": {
-            "proxyRootFolder": false
-        }
-    }
-}
+```yaml
+global:
+  notifications: true
+  browserSync:
+    proxyRootFolder: false
 ```
 
 This configuration enable notifications and disable the
