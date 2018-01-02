@@ -1,0 +1,11 @@
+{
+    "scripts": {
+        "post-package-install": [
+            "Neos\\\\Flow\\\\Composer\\\\InstallerScripts::postPackageUpdateAndInstall",
+            "sh Build/Gulp/Distribution/Installer.sh"
+        ],
+        "gulp": "yarn start",
+        "build": "yarn build",
+        "pipeline": "yarn pipeline"
+    }
+}

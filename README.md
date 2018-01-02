@@ -22,15 +22,21 @@ Make sure Node & [Yarn](https://yarnpkg.com) installed. I recommend using [NVM](
 composer require --dev carbon/gulp
 ```
 
-To install or update your development dependencies you can simple run:
+To install your development dependencies you can simple run:
 
 ```bash
-sh Build/Gulp/Init.sh
+sh Build/Gulp/Distribution/Installer.sh
 ```
 
-This command copies all necessary files to your root folder. If the file
-`package.json` already exist, the dependencies will get merged with the
-`package.json` from the boilerplate.
+**Warning:** You need to install [json](https://www.npmjs.com/package/json) if
+you want to merge the json automatically.
+
+This command copies all necessary files to your root folder. You need to run
+this command only once. The file `composer.json` get ajusted to check and update
+the dependencies every time a package get installed.  
+If the file `package.json` already exist, the dependencies will get merged
+with the `package.json` from the distribution.
+
 
 ### Install Dependencies
 
