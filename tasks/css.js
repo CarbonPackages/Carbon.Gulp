@@ -17,7 +17,6 @@ const POSTCSS_PLUGIN = {
     CUSTOM_MEDIA: require("postcss-custom-media"),
     FIXES: require("postcss-fixes"),
     FLEXBOX: require("postcss-flexbox"),
-    FONT_AWESOME: require("postcss-font-awesome"),
     MAGIC_ANIMATIONS: require("postcss-magic-animations"),
     MEDIA_MINMAX: require("postcss-media-minmax"),
     PLEEEASE_FILTERS: require("pleeease-filters"),

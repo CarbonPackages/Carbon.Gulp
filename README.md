@@ -209,7 +209,6 @@ Following plugins are included:
 | **[postcss-selector-matches](https://www.npmjs.com/package/postcss-selector-matches)** | PostCSS plugin to transform :matches() W3C CSS pseudo class to more compatible CSS selectors   |
 | **[postcss-selector-not](https://www.npmjs.com/package/postcss-selector-not)**         | PostCSS plugin to transform :not() W3C CSS leve 4 pseudo class to :not() CSS level 3 selectors |
 | **[postcss-pseudoelements](https://www.npmjs.com/package/postcss-pseudoelements)**     | PostCSS plugin to add single-colon CSS 2.1 syntax pseudo selectors (i.e. :before)              |
-| **[postcss-font-awesome](https://www.npmjs.com/package/postcss-font-awesome)**         | PostCSS plugin to pull in a Font Awesome's icon unicode using content.                         |
 | **[postcss-custom-media](https://www.npmjs.com/package/postcss-custom-media)**         | PostCSS plugin to transform W3C CSS Custom Media Queries syntax to more compatible CSS         |
 | **[postcss-media-minmax](https://www.npmjs.com/package/postcss-media-minmax)**         | Writing simple and graceful media queries.                                                     |
 | **[postcss-quantity-queries](https://www.npmjs.com/package/postcss-quantity-queries)** | PostCSS plugin enabling quantity-queries                                                       |
