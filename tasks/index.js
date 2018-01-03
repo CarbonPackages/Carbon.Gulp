@@ -151,8 +151,7 @@ gulp.task(
     )
 );
 gulp.task("build").description =
-    colors.inverse(" Generates all ") +
-    " Assets, Javascript and CSS files";
+    colors.inverse(" Generates all ") + " Assets, Javascript and CSS files";
 gulp.task("build").flags = flags;
 
 // Watch
@@ -191,9 +190,7 @@ task.watch = () => {
         }
     });
 
-    log(
-        colors.dim("\n\n     Watching source files for changes\n\n")
-    );
+    log(colors.dim("\n\n     Watching source files for changes\n\n"));
 };
 
 gulp.task("watch", task.watch);

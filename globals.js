@@ -27,7 +27,7 @@ const LIBRARIES = {
     textTable: "text-table",
     yaml: "js-yaml",
     handleErrors: "./handleErrors"
-}
+};
 
 for (let key in LIBRARIES) {
     global[key] = require(LIBRARIES[key]);

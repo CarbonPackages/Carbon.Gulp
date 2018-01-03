@@ -16,7 +16,8 @@ Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 
 ## Installation
 
-Make sure Node & [Yarn](https://yarnpkg.com) installed. I recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
+Make sure Node & [Yarn](https://yarnpkg.com) installed.
+I recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
 
 ```bash
 composer require --dev carbon/gulp
@@ -36,7 +37,6 @@ this command only once. The file `composer.json` get ajusted to check and update
 the dependencies every time a package get installed.  
 If the file `package.json` already exist, the dependencies will get merged
 with the `package.json` from the distribution.
-
 
 ### Install Dependencies
 
@@ -124,21 +124,71 @@ Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 
 ## Lint
 
-If you want to disable linting for a specific file, just make sure that it contains `.noLinter.`. This is useful if you have to include third-party files.
+If you want to disable linting for a specific file, just make sure that it
+contains `.noLinter.`. This is useful if you have to include third-party files.
 
 ## CSS
 
 ### SCSS
 
-These small helpers can make your developer life much easier. These files get filled automatically by the task `scss`
+These small helper can make your handling with **css `@import`** life much easier.
+Files with the pattern `_all?(.[A-Za-z0-9]*).scss`, `_allsub?(.[A-Za-z0-9]*).scss`
+and `_allFusion?(.[A-Za-z0-9]*).scss` get filled automatically by the task `scss`.
+If a filename has a dot with a string before .scss or a Folder ending with
+that string, it will be in a separate namespace. `noLinter` is an exception,
+because this is for turning off the linter and prettier config.
 
-| Filename              | Description                                                    |
-| --------------------- | -------------------------------------------------------------- |
-| **`_all.scss`**       | Every file from the same directory get an `@import` statement. |
-| **`_allsub.scss`**    | Every file from sub directories get an `@import` statement.    |
-| **`_allFusion.scss`** | Every file from the Fusion folder get an `@import` statement.  |
+| Filename                        | Description                                                                             |
+| ------------------------------- | --------------------------------------------------------------------------------------- |
+| **`_all.scss`**                 | Every file (except namespaced ones) from the same directory get an `@import` statement. |
+| **`_allsub.scss`**              | Every file (except namespaced ones) from sub directories get an `@import` statement.    |
+| **`_allFusion.scss`**           | Every file (except namespaced ones) from the Fusion folder get an `@import` statement.  |
+| **`_all.NAMESPACE.scss`**       | Every file with the given namespace from the same directory get an `@import` statement. |
+| **`_allsub.NAMESPACE.scss`**    | Every file with the given namespace from sub directories get an `@import` statement.    |
+| **`_allFusion.NAMESPACE.scss`** | Every file with the given namespace from the Fusion folder get an `@import` statement.  |
 
 Files and folders with beginning underscore (`_`) get ignored.
+
+#### Example
+
+**File structure**
+
+```
+FolderName
+    ├──  0-Variables.noLinter.scss
+    ├──  Footer.scss
+    ├──  FrameworkPart.noLinter.Inline.scss
+    └──  Header.Inline.scss
+FolderName.Inline
+    ├──  0-Variables.noLinter.scss
+    ├──  Footer.scss
+    ├──  FrameworkPart.noLinter.Inline.scss
+    └──  Header.Inline.scss
+ _allsub.scss
+ _allsub.Inline.scss
+```
+
+**General import**
+
+The content from `_allsub.scss` would be:
+
+```
+@import "FolderName/0-Variables.noLinter";
+@import "FolderName/Footer";
+```
+
+**Namespaced import**
+
+And the content from `_allsub.Inline.scss` would be:
+
+```
+@import "FolderName/FrameworkPart.noLinter.Inline";
+@import "FolderName/Header.Inline";
+@import "FolderName.Inline/0-Variables.noLinter";
+@import "FolderName.Inline/Footer";
+@import "FolderName.Inline/FrameworkPart.noLinter.Inline";
+@import "FolderName.Inline/Header.Inline";
+```
 
 ### PostCSS
 
@@ -222,7 +272,8 @@ Example: `yarn showConfig --path tasks/js/rollup/plugins`
 
 ## Compression
 
-To compress the asset with brotli and zopfli, you need to run `yarn compress` or `yarn pipeline`. To enable it on the server, please add following lines to your `.htaccess`:
+To compress the asset with brotli and zopfli, you need to run `yarn compress` or
+`yarn pipeline`. To enable it on the server, please add following lines to your `.htaccess`:
 
 ```apache
 # Rules to correctly serve gzip compressed CSS and JS files.

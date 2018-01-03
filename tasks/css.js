@@ -78,7 +78,9 @@ for (let key in config.packages) {
 
         let postcss = [
             POSTCSS_PLUGIN.ASSETS(postcssAssetConfig),
-            POSTCSS_PLUGIN.MAGIC_ANIMATIONS(POSTCSS_CONFIGURATION.magicAnimations),
+            POSTCSS_PLUGIN.MAGIC_ANIMATIONS(
+                POSTCSS_CONFIGURATION.magicAnimations
+            ),
             POSTCSS_PLUGIN.VMAX,
             POSTCSS_PLUGIN.SHORT,
             POSTCSS_PLUGIN.CENTER,
@@ -161,9 +163,7 @@ function css() {
                     : noop()
             )
             .pipe(
-                mode.beautify
-                    ? beautify(packageConfig.beautifyOptions)
-                    : noop()
+                mode.beautify ? beautify(packageConfig.beautifyOptions) : noop()
             )
             .pipe(chmod(config.global.chmod))
             .pipe(
