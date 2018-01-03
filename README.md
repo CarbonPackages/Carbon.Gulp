@@ -14,6 +14,8 @@ form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
 Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 [@dfeyer](https://github.com/dfeyer) from [ttree ltd](https://github.com/ttreeagency).
 
+You can find an example installation [here](https://github.com/jonnitto/CarbonGulpExample).
+
 # Installation
 
 Make sure Node & [Yarn](https://yarnpkg.com) installed.
