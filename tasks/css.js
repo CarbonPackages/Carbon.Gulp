@@ -4,9 +4,9 @@ if (!config.tasks.css) {
     return false;
 }
 
-const SASS = require("gulp-sass");
-const POSTCSS = require("gulp-postcss");
-const BEAUTIFY = require("gulp-cssbeautify");
+const sass = require("gulp-sass");
+const postcss = require("gulp-postcss");
+const beautify = require("gulp-cssbeautify");
 
 const POSTCSS_PLUGIN = {
     ASSETS: require("postcss-assets"),
@@ -107,7 +107,9 @@ for (let key in config.packages) {
         }
 
         if (POSTCSS_CONFIGURATION.pxtorem) {
-            postcssConfig.push(POSTCSS_PLUGIN.PXTOREM(POSTCSS_CONFIGURATION.pxtorem));
+            postcssConfig.push(
+                POSTCSS_PLUGIN.PXTOREM(POSTCSS_CONFIGURATION.pxtorem)
+            );
         }
 
         if (POSTCSS_CONFIGURATION.autoprefixer) {
@@ -152,16 +154,16 @@ function css() {
             })
             .pipe(plumber(handleErrors))
             .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
-            .pipe(SASS(packageConfig.saas))
+            .pipe(sass(packageConfig.saas))
             .pipe(flatten())
-            .pipe(POSTCSS(packageConfig.postcssConfig))
+            .pipe(postcss(packageConfig.postcssConfig))
             .pipe(
                 mode.minimize && packageConfig.cssnano
-                    ? POSTCSS([POSTCSS_PLUGIN.CSSNANO(packageConfig.cssnano)])
+                    ? postcss([POSTCSS_PLUGIN.CSSNANO(packageConfig.cssnano)])
                     : noop()
             )
             .pipe(
-                mode.beautify ? BEAUTIFY(packageConfig.beautifyOptions) : noop()
+                mode.beautify ? beautify(packageConfig.beautifyOptions) : noop()
             )
             .pipe(chmod(config.global.chmod))
             .pipe(
