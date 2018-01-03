@@ -4,9 +4,9 @@ if (!config.tasks.css) {
     return false;
 }
 
-const sass = require("gulp-sass");
-const postcss = require("gulp-postcss");
-const beautify = require("gulp-cssbeautify");
+const SASS = require("gulp-sass");
+const POSTCSS = require("gulp-postcss");
+const BEAUTIFY = require("gulp-cssbeautify");
 
 const POSTCSS_PLUGIN = {
     ASSETS: require("postcss-assets"),
@@ -75,7 +75,7 @@ for (let key in config.packages) {
         }
         postcssAssetConfig.relative = destPath;
 
-        let postcss = [
+        let postcssConfig = [
             POSTCSS_PLUGIN.ASSETS(postcssAssetConfig),
             POSTCSS_PLUGIN.MAGIC_ANIMATIONS(
                 POSTCSS_CONFIGURATION.magicAnimations
@@ -89,7 +89,6 @@ for (let key in config.packages) {
             POSTCSS_PLUGIN.SELECTOR_MATCHES,
             POSTCSS_PLUGIN.SELECTOR_NOT,
             POSTCSS_PLUGIN.PSEUDOELEMENTS(POSTCSS_CONFIGURATION.pseudoelements),
-            POSTCSS_PLUGIN.FONT_AWESOME,
             POSTCSS_PLUGIN.CUSTOM_MEDIA,
             POSTCSS_PLUGIN.MEDIA_MINMAX,
             POSTCSS_PLUGIN.QUANTITY_QUERIES,
@@ -104,15 +103,15 @@ for (let key in config.packages) {
         ];
 
         if (POSTCSS_CONFIGURATION.activateRtlCss) {
-            postcss.unshift(POSTCSS_PLUGIN.RTL);
+            postcssConfig.unshift(POSTCSS_PLUGIN.RTL);
         }
 
         if (POSTCSS_CONFIGURATION.pxtorem) {
-            postcss.push(POSTCSS_PLUGIN.PXTOREM(POSTCSS_CONFIGURATION.pxtorem));
+            postcssConfig.push(POSTCSS_PLUGIN.PXTOREM(POSTCSS_CONFIGURATION.pxtorem));
         }
 
         if (POSTCSS_CONFIGURATION.autoprefixer) {
-            postcss.push(
+            postcssConfig.push(
                 POSTCSS_PLUGIN.AUTOPREFIXER(POSTCSS_CONFIGURATION.autoprefixer)
             );
         }
@@ -122,7 +121,7 @@ for (let key in config.packages) {
             info: CONFIG.info,
             assets: assetsPath,
             saas: saasConfig,
-            postcss: postcss,
+            postcssConfig: postcssConfig,
             cssnano: POSTCSS_CONFIGURATION.cssnano,
             src: path.join(
                 CONFIG.root.base,
@@ -153,16 +152,16 @@ function css() {
             })
             .pipe(plumber(handleErrors))
             .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
-            .pipe(sass(packageConfig.saas))
+            .pipe(SASS(packageConfig.saas))
             .pipe(flatten())
-            .pipe(postcss(packageConfig.postcss))
+            .pipe(POSTCSS(packageConfig.postcssConfig))
             .pipe(
                 mode.minimize && packageConfig.cssnano
-                    ? postcss([POSTCSS_PLUGIN.CSSNANO(packageConfig.cssnano)])
+                    ? POSTCSS([POSTCSS_PLUGIN.CSSNANO(packageConfig.cssnano)])
                     : noop()
             )
             .pipe(
-                mode.beautify ? beautify(packageConfig.beautifyOptions) : noop()
+                mode.beautify ? BEAUTIFY(packageConfig.beautifyOptions) : noop()
             )
             .pipe(chmod(config.global.chmod))
             .pipe(
