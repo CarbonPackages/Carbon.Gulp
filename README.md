@@ -14,7 +14,7 @@ form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
 Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 [@dfeyer](https://github.com/dfeyer) from [ttree ltd](https://github.com/ttreeagency).
 
-## Installation
+# Installation
 
 Make sure Node & [Yarn](https://yarnpkg.com) installed.
 I recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
@@ -38,7 +38,10 @@ the dependencies every time a package get installed.
 If the file `package.json` already exist, the dependencies will get merged
 with the `package.json` from the distribution.
 
-### Install Dependencies
+**It is important that you will add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
+Development dependencies will be updated on every update of the package**
+
+## Install Dependencies
 
 ```bash
 # Enable the correct nvm
@@ -88,9 +91,7 @@ Tasks
     └── compress
 ```
 
-Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
-
-### Overview of commands
+## Overview of commands
 
 | Command               | Watcher | Behaviour                                                      |
 | --------------------- | :-----: | -------------------------------------------------------------- |
@@ -112,7 +113,7 @@ Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 
 **You can also run `yarn gulp GULP_TASK_NAME`, for example `yarn gulp watch --nomaps`.**
 
-## Overview of tools
+# Overview of tools
 
 | Features       | Tools Used                                                                                                                                                  |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -122,14 +123,14 @@ Add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 | **Icons**      | Auto-generated [SVG Sprites](https://github.com/jkphl/svg-sprite)                                                                                           |
 | **Lint**       | [ESLint](http://eslint.org/) and [stylelint](https://stylelint.io) included                                                                                 |
 
-## Lint
+# Lint
 
 If you want to disable linting for a specific file, just make sure that it
 contains `.noLinter.`. This is useful if you have to include third-party files.
 
-## CSS
+# CSS
 
-### SCSS
+## SCSS
 
 These small helper can make your handling with **css `@import`** life much easier.
 Files with the pattern `_all?(.[A-Za-z0-9]*).scss`, `_allsub?(.[A-Za-z0-9]*).scss`
@@ -149,9 +150,9 @@ because this is for turning off the linter and prettier config.
 
 Files and folders with beginning underscore (`_`) get ignored.
 
-#### Example
+### Example
 
-**File structure**
+#### File structure
 
 ```
 FolderName
@@ -168,7 +169,7 @@ FolderName.Inline
  _allsub.Inline.scss
 ```
 
-**General import**
+#### General import
 
 The content from `_allsub.scss` would be:
 
@@ -177,7 +178,7 @@ The content from `_allsub.scss` would be:
 @import "FolderName/Footer";
 ```
 
-**Namespaced import**
+#### Namespaced import
 
 And the content from `_allsub.Inline.scss` would be:
 
@@ -190,7 +191,7 @@ And the content from `_allsub.Inline.scss` would be:
 @import "FolderName.Inline/Header.Inline";
 ```
 
-### PostCSS
+## PostCSS
 
 Following plugins are included:
 
@@ -220,7 +221,7 @@ Following plugins are included:
 | **[postcss-pxtorem](https://www.npmjs.com/package/postcss-pxtorem)**                   | A plugin for PostCSS that generates rem units from pixel units.                                |
 | **[cssnano](http://cssnano.co)**                                                       | Modern CSS compression                                                                         |
 
-## Configuration
+# Configuration
 
 You can read the default configuration in [`config.yaml`](config.yaml), if you need to override
 the configuration for a specific package, you can create a `Gulp.yaml` in
@@ -264,13 +265,13 @@ global:
 This configuration enable notifications and disable the
 proxy based by project folder name.
 
-### Show the merged configuration
+## Show the merged configuration
 
 You can output the merged configuration with `yarn showConfig`. To reduce output
 to a path, you can pass a slash-seperated path ("/") with the argument `--path`:  
 Example: `yarn showConfig --path tasks/js/rollup/plugins`
 
-## Compression
+# Compression
 
 To compress the asset with brotli and zopfli, you need to run `yarn compress` or
 `yarn pipeline`. To enable it on the server, please add following lines to your `.htaccess`:
