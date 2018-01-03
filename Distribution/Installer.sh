@@ -20,8 +20,9 @@ if which json > /dev/null
     echo "${GREEN}Merge json files${NC}"
     echo "- package.json"
     dependencies=$(cat package.json | json dependencies)
+    browserslist=$(cat package.json | json browserslist)
     distribution=$(cat Build/Gulp/Distribution/Defaults/package.json | json)
-    echo "${distribution},{\"dependencies\":$dependencies}" | json --merge > package.json
+    echo "${distribution},{\"browserslist\":$browserslist},{\"dependencies\":$dependencies}" | json --merge > package.json
 
     # composer.json
     echo "- composer.json"
