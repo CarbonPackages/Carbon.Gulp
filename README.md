@@ -173,7 +173,7 @@ FolderName.Inline
 
 The content from `_allsub.scss` would be:
 
-```
+```scss
 @import "FolderName/0-Variables.noLinter";
 @import "FolderName/Footer";
 ```
@@ -182,7 +182,7 @@ The content from `_allsub.scss` would be:
 
 And the content from `_allsub.Inline.scss` would be:
 
-```
+```scss
 @import "FolderName/FrameworkPart.noLinter.Inline";
 @import "FolderName/Header.Inline";
 @import "FolderName.Inline/0-Variables.noLinter";
