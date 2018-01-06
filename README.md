@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://poser.pugx.org/carbon/gulp/v/stable)](https://packagist.org/packages/carbon/gulp)
 [![Total Downloads](https://poser.pugx.org/carbon/gulp/downloads)](https://packagist.org/packages/carbon/gulp)
-[![License](https://poser.pugx.org/carbon/gulp/license)](https://packagist.org/packages/carbon/gulp)
+[![License](https://poser.pugx.org/carbon/gulp/license)](LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/jonnitto/Carbon.Gulp.svg?style=social&label=Fork)](https://github.com/jonnitto/Carbon.Gulp/fork)
 [![GitHub stars](https://img.shields.io/github/stars/jonnitto/Carbon.Gulp.svg?style=social&label=Stars)](https://github.com/jonnitto/Carbon.Gulp/stargazers)
 [![GitHub watchers](https://img.shields.io/github/watchers/jonnitto/Carbon.Gulp.svg?style=social&label=Watch)](https://github.com/jonnitto/Carbon.Gulp/subscription)
@@ -13,6 +13,8 @@ Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to
 form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
 Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 [@dfeyer](https://github.com/dfeyer) from [ttree ltd](https://github.com/ttreeagency).
+
+You can find an example installation [here](https://github.com/jonnitto/CarbonGulpExample).
 
 # Installation
 
