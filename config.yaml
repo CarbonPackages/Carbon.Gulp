@@ -67,7 +67,7 @@ tasks:
         - "./Packages/Plugins/"
         - "./node_modules/"
     postcss:
-      activateRtlCss: false,
+      activateRtlCss: false
       assets:
         loadPaths:
           - "Assets"
