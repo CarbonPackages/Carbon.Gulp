@@ -3,9 +3,7 @@
 # top-most EditorConfig file
 root = true
 
-
 # Default
-
 [*]
 charset = utf-8
 end_of_line = lf
