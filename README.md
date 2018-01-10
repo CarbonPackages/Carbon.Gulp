@@ -137,18 +137,19 @@ contains `.noLinter.`. This is useful if you have to include third-party files.
 These small helper can make your handling with **css `@import`** life much easier.
 Files with the pattern `_all?(.[A-Za-z0-9]*).scss`, `_allsub?(.[A-Za-z0-9]*).scss`
 and `_allFusion?(.[A-Za-z0-9]*).scss` get filled automatically by the task `scss`.
-If a filename has a dot with a string before .scss or a Folder ending with
-that string, it will be in a separate namespace. `noLinter` is an exception,
-because this is for turning off the linter and prettier config.
 
-| Filename                        | Description                                                                             |
-| ------------------------------- | --------------------------------------------------------------------------------------- |
-| **`_all.scss`**                 | Every file (except namespaced ones) from the same directory get an `@import` statement. |
-| **`_allsub.scss`**              | Every file (except namespaced ones) from sub directories get an `@import` statement.    |
-| **`_allFusion.scss`**           | Every file (except namespaced ones) from the Fusion folder get an `@import` statement.  |
-| **`_all.NAMESPACE.scss`**       | Every file with the given namespace from the same directory get an `@import` statement. |
-| **`_allsub.NAMESPACE.scss`**    | Every file with the given namespace from sub directories get an `@import` statement.    |
-| **`_allFusion.NAMESPACE.scss`** | Every file with the given namespace from the Fusion folder get an `@import` statement.  |
+If you want to split source files into seperated import containers, you can add
+an annotation within a filename. Look at the examples to understand the pattern.  
+`noLinter` is an exception, because this is for turning off the linter and prettier config.
+
+| Filename                            | Description                                                                                           |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **`_all.scss`**                     | Every file (except the files with an annotation) from the same directory gets an `@import` statement. |
+| **`_allsub.scss`**                  | Every file (except the files with an annotation) from sub directories gets an `@import` statement.    |
+| **`_allFusion.scss`**               | Every file (except the files with an annotation) from the Fusion folder gets an `@import` statement.  |
+| **`_all.CONTAINERNAME.scss`**       | Every file with the given annotation from the same directory gets an `@import` statement.             |
+| **`_allsub.CONTAINERNAME.scss`**    | Every file with the given annotation from sub directories gets an `@import` statement.                |
+| **`_allFusion.CONTAINERNAME.scss`** | Every file with the given annotation from the Fusion folder gets an `@import` statement.              |
 
 Files and folders with beginning underscore (`_`) get ignored.
 
@@ -180,7 +181,7 @@ The content from `_allsub.scss` would be:
 @import "FolderName/Footer";
 ```
 
-#### Namespaced import
+#### Import with an annotation
 
 And the content from `_allsub.Inline.scss` would be:
 
