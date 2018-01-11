@@ -99,7 +99,8 @@ tasks:
         replace: true
         mediaQuery: false
         minPixelValue: 0
-      autoprefixer: {}
+      autoprefixer:
+        grid: true
       cssnano:
         reduceIdents: false
         zindex: false
