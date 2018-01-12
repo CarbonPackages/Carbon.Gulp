@@ -1,0 +1,11 @@
+{
+    "scripts": {
+        "post-update-cmd": [
+            "TYPO3\\\\Flow\\\\Composer\\\\InstallerScripts::postUpdateAndInstall",
+            "if [ -f Build/Gulp/Distribution/Installer.sh ]; then sh Build/Gulp/Distribution/Installer.sh; fi"
+        ],
+        "gulp": "yarn start",
+        "build": "yarn build",
+        "pipeline": "yarn pipeline"
+    }
+}

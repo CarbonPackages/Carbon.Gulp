@@ -2,14 +2,13 @@
 ## https://www.npmjs.com/package/json
 ## yarn global add json
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+NC="\033[0m" # No Color
 
 echo ""
 echo "${GREEN}Copy files to root${NC}"
 cp Build/Gulp/Distribution/Essentials/.[^.]*  ./
-#cp Build/Gulp/Distribution/Essentials/*  ./
 cp -nv Build/Gulp/Distribution/Hidden/.[^.]*  ./
 cp -nv Build/Gulp/Distribution/Defaults/*  ./
 
@@ -27,8 +26,16 @@ if which json > /dev/null
     # composer.json
     echo "- composer.json"
     composer=$(cat composer.json)
+
     replacedComposer=${composer//\\/\\\\}
-    scripts=$(cat Build/Gulp/Distribution/Scripts.json)
+    composer show neos/neos -q -n > /dev/null 2>&1
+    if [ $? -eq 0 ]
+      then
+        version="Neos"
+      else
+        version="TYPO3"
+    fi
+    scripts=$(cat Build/Gulp/Distribution/${version}.json)
     echo "${replacedComposer},${scripts}" | json --deep-merge -4 > composer.json
   else
     echo "If you want to merge json files, you need to install following package globally:"
@@ -41,4 +48,4 @@ echo "Install dependencies"
 echo $NC
 yarn
 
-exit
+exit 0
