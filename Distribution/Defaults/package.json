@@ -5,11 +5,7 @@
   "private": true,
   "author": "Jon Uhlmann",
   "license": "MIT",
-  "keywords": [
-    "gulp",
-    "neoscms",
-    "flow"
-  ],
+  "keywords": ["gulp", "neoscms", "flow"],
   "repository": {
     "type": "git",
     "url": "https://github.com/jonnitto/Carbon.Gulp.git"
@@ -23,15 +19,9 @@
         }
       ]
     ],
-    "plugins": [
-      "external-helpers"
-    ]
+    "plugins": ["external-helpers"]
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "Explorer > 10"
-  ],
+  "browserslist": ["> 1%", "last 2 versions", "Explorer > 10"],
   "prettier": {
     "overrides": [
       {
@@ -80,7 +70,7 @@
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "2.19.0",
-    "caniuse-db": "^1.0.30000791",
+    "caniuse-db": "^1.0.30000792",
     "css-mqpacker": "^6.0.1",
     "cssnano": "^3.10.0",
     "del": "^3.0.0",
@@ -93,28 +83,28 @@
     "glob": "^7.1.2",
     "gulp": "next",
     "gulp-brotli": "^1.2.1",
-    "gulp-changed": "^3.1.1",
+    "gulp-changed": "^3.2.0",
     "gulp-chmod": "^2.0.0",
     "gulp-cssbeautify": "^1.0.0",
     "gulp-eslint": "^4.0.1",
     "gulp-flatten": "^0.4.0",
     "gulp-header": "^1.8.9",
-    "gulp-imagemin": "^4.0.0",
+    "gulp-imagemin": "^4.1.0",
     "gulp-memory-cache": "^0.3.0",
     "gulp-noop": "^1.0.0",
     "gulp-plumber": "^1.2.0",
-    "gulp-postcss": "^7.0.0",
+    "gulp-postcss": "^7.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-rollup": "^2.15.0",
     "gulp-sass": "^3.1.0",
     "gulp-size": "^3.0.0",
-    "gulp-sourcemaps": "^2.6.1",
+    "gulp-sourcemaps": "^2.6.3",
     "gulp-stylelint": "^6.0.0",
     "gulp-svg-sprite": "^1.3.7",
     "gulp-svgmin": "^1.2.4",
     "gulp-zopfli": "^1.0.0",
     "merge-stream": "^1.0.1",
-    "node-notifier": "^5.1.2",
+    "node-notifier": "^5.2.1",
     "object-assign-deep": "^0.3.1",
     "pleeease-filters": "^4.0.0",
     "postcss": "^6.0.16",
