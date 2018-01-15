@@ -31,14 +31,23 @@ To install your development dependencies you can simple run:
 sh Build/Gulp/Distribution/Installer.sh
 ```
 
+You need to run this command only once, because with the script your `composer.json`
+get ajusted to check and update the dependencies every time a package get installed.
+
+If you don't want to patch your `composer.json`, you can run
+
+```bash
+sh Build/Gulp/Distribution/Update.sh
+```
+
+These scripts copies all necessary files from the [Distribution](Distribution)
+folder into your root folder. If the file `package.json` already exist, the
+dependencies will get merged with the `package.json` from the distribution.
+Otherwise it will create you a [`package.json`](Distribution/Defaults/package.json)
+with all the needed settings.
+
 **Warning:** You need to install [json](https://www.npmjs.com/package/json) if
 you want to merge the json automatically.
-
-This command copies all necessary files to your root folder. You need to run
-this command only once. The file `composer.json` get ajusted to check and update
-the dependencies every time a package get installed.  
-If the file `package.json` already exist, the dependencies will get merged
-with the `package.json` from the distribution.
 
 **It is important that you will add your own dependencies with [`yarn add`](https://yarnpkg.com/en/docs/usage).
 Development dependencies will be updated on every update of the package**
