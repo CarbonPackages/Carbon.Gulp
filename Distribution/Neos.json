@@ -2,7 +2,7 @@
     "scripts": {
         "post-update-cmd": [
             "Neos\\\\Flow\\\\Composer\\\\InstallerScripts::postUpdateAndInstall",
-            "if [ -f Build/Gulp/Distribution/Installer.sh ]; then sh Build/Gulp/Distribution/AutoUpdate.sh; fi"
+            "if [ -f Build/Gulp/Distribution/AutoUpdate.sh ]; then sh Build/Gulp/Distribution/AutoUpdate.sh; fi"
         ],
         "gulp": "yarn start",
         "build": "yarn build",
