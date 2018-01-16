@@ -29,9 +29,4 @@ if which json > /dev/null
     echo "You can install it with this command: ${RED}yarn global add json${NC}"
 fi
 
-echo $GREEN
-echo "Update dependencies"
-echo $NC
-yarn
-
 exit 0
