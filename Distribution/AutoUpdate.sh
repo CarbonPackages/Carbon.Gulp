@@ -18,7 +18,7 @@ if which json > /dev/null
     echo "- package.json"
     dependencies=$(cat package.json | json dependencies)
     browserslist=$(cat package.json | json browserslist)
-    distribution=$(cat Build/Gulp/Distribution/Defaults/package.json | json)
+    distribution=$(cat Build/Gulp/Distribution/Install/package.json | json)
     echo "${distribution},{\"browserslist\":$browserslist},{\"dependencies\":$dependencies}" | json --merge > package.json
 
   else
