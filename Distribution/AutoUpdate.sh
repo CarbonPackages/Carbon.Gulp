@@ -7,18 +7,17 @@ GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 
 echo ""
-echo "${GREEN}Copy files to root${NC}"
-cp Build/Gulp/Distribution/Update/.[^.]*  ./
+echo "${GREEN}Update files on root${NC}"
+cp Build/Gulp/Distribution/Essentials/.[^.]*  ./
 
 echo ""
 if which json > /dev/null
   then
     # merge package.json
-    echo "${GREEN}Merge json files${NC}"
-    echo "- package.json"
+    echo "${GREEN}Merge package.json${NC}"
     dependencies=$(cat package.json | json dependencies)
     browserslist=$(cat package.json | json browserslist)
-    distribution=$(cat Build/Gulp/Distribution/Install/package.json | json)
+    distribution=$(cat Build/Gulp/Distribution/Default/package.json | json)
     echo "${distribution},{\"browserslist\":$browserslist},{\"dependencies\":$dependencies}" | json --merge > package.json
 
   else

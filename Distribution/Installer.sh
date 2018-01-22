@@ -9,8 +9,8 @@ NC="\033[0m" # No Color
 echo ""
 echo "${GREEN}Copy files to root${NC}"
 cp Build/Gulp/Distribution/Essentials/.[^.]*  ./
-cp Build/Gulp/Distribution/Install/.gitignore  ./
-cp -nv Build/Gulp/Distribution/Install/*  ./
+cp Build/Gulp/Distribution/Default/.gitignore  ./
+cp -nv Build/Gulp/Distribution/Default/*  ./
 
 echo ""
 if which json > /dev/null
@@ -20,7 +20,7 @@ if which json > /dev/null
     echo "- package.json"
     dependencies=$(cat package.json | json dependencies)
     browserslist=$(cat package.json | json browserslist)
-    distribution=$(cat Build/Gulp/Distribution/Install/package.json | json)
+    distribution=$(cat Build/Gulp/Distribution/Default/package.json | json)
     echo "${distribution},{\"browserslist\":$browserslist},{\"dependencies\":$dependencies}" | json --merge > package.json
 
     # composer.json
