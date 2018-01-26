@@ -16,6 +16,8 @@
     "declaration-colon-newline-after": null,
     "at-rule-empty-line-before": null,
     "at-rule-no-unknown": null,
+    "no-descending-specificity": null,
+    "no-duplicate-selectors": [ true, { "severity": "warning" }],
     "max-empty-lines": 3,
     "max-nesting-depth": 5,
     "no-invalid-double-slash-comments": true,
