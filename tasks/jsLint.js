@@ -27,7 +27,7 @@ function lint() {
             .pipe(ESLINT())
             .pipe(
                 ESLINT.results(results => {
-                    FUNCTIONS.notifyText({
+                    notifyText({
                         warnings: results.warningCount,
                         errors: results.errorCount,
                         subtitle: `${packageConfig.key}: ES Lint`

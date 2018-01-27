@@ -26,7 +26,27 @@ function scssLint(callback) {
             .pipe(plumber(handleErrors))
             .pipe(
                 STYLELINT({
-                    reporters: [{ formatter: "string", console: true }]
+                    failAfterError: false,
+                    reporters: [
+                        { formatter: "string", console: true },
+                        { formatter: resultList => {
+                            if (config.global.notifications) {
+                                resultList.filter(result => result.warnings.length)
+                                .forEach(result => {
+                                    let errors = result.warnings.filter(warning => warning.severity == 'error').length;
+                                    let warnings = result.warnings.filter(warning => warning.severity != 'error').length;
+
+                                    notifyText({
+                                        title: "Stylelint " + (errors ? "error" : "warning"),
+                                        subtitle: "Filename: " + path.basename(result.source),
+                                        errors: errors,
+                                        warnings: warnings
+                                    });
+                                });
+                            }
+                            return true;
+                        }}
+                    ]
                 })
             );
     });

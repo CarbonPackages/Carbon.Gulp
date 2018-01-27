@@ -235,7 +235,7 @@ function notifyText(object) {
         let message = " found";
         let hasError = object.error || object.errors ? true : false;
         let options = {
-            title: hasError ? "Error" : "Warning",
+            title: object.title ? object.title : hasError ? "Error" : "Warning",
             icon: hasError ? gulpIcons.error : gulpIcons.warning,
             wait: hasError,
             sound: hasError ? "Basso" : false
@@ -252,7 +252,7 @@ function notifyText(object) {
             message = object.warnings + warning + message;
         }
         if (object.errors) {
-            let error = pluralize(" error", object.warnings);
+            let error = pluralize(" error", object.errors);
             message =
                 object.errors +
                 error +
