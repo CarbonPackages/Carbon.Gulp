@@ -117,7 +117,7 @@
     "node-notifier": "^5.2.1",
     "object-assign-deep": "^0.3.1",
     "pleeease-filters": "^4.0.0",
-    "postcss": "^6.0.17",
+    "postcss": "^6.0.18",
     "postcss-animations": "^6.1.1",
     "postcss-assets": "^5.0.0",
     "postcss-center": "^1.1.0",

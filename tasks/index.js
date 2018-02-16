@@ -154,6 +154,13 @@ gulp.task("build").description =
     colors.inverse(" Generates all ") + " Assets, Javascript and CSS files";
 gulp.task("build").flags = flags;
 
+task.reload = function(done) {
+    if (browserSync) {
+        browserSync.reload();
+    }
+    done();
+};
+
 // Watch
 task.watch = () => {
     const TASK = ["css", "js", "fonts", "images", "static", "svgSprite"];
@@ -178,7 +185,10 @@ task.watch = () => {
                     gulp
                         .watch(
                             FILES_TO_WATCH,
-                            bach.parallel(task.js, task.jsLint)
+                            bach.parallel(
+                                bach.series(task.js, task.reload),
+                                task.jsLint
+                            )
                         )
                         .on("change", cache.update(taskName));
                     break;

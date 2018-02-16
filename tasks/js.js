@@ -152,7 +152,6 @@ function js() {
             )
             .pipe(mode.maps ? sourcemaps.write("") : noop())
             .pipe(gulp.dest(packageConfig.dest))
-            .pipe(browserSync ? browserSync.stream() : noop())
             .pipe(
                 size({
                     title: `${packageConfig.key} JS:`,
