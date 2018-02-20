@@ -18,7 +18,7 @@ for (let key in config.packages) {
         );
 
         PACKAGES_CONFIG.push({
-            key: key,
+            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
             src: path.join(
                 CONFIG.root.base,
                 key,

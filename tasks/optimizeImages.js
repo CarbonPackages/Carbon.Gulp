@@ -30,7 +30,7 @@ for (let key in config.packages) {
     if (IMAGES_CONFIG) {
         PACKAGES_CONFIG.push({
             imagemin: IMAGEMIN_CONFIG,
-            key: key,
+            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
             src: path.join(
                 CONFIG.root.base,
                 key,

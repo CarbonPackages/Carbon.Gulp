@@ -133,6 +133,15 @@ function mergeConfigAndLoadTasks() {
         config.global.mergeConfigFromPackages.forEach(folder => {
             mergePackageConfig(folder);
         });
+    } else {
+        config.packages[""] = objectAssignDeep(
+            {},
+            {
+                info: config.info ? config.info : false,
+                root: config.root ? config.root : false,
+                tasks: config.tasks ? config.tasks : false
+            }
+        );
     }
 
     if (config.global.browserSync.proxyRootFolder) {

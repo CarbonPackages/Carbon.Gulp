@@ -119,7 +119,7 @@ for (let key in config.packages) {
         }
 
         PACKAGES_CONFIG.push({
-            key: key,
+            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
             info: CONFIG.info,
             assets: assetsPath,
             saas: saasConfig,
@@ -172,6 +172,7 @@ function css() {
                     : noop()
             )
             .pipe(
+                packageConfig.key &&
                 packageConfig.info.banner &&
                 packageConfig.info.author &&
                 packageConfig.info.homepage

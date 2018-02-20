@@ -13,7 +13,7 @@ for (let key in config.packages) {
 
     if (CONFIG.tasks.scssLint) {
         PACKAGES_CONFIG.push({
-            key: key,
+            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
             watch: FUNCTIONS.getFilesToWatch("css", CONFIG, key)
         });
     }

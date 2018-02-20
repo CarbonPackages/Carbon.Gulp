@@ -17,7 +17,7 @@ for (let key in config.packages) {
         (CONFIG_OPTIMIZE_SVG == "src" || CONFIG_OPTIMIZE_SVG == "dest")
     ) {
         let configuration = {
-            key: key,
+            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
             src: [
                 path.join(
                     CONFIG.root.base,

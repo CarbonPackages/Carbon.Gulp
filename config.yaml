@@ -2,6 +2,7 @@ info:
   author: false
   homepage: false
   banner: "/*!\n * <%= package %> - created by <%= author %>\n * @build <%= timestamp %>\n * @link <%= homepage %>\n */\n"
+  package: false
 
 global:
   mergeConfigFromPackages:
