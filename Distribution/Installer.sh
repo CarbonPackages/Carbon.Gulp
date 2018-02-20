@@ -9,9 +9,8 @@ NC="\033[0m" # No Color
 echo ""
 echo "${GREEN}Copy files to root${NC}"
 cp Build/Gulp/Distribution/Essentials/.[^.]*  ./
-cp Build/Gulp/Distribution/Default/.gitignore  ./
+cp Build/Gulp/Distribution/Git/.gitignore  ./
 cp -nv Build/Gulp/Distribution/Default/*  ./
-cp -nv Build/Gulp/Distribution/Git/*  ./
 
 echo ""
 if which json > /dev/null
