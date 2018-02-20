@@ -11,6 +11,7 @@ echo "${GREEN}Copy files to root${NC}"
 cp Build/Gulp/Distribution/Essentials/.[^.]*  ./
 cp Build/Gulp/Distribution/Default/.gitignore  ./
 cp -nv Build/Gulp/Distribution/Default/*  ./
+cp -nv Build/Gulp/Distribution/Git/*  ./
 
 echo ""
 if which json > /dev/null
