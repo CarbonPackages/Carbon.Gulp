@@ -18,6 +18,10 @@ function handleErrors(error) {
     if (this && typeof this.emit == "function") {
         this.emit("end");
     }
+
+    if (mode.pipeline) {
+        process.exit(1);
+    }
 }
 
 module.exports = handleErrors;

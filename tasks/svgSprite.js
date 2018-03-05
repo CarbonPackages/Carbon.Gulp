@@ -65,6 +65,7 @@ function svgSprite() {
             ? preSprite
                   .pipe(SVG_SPRITE(packageConfig.config.private))
                   .pipe(chmod(config.global.chmod))
+                  .pipe(plumber.stop())
                   .pipe(gulp.dest(packageConfig.inlinePath))
             : false;
 
@@ -72,6 +73,7 @@ function svgSprite() {
             preSprite
                 .pipe(SVG_SPRITE(packageConfig.config.public))
                 .pipe(chmod(config.global.chmod))
+                .pipe(plumber.stop())
                 .pipe(gulp.dest(packageConfig.dest))
                 .pipe(
                     size({

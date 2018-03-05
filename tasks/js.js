@@ -152,6 +152,7 @@ function js() {
                     : noop()
             )
             .pipe(mode.maps ? sourcemaps.write("") : noop())
+            .pipe(plumber.stop())
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({

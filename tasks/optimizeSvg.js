@@ -72,6 +72,7 @@ function optimize() {
             .pipe(plumber(handleErrors))
             .pipe(packageConfig.pretty ? SVGMIN(PRETTY_OPTIONS) : SVGMIN())
             .pipe(chmod(config.global.chmod))
+            .pipe(plumber.stop())
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({

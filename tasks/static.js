@@ -40,6 +40,7 @@ function copy() {
             .pipe(cache("static"))
             .pipe(changed(packageConfig.dest)) // Ignore unchanged files
             .pipe(chmod(config.global.chmod))
+            .pipe(plumber.stop())
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({

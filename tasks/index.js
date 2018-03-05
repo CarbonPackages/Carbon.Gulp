@@ -214,8 +214,13 @@ gulp.task("default").description =
     colors.inverse(" watch them ");
 gulp.task("default").flags = flags;
 
+function setPipelineEnvironment(callback) {
+    global.mode.pipeline = true;
+    callback();
+}
+
 if (config.tasks.pipeline && typeof config.tasks.pipeline == "object") {
-    let series = gulp.series(config.tasks.pipeline);
+    let series = gulp.series(setPipelineEnvironment,config.tasks.pipeline);
     gulp.task("pipeline", series);
     gulp.task("pipeline").description = "Make files production ready";
 }

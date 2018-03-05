@@ -34,7 +34,8 @@ function lint() {
                     });
                 })
             )
-            .pipe(ESLINT.format());
+            .pipe(ESLINT.format())
+            .pipe(plumber.stop());
     });
 
     return merge(tasks);

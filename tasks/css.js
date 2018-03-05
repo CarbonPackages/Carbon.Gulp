@@ -185,6 +185,7 @@ function css() {
                     : noop()
             )
             .pipe(mode.maps ? sourcemaps.write("") : noop())
+            .pipe(plumber.stop())
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(browserSync ? browserSync.stream() : noop())
             .pipe(

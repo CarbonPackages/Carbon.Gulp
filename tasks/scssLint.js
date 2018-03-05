@@ -67,7 +67,8 @@ function scssLint(callback) {
                         }
                     ]
                 })
-            );
+            )
+            .pipe(plumber.stop());
     });
 
     return merge(tasks);
