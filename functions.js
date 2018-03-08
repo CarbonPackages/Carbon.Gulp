@@ -1,37 +1,25 @@
 "use strict";
 
 function getTimestamp() {
-    let timestamp;
-    let now = new Date();
-    timestamp = now.getFullYear().toString();
-    timestamp += "-";
-    timestamp +=
-        (now.getMonth() < 9 ? "0" : "") + (now.getMonth() + 1).toString();
-    timestamp += "-";
-    timestamp += (now.getDate() < 10 ? "0" : "") + now.getDate().toString();
-    timestamp += " ";
-    timestamp += (now.getHours() < 10 ? "0" : "") + now.getHours().toString();
-    timestamp += ":";
-    timestamp +=
-        (now.getMinutes() < 10 ? "0" : "") + now.getMinutes().toString();
-    //timestamp += ':';
-    //timestamp += (now.getSeconds() < 10 ? '0' : '') + now.getSeconds().toString();
-    return timestamp;
+    let n = new Date();
+    let t = n.getFullYear().toString();
+    t += "-";
+    t += (n.getMonth() < 9 ? "0" : "") + (n.getMonth() + 1).toString();
+    t += "-";
+    t += (n.getDate() < 10 ? "0" : "") + n.getDate().toString();
+    t += " ";
+    t += (n.getHours() < 10 ? "0" : "") + n.getHours().toString();
+    t += ":";
+    t += (n.getMinutes() < 10 ? "0" : "") + n.getMinutes().toString();
+    return t;
 }
 
 function getExtensions(extensions, prepend = "") {
-    if (Array.isArray(extensions)) {
-        return (
-            "/" +
-            prepend +
-            "*." +
-            (extensions.length > 1
-                ? "{" + extensions.join(",") + "}"
-                : extensions)
-        );
-    } else {
-        return "/" + prepend + "*." + extensions;
+    if (Array.isArray(extensions) && extensions.length > 1) {
+        extensions = `{${extensions.join(",")}}`;
     }
+    // Exclude files starting with an underscore
+    return `/${prepend}[^_]*.${extensions}`;
 }
 
 function readYaml(path) {
@@ -54,10 +42,10 @@ function getInfoFromComposer(path = "") {
 function mergeRootConfig(filename) {
     try {
         const configFromRoot = readYaml(filename);
-        objectAssignDeep(config, configFromRoot);
-        console.info(
-            `Loaded config file ${util.colors.red(filename)} from root`
-        );
+        if (configFromRoot) {
+            objectAssignDeep(config, configFromRoot);
+            log(`Loaded config file ${colors.red(filename)} from root`);
+        }
     } catch (error) {}
 }
 
@@ -100,7 +88,7 @@ function mergePackageConfig(path) {
                 CONFIG.YAML
             );
 
-            console.info(
+            log(
                 `Loaded config file ${colors.red(
                     "Gulp.yaml"
                 )} from the package ${colors.red(key)}`
