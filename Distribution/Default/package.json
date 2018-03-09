@@ -98,7 +98,7 @@
     "gulp-cssbeautify": "^1.0.0",
     "gulp-eslint": "^4.0.2",
     "gulp-flatten": "^0.4.0",
-    "gulp-header": "^2.0.1",
+    "gulp-header": "^2.0.5",
     "gulp-imagemin": "^4.1.0",
     "gulp-memory-cache": "^0.3.0",
     "gulp-noop": "^1.0.0",
