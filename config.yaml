@@ -84,6 +84,21 @@ tasks:
           - "after"
           - "first-letter"
           - "first-line"
+      short:
+        border:
+          skip: x
+        border-radius:
+          skip: x
+        color:
+          skip: x
+        font-size:
+          skip: x
+        position:
+          skip: x
+        size:
+          skip: x
+        spacing:
+          skip: x
       rucksack:
         fallbacks: false
       mqpacker:

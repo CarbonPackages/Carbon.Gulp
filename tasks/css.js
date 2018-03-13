@@ -81,7 +81,7 @@ for (let key in config.packages) {
                 POSTCSS_CONFIGURATION.magicAnimations
             ),
             POSTCSS_PLUGIN.VMAX,
-            POSTCSS_PLUGIN.SHORT,
+            POSTCSS_PLUGIN.SHORT(POSTCSS_CONFIGURATION.short),
             POSTCSS_PLUGIN.CENTER,
             POSTCSS_PLUGIN.RUCKSACK_CSS(POSTCSS_CONFIGURATION.rucksack),
             POSTCSS_PLUGIN.FLEXBOX,
