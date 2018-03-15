@@ -27,8 +27,9 @@
         "grid-kiss",
         "font-range","min-font-size","max-font-size","lower-font-range","upper-font-range",
         "font-awesome",
-        "border-top-radius", "border-right-radius", "border-bottom-radius", "border-left-radius",
-        "tap-highlight-color"
+        "size","min-size","max-size",
+        "border-top-radius","border-right-radius","border-bottom-radius","border-left-radius",
+        "tap-highlight-color","touch-callout"
       ]
     }],
     "selector-pseudo-class-no-unknown": [true, {
