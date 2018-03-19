@@ -14,12 +14,12 @@ function getTimestamp() {
     return t;
 }
 
-function getExtensions(extensions, prepend = "") {
+function getExtensions(extensions, excludeUnderscore = true, prepend = "") {
     if (Array.isArray(extensions) && extensions.length > 1) {
         extensions = `{${extensions.join(",")}}`;
     }
     // Exclude files starting with an underscore
-    return `/${prepend}[^_]*.${extensions}`;
+    return `/${prepend}${excludeUnderscore ? "[^_]" : ""}*.${extensions}`;
 }
 
 function readYaml(path) {
@@ -172,7 +172,7 @@ function getFilesToWatch(taskName, configuration = config, key = "**") {
                     configuration.root.src,
                     conf.src,
                     "/**",
-                    getExtensions(conf.extensions)
+                    getExtensions(conf.extensions, false)
                 )
             );
         } else {
@@ -181,7 +181,7 @@ function getFilesToWatch(taskName, configuration = config, key = "**") {
                     configuration.root.base,
                     key,
                     value,
-                    getExtensions(conf.extensions)
+                    getExtensions(conf.extensions, false)
                 )
             );
         }
@@ -195,7 +195,7 @@ function getFilesToWatch(taskName, configuration = config, key = "**") {
                                 configuration.root.base,
                                 key,
                                 value,
-                                getExtensions(conf.extensions)
+                                getExtensions(conf.extensions, false)
                             )
                     );
                 }
