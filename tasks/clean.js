@@ -5,27 +5,36 @@ if (!config.tasks.clean) {
 }
 
 const DEL = require("del");
-let paths = [];
+let assets = [];
 
 for (let key in config.packages) {
     const CONFIG = config.packages[key];
-    const CLEAN = CONFIG.tasks.clean;
+    let entries = CONFIG.tasks.clean;
 
-    if (Array.isArray(CLEAN)) {
-        paths = paths.concat(
-            CLEAN.map(entry =>
-                path.join(CONFIG.root.base, key, CONFIG.root.dest, entry)
+    if (typeof entries == "string") {
+        entries = [entries];
+    }
+
+    assets = assets.concat(
+        entries.map(entry =>
+            path.join(CONFIG.root.base, key, CONFIG.root.dest, entry)
+        )
+    );
+
+    if (CONFIG.root.inlineAssets) {
+        assets.push(
+            path.join(
+                CONFIG.root.base,
+                key,
+                CONFIG.root.src,
+                CONFIG.root.inlinePath
             )
-        );
-    } else if (typeof CLEAN == "string") {
-        paths = paths.concat(
-            path.join(CONFIG.root.base, key, CONFIG.root.dest, CLEAN)
         );
     }
 }
 
 function clean(callback) {
-    return DEL(paths, { force: true }, callback);
+    return DEL(assets, { force: true }, callback);
 }
 
 module.exports = clean;
