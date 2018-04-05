@@ -1,6 +1,6 @@
 {
   "name": "gulpfile",
-  "version": "5.1.5",
+  "version": "5.1.6",
   "description": "Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to form a full-featured modern asset pipeline for Flow Framework and Neos CMS.",
   "private": true,
   "author": "Jon Uhlmann",
