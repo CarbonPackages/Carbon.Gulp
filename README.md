@@ -70,13 +70,13 @@ Tasks
 ├── showConfig       Show the merged configuration
 │   --p, --path      … Pass path from the configuration file to reduce output. Slash ("/") seperated
 ├── css              Render CSS Files
-│   --b, --beautify  … Beautify and dont't compress files
-│   --d, --debug     … Files dont't get compressed
+│   --b, --beautify  … Beautify and don't compress files
+│   --d, --debug     … Files don't get compressed
 │   --n, --nomaps    … Don't write sourcemaps
 ├── scss             Render _all.scss, _allsub.scss and _allFusion.scss Files
 ├── js               Render Javascript Files
-│   --b, --beautify  … Beautify and dont't compress files
-│   --d, --debug     … Files dont't get compressed
+│   --b, --beautify  … Beautify and don't compress files
+│   --d, --debug     … Files don't get compressed
 │   --n, --nomaps    … Don't write sourcemaps
 ├── lint             Lint Javascript and CSS files
 ├── optimizeImages   Optimize images and overwrite them in the public folder
@@ -84,13 +84,13 @@ Tasks
 ├── optimizeSvg      Optimize SVGs and overwrite them
 ├── compress         Compress all CSS/JS/SVG with Brotli and Zopfli
 ├── build             Generates all  Assets, Javascript and CSS files
-│   --b, --beautify  … Beautify and dont't compress files
-│   --d, --debug     … Files dont't get compressed
+│   --b, --beautify  … Beautify and don't compress files
+│   --d, --debug     … Files don't get compressed
 │   --n, --nomaps    … Don't write sourcemaps
 ├── watch            Watch files and regenereate them
 ├─┬ default           Generates all  Assets, Javascript and CSS files &  watch them
-│ │ --b, --beautify  … Beautify and dont't compress files
-│ │ --d, --debug     … Files dont't get compressed
+│ │ --b, --beautify  … Beautify and don't compress files
+│ │ --d, --debug     … Files don't get compressed
 │ │ --n, --nomaps    … Don't write sourcemaps
 │ └─┬ <series>
 │   ├── build
@@ -110,8 +110,8 @@ Tasks
 | `yarn tasks`          |         | Show all available tasks                                       |
 | `yarn build`          |         | Generates all Assets, Javascript and CSS files                 |
 | `yarn pipeline`       |         | Make files production ready                                    |
-| `yarn beautify`       |    ✓    | Beautify and dont't compress files                             |
-| `yarn debug`          |    ✓    | Files dont't get compressed                                    |
+| `yarn beautify`       |    ✓    | Beautify and don't compress files                             |
+| `yarn debug`          |    ✓    | Files don't get compressed                                    |
 | `yarn nomaps`         |    ✓    | Don't write sourcemaps                                         |
 | `yarn css`            |         | Render CSS Files                                               |
 | `yarn js`             |         | Render Javascript Files                                        |
