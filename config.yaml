@@ -44,13 +44,17 @@ tasks:
     - Assets
     - Styles
     - Scripts
-    - "*.css"
+    - Modules
     - "*.js"
-    - "*.map"
     - "*.js.br"
     - "*.js.gz"
+    - "*.mjs"
+    - "*.mjs.br"
+    - "*.mjs.gz"
+    - "*.css"
     - "*.css.br"
     - "*.css.gz"
+    - "*.map"
   css:
     src: Assets
     dest: Styles
@@ -135,6 +139,42 @@ tasks:
   scss: true
   scssLint: true
   jsLint: true
+  mjs:
+    src: Assets
+    dest: Modules
+    file: null
+    extensions:
+      - mjs
+      - mjsx
+    compiler: Babel
+    babel: {}
+    buble:
+      objectAssign: "Object.assign"
+    rollup:
+      enable: true
+      format: umd # Available formats are amd, cjs, es6, iife or umd
+      plugins:
+        nodeResolve:
+          module: true
+          jsnext: true
+          main: true
+          browser: true
+        includePaths:
+          include: {}
+          paths:
+            - ""
+            - Packages/Plugins
+          external: []
+          extensions:
+            - .js
+            - .mjs
+            - .json
+            - .jsx
+        commonjs:
+          exclude: node_modules/process-es6/**
+          include:
+            - node_modules/**
+        amd: false
   js:
     src: Assets
     dest: Scripts
@@ -163,6 +203,7 @@ tasks:
           external: []
           extensions:
             - .js
+            - .mjs
             - .json
             - .jsx
         commonjs:

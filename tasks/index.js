@@ -21,6 +21,8 @@ for (let taskName of [
     "images",
     "js",
     "jsLint",
+    "mjs",
+    "mjsLint",
     "optimizeImages",
     "optimizeSvg",
     "scssLint",
@@ -83,15 +85,27 @@ if (config.tasks.js) {
     gulp.task("js").flags = flags;
 }
 
-if (config.tasks.scssLint || config.tasks.jsLint) {
-    if (config.tasks.scssLint && config.tasks.jsLint) {
-        gulp.task("lint", bach.parallel(task.scssLint, task.jsLint));
+if (config.tasks.mjs) {
+    gulp.task("mjs", bach.parallel(task.mjs, task.mjsLint));
+    gulp.task("mjs").description = "Render Javascript Modules";
+    gulp.task("mjs").flags = flags;
+}
+
+if (config.tasks.scssLint || config.tasks.jsLint || config.tasks.mjsLint) {
+    if (
+        config.tasks.scssLint &&
+        (config.tasks.jsLint || config.tasks.mjsLint)
+    ) {
+        gulp.task(
+            "lint",
+            bach.parallel(task.scssLint, task.jsLint, task.mjsLint)
+        );
         gulp.task("lint").description = "Lint Javascript and CSS files";
     } else if (config.tasks.scssLint) {
         gulp.task("lint", task.scssLint);
         gulp.task("lint").description = "Lint CSS files";
     } else {
-        gulp.task("lint", task.jsLint);
+        gulp.task("lint", bach.parallel(task.jsLint, task.mjsLint));
         gulp.task("lint").description = "Lint Javascript files";
     }
 }
@@ -142,12 +156,13 @@ gulp.task(
             task.scss,
             task.scssLint,
             task.jsLint,
+            task.mjsLint,
             task.fonts,
             task.images,
             task.static,
             task.svgSprite
         ),
-        bach.parallel(task.css, task.js)
+        bach.parallel(task.css, task.js, task.mjs)
     )
 );
 gulp.task("build").description =
@@ -163,7 +178,7 @@ task.reload = function(done) {
 
 // Watch
 task.watch = () => {
-    const TASK = ["css", "js", "fonts", "images", "static", "svgSprite"];
+    const TASK = ["css", "js", "mjs", "fonts", "images", "static", "svgSprite"];
 
     if (browserSync) {
         browserSync.init(config.global.browserSync);
@@ -188,6 +203,17 @@ task.watch = () => {
                             bach.parallel(
                                 bach.series(task.js, task.reload),
                                 task.jsLint
+                            )
+                        )
+                        .on("change", cache.update(taskName));
+                    break;
+                case "mjs":
+                    gulp
+                        .watch(
+                            FILES_TO_WATCH,
+                            bach.parallel(
+                                bach.series(task.mjs, task.reload),
+                                task.mjsLint
                             )
                         )
                         .on("change", cache.update(taskName));
@@ -220,7 +246,7 @@ function setPipelineEnvironment(callback) {
 }
 
 if (config.tasks.pipeline && typeof config.tasks.pipeline == "object") {
-    let series = gulp.series(setPipelineEnvironment,config.tasks.pipeline);
+    let series = gulp.series(setPipelineEnvironment, config.tasks.pipeline);
     gulp.task("pipeline", series);
     gulp.task("pipeline").description = "Make files production ready";
 }

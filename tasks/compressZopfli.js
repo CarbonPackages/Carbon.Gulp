@@ -16,7 +16,7 @@ for (let key in config.packages) {
                 CONFIG.root.base,
                 key,
                 CONFIG.root.dest,
-                "/**/*.{js,css,svg,html}"
+                "/**/*.{js,mjs,css,svg,html}"
             )
         );
     }

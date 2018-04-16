@@ -115,6 +115,7 @@ Tasks
 | `yarn nomaps`         |    ✓    | Don't write sourcemaps                                         |
 | `yarn css`            |         | Render CSS Files                                               |
 | `yarn js`             |         | Render Javascript Files                                        |
+| `yarn mjs`            |         | Render Javascript Modules Files                                |
 | `yarn lint`           |         | Lint Javascript and CSS files                                  |
 | `yarn scss`           |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files |
 | `yarn compress`       |         | Compress all CSS/JS/SVG with Brotli and Zopfli                 |
@@ -310,7 +311,17 @@ To compress the asset with brotli and zopfli, you need to run `yarn compress` or
     RewriteCond %{HTTP:Accept-encoding} gzip
     RewriteCond %{REQUEST_FILENAME}\.gz -s
     RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
-    
+
+        # Serve brotli compressed MJS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} br
+    RewriteCond %{REQUEST_FILENAME}\.br -s
+    RewriteRule ^(.*)\.mjs $1\.mjs\.br [QSA]
+
+    # Serve gzip compressed MJS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}\.gz -s
+    RewriteRule ^(.*)\.mjs $1\.mjs\.gz [QSA]
+
     # Serve brotli compressed SVG files if they exist and the client accepts gzip.
     RewriteCond %{HTTP:Accept-encoding} br
     RewriteCond %{REQUEST_FILENAME}\.br -s
@@ -326,19 +337,21 @@ To compress the asset with brotli and zopfli, you need to run `yarn compress` or
     RewriteRule \.css\.br$ - [T=text/css,E=no-gzip:1]
     RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
     RewriteRule \.js\.br$ - [T=text/javascript,E=no-gzip:1]
+    RewriteRule \.mjs\.gz$ - [T=text/javascript,E=no-gzip:1]
+    RewriteRule \.mjs\.br$ - [T=text/javascript,E=no-gzip:1]
     RewriteRule \.svg\.gz$ - [T=image/svg+xml,E=no-gzip:1]
     RewriteRule \.svg\.br$ - [T=image/svg+xml,E=no-gzip:1]
 
-    <FilesMatch "(\.js\.gz|\.css\.gz|\.svg\.gz)$">
+    <FilesMatch "(\.js\.gz|\.mjs\.gz|\.css\.gz|\.svg\.gz)$">
       # Serve correct encoding type.
       Header set Content-Encoding gzip
-      # Force proxies to cache gzipped & non-gzipped css/js/svg files separately.
+      # Force proxies to cache gzipped & non-gzipped css/js/mjs/svg files separately.
       Header append Vary Accept-Encoding
     </FilesMatch>
-    <FilesMatch "(\.js\.br|\.css\.br|\.svg\.br)$">
+    <FilesMatch "(\.js\.br|\.mjs\.br|\.css\.br|\.svg\.br)$">
       # Serve correct encoding type.
       Header set Content-Encoding br
-      # Force proxies to cache gzipped & non-gzipped css/js/svg files separately.
+      # Force proxies to cache gzipped & non-gzipped css/js/mjs/svg files separately.
       Header append Vary Accept-Encoding
     </FilesMatch>
 </IfModule>
