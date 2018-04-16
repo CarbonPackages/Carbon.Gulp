@@ -312,7 +312,7 @@ To compress the asset with brotli and zopfli, you need to run `yarn compress` or
     RewriteCond %{REQUEST_FILENAME}\.gz -s
     RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
 
-        # Serve brotli compressed MJS files if they exist and the client accepts gzip.
+    # Serve brotli compressed MJS files if they exist and the client accepts gzip.
     RewriteCond %{HTTP:Accept-encoding} br
     RewriteCond %{REQUEST_FILENAME}\.br -s
     RewriteRule ^(.*)\.mjs $1\.mjs\.br [QSA]
