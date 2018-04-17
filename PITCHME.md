@@ -1,1 +1,3 @@
-# ![Carbon.Gulp](assets/Pitchme/Images/Logo.png)
+@title[Carbon.Gulp]
+
+![Carbon.Gulp](assets/Pitchme/Images/Logo.png)
