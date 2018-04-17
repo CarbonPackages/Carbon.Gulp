@@ -1,4 +1,4 @@
----?image=assets/Pitchme/Images/Logo.png&position=contain&color=#8bc91c
+---?image=assets/Pitchme/Images/Logo.png&size=contain&color=#8bc91c
 @title[Carbon.Gulp]
 
 +++
