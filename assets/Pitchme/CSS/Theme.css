@@ -45,17 +45,6 @@
     font-family: "Fira Sans", "Source Sans Pro", Helvetica, sans-serif;
 }
 
-.reveal code {
-    font-family: "Fira Code", monospace;
-    font-size: 87.5%;
-    word-break: break-word;
-}
-
-.reveal span > code,
-.reveal p > code {
-    color: var(--primary);
-}
-
 .reveal h1 + h2,
 .reveal h2 + h3,
 .reveal h3 + h4,
@@ -63,7 +52,17 @@
     margin-top: calc(-20px - 0.4em);
 }
 
-.reveal pre code {
+.reveal code {
+    font-family: "Fira Code", monospace;
+    font-size: 87.5%;
+    word-break: break-word;
+}
+
+.reveal *:not(pre) > code {
+    color: var(--primary);
+}
+
+.reveal pre > code {
     padding: 15px;
     border-radius: 3px;
 }
