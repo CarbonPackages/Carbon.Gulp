@@ -10,7 +10,7 @@
 
 @ulend
 
-+++
+++
 
 ## SCSS import helper
 
@@ -19,7 +19,7 @@ These small helper can make your handling with **css `@import`** life much easie
 If you want to split source files into seperated import containers, you can add an annotation within a filename.
 `noLinter` is an exception, because this is for turning off the linter and prettier config.
 
-+++
+++
 
 @ul
 
@@ -42,7 +42,7 @@ If you want to split source files into seperated import containers, you can add 
 Note:
 Files and folders with beginning underscore (`_`) get ignored.
 
-+++
+++
 
 ### Example
 
@@ -60,7 +60,7 @@ FolderName.Inline
  _allsub.Inline.scss
 ```
 
-+++
+++
 
 #### General import
 
@@ -71,7 +71,7 @@ The content from `_allsub.scss` would be:
 @import "FolderName/Footer";
 ```
 
-+++
+++
 
 #### Import with an annotation
 
