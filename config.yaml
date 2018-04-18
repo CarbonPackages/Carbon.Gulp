@@ -6,12 +6,17 @@ info:
 
 global:
   mergeConfigFromPackages:
+    - src
     - .src
+    - _src
+    - Source
+    - LocalPackages
+    - DistributionPackages
   notifications: false
   browserSync:
     enable: true
     proxy: "127.0.0.1:8081"
-    proxyRootFolder: "https://"
+    proxyRootFolder: false
     open: false
     xip: false
   chmod:

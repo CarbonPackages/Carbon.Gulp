@@ -60,15 +60,17 @@ function getFolderSiteName(files) {
 
 function mergePackageConfig(path) {
     let gulpYamlFiles = {};
-    fs.readdirSync(path).forEach(folder => {
-        if (!folder.startsWith(".") && !folder.startsWith("_")) {
-            const GULP_YAML_PATH = `${path}/${folder}/Configuration/Gulp.yaml`;
+    if (fs.existsSync(path)) {
+        fs.readdirSync(path).forEach(folder => {
+            if (!folder.startsWith(".") && !folder.startsWith("_")) {
+                const GULP_YAML_PATH = `${path}/${folder}/Configuration/Gulp.yaml`;
 
-            if (fs.existsSync(GULP_YAML_PATH)) {
-                gulpYamlFiles[folder] = GULP_YAML_PATH;
+                if (fs.existsSync(GULP_YAML_PATH)) {
+                    gulpYamlFiles[folder] = GULP_YAML_PATH;
+                }
             }
-        }
-    });
+        });
+    }
     for (let key in gulpYamlFiles) {
         try {
             const CONFIG = {
