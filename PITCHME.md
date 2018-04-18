@@ -1,4 +1,4 @@
---?image=assets/Pitchme/Images/Logo.png&size=contain&color=var(--primary)
+---?image=assets/Pitchme/Images/Logo.png&size=contain&color=var(--primary)
 @title[Carbon.Gulp]
 
 ---?include=assets/Pitchme/Slides/Intro.md
