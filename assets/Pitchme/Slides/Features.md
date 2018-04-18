@@ -21,14 +21,23 @@ If you want to split source files into seperated import containers, you can add 
 
 +++
 
-| Filename                  | Description                                                                                           |
-| ------------------------- | ----------------------------------------------------------------------------------------------------- |
-| **`_all.scss`**           | Every file (except the files with an annotation) from the same directory gets an `@import` statement. |
-| **`_allsub.scss`**        | Every file (except the files with an annotation) from sub directories gets an `@import` statement.    |
-| **`_allFusion.scss`**     | Every file (except the files with an annotation) from the Fusion folder gets an `@import` statement.  |
-| **`_all.YYY.scss`**       | Every file with the given annotation from the same directory gets an `@import` statement.             |
-| **`_allsub.YYY.scss`**    | Every file with the given annotation from sub directories gets an `@import` statement.                |
-| **`_allFusion.YYY.scss`** | Every file with the given annotation from the Fusion folder gets an `@import` statement.              |
+@ul
+
+*   `_all.scss`
+*   `_allsub.scss`
+*   `_allFusion.scss`
+*   `_all.YYY.scss`
+*   `_allsub.YYY.scss`
+*   `_allFusion.YYY.scss`
+
+@ulend
+
+@[1](Every file (except the files with an annotation) from the same directory gets an `@import` statement.)
+@[2](Every file (except the files with an annotation) from sub directories gets an `@import` statement.)
+@[3](Every file (except the files with an annotation) from the Fusion folder gets an `@import` statement.)
+@[4](Every file with the given annotation from the same directory gets an `@import` statement.)
+@[5](Every file with the given annotation from sub directories gets an `@import` statement.)
+@[6](Every file with the given annotation from the Fusion folder gets an `@import` statement.)
 
 Files and folders with beginning underscore (`_`) get ignored.
 

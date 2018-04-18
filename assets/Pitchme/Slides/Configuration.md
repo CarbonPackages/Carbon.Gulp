@@ -36,7 +36,7 @@ a entry into the configuration. If you don't want to overwrite the default setti
 you have to create an empty `Gulp.yaml` file like this:
 
 ```yaml
----
+ ---
 ```
 
 +++
