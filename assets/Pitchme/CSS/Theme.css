@@ -53,7 +53,7 @@
 
 .reveal span > code,
 .reveal p > code {
-    color: #e83e8c;
+    color: var(--primary);
 }
 
 .reveal h1 + h2,
