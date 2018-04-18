@@ -49,6 +49,9 @@
     font-family: "Fira Code", monospace;
     font-size: 87.5%;
     word-break: break-word;
+}
+
+.reveal p > code {
     color: #e83e8c;
 }
 
