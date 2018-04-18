@@ -7,3 +7,4 @@
 ---?include=assets/Pitchme/Slides/CSS.md
 ---?include=assets/Pitchme/Slides/JS.md
 ---?include=assets/Pitchme/Slides/Assets.md
+---?include=assets/Pitchme/Slides/Demo.md
