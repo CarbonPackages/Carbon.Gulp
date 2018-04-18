@@ -16,7 +16,7 @@ global:
   browserSync:
     enable: true
     proxy: "127.0.0.1:8081"
-    proxyRootFolder: false
+    proxyRootFolder: "https://"
     open: false
     xip: false
   chmod:
