@@ -1,8 +1,3 @@
----?image=assets/Pitchme/Images/Logo.png&size=contain&color=var(--primary)
-@title[Carbon.Gulp]
-
----
-
 # What is Carbon.Gulp?
 
 Note:
