@@ -21,10 +21,6 @@
     display: none;
 }
 
-.reveal .slides > section:first-child {
-    background-color: var(--primary);
-}
-
 .reveal a,
 .reveal .controls,
 .reveal .progress {
