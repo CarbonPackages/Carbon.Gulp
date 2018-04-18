@@ -7,9 +7,9 @@
 [![GitHub followers](https://img.shields.io/github/followers/jonnitto.svg?style=social&label=Follow)](https://github.com/jonnitto/followers)
 [![Follow Jon on Twitter](https://img.shields.io/twitter/follow/jonnitto.svg?style=social&label=Follow)](https://twitter.com/jonnitto)
 
-# Carbon/Gulp
+# Carbon.Gulp 
 
-Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to
+Carbon.Gulp  is a delicious blend of tasks and build tools poured into Gulp to
 form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
 Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 [@dfeyer](https://github.com/dfeyer) from [ttree ltd](https://github.com/ttreeagency).
@@ -310,7 +310,7 @@ To compress the asset with brotli and zopfli, you need to run `yarn compress` or
     RewriteCond %{HTTP:Accept-encoding} gzip
     RewriteCond %{REQUEST_FILENAME}\.gz -s
     RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
-    
+
     # Serve brotli compressed SVG files if they exist and the client accepts gzip.
     RewriteCond %{HTTP:Accept-encoding} br
     RewriteCond %{REQUEST_FILENAME}\.br -s
