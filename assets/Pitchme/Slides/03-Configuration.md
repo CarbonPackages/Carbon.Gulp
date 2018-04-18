@@ -1,13 +1,9 @@
 # Configuration
 
-@ul
-
 *   Configuration is stored in `config.yaml`
 *   Adjustable via `.yaml` files
 *   Adjustable on the root level and also on a per-package-basis
-*   **The settings from the different yaml files get merged together**
-
-@ulend
+*   The settings from the different `yaml` files get merged together
 
 +++
 
