@@ -80,3 +80,9 @@ And the content from `_allsub.Inline.scss` would be:
 @import "FolderName.Inline/FrameworkPart.noLinter.Inline";
 @import "FolderName.Inline/Header.Inline";
 ```
+
++++
+
+## Automatic update
+
+If the file `package.json` already exist, the dependencies will get merged with the `package.json` from the distribution
