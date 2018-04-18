@@ -39,6 +39,12 @@ you have to create an empty `Gulp.yaml` file like this:
 
 +++
 
+## Inline Assets
+
+Beside the public destination, you can also render the CSS, JS and the Sprite into _Resources/Private/Templates/InlineAssets_
+
++++
+
 ## Show the merged configuration
 
 You can output the merged configuration with `yarn showConfig`. To reduce output

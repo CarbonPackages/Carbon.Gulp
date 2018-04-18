@@ -51,6 +51,7 @@
     word-break: break-word;
 }
 
+.reveal span > code,
 .reveal p > code {
     color: #e83e8c;
 }
