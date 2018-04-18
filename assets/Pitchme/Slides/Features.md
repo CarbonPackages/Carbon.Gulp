@@ -26,9 +26,9 @@ If you want to split source files into seperated import containers, you can add 
 *   `_all.scss`
 *   `_allsub.scss`
 *   `_allFusion.scss`
-*   `_all.YYY.scss`
-*   `_allsub.YYY.scss`
-*   `_allFusion.YYY.scss`
+*   `_all.CONTAINERNAME.scss`
+*   `_allsub.CONTAINERNAME.scss`
+*   `_allFusion.CONTAINERNAME.scss`
 
 @ulend
 
@@ -39,13 +39,12 @@ If you want to split source files into seperated import containers, you can add 
 @[5](Every file with the given annotation from sub directories gets an `@import` statement.)
 @[6](Every file with the given annotation from the Fusion folder gets an `@import` statement.)
 
+Note:
 Files and folders with beginning underscore (`_`) get ignored.
 
 +++
 
 ### Example
-
-#### File structure
 
 ```
 FolderName

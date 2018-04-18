@@ -35,9 +35,7 @@ Every package who has a `Gulp.yaml` inside the `Configuration` folder, get
 a entry into the configuration. If you don't want to overwrite the default settings,
 you have to create an empty `Gulp.yaml` file like this:
 
-```yaml
- ---
-```
+`---`
 
 +++
 
