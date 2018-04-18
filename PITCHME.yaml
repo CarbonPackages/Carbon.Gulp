@@ -5,6 +5,4 @@ remote-control: true
 theme : black
 highlight : monokai
 theme-override: assets/Pitchme/CSS/Theme.css
-horz-delim : --
-vert-delim : ++
-vert-delim-regexp : \+\+
+

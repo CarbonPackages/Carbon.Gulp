@@ -9,7 +9,7 @@
 
 @ulend
 
-++
++++
 
 ## Example of an configuration file
 
@@ -20,14 +20,14 @@ global:
     proxyRootFolder: false
 ```
 
-++
++++
 
 ## Configuration on the root level
 
 If you want to write your settings on the root directory, you can create
 there `gulp_local.yaml` (Just for you) or `gulp_global.yaml` (Also for your workbuddies)
 
-++
++++
 
 ## Configuration in the package
 
@@ -35,11 +35,11 @@ Every package who has a `Gulp.yaml` inside the `Configuration` folder, get
 a entry into the configuration. If you don't want to overwrite the default settings,
 you have to create an empty `Gulp.yaml` file like this:
 
-```yaml
----
-```
+    ```yaml
+    ---
+    ```
 
-++
++++
 
 ## Show the merged configuration
 

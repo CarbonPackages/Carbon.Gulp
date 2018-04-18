@@ -47,6 +47,9 @@
 
 .reveal code {
     font-family: "Fira Code", monospace;
+    font-size: 87.5%;
+    word-break: break-word;
+    color: #e83e8c;
 }
 
 .reveal h1 + h2,
