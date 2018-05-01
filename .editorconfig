@@ -3,9 +3,7 @@
 # top-most EditorConfig file
 root = true
 
-
 # Default
-
 [*]
 charset = utf-8
 end_of_line = lf
@@ -17,9 +15,6 @@ indent_size = 4
 # Exceptions
 [{*.{yaml,yml,sh,jscsrc,scss},package.json,.*rc}]
 indent_size = 2
-
-[*.scss]
-max_line_length = 1000
 
 [Sites.xml]
 indent_size = 1

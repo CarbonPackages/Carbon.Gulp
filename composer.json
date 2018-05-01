@@ -4,19 +4,29 @@
     "description":
         "Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to form a full-featured modern asset pipeline for Flow Framework and Neos CMS. Based on https://github.com/jonnitto/gulpfile.js",
     "license": "MIT",
+    "keywords": ["build", "pipeline", "neos", "carbon"],
     "require": {
         "neos/composer-plugin": "^1.0.6|^2.0.0"
     },
+    "authors": [
+        {
+            "name": "Jon Uhlmann",
+            "email": "me@jonnitto.ch",
+            "homepage": "https://jonnitto.ch",
+            "role": "Developer"
+        }
+    ],
     "archive": {
         "exclude": [
             ".editorconfig",
-            ".gitignore",
-            ".github",
             ".gitattributes",
+            ".github",
+            ".gitignore",
             "CODE_OF_CONDUCT.md"
         ]
     },
     "extra": {
+        "marketplace-account": "me@jonnitto.ch",
         "installer-name": "Gulp"
     }
 }
