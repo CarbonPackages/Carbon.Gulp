@@ -1,20 +1,18 @@
 [![Latest Stable Version](https://poser.pugx.org/carbon/gulp/v/stable)](https://packagist.org/packages/carbon/gulp)
 [![Total Downloads](https://poser.pugx.org/carbon/gulp/downloads)](https://packagist.org/packages/carbon/gulp)
 [![License](https://poser.pugx.org/carbon/gulp/license)](LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/jonnitto/Carbon.Gulp.svg?style=social&label=Fork)](https://github.com/jonnitto/Carbon.Gulp/fork)
-[![GitHub stars](https://img.shields.io/github/stars/jonnitto/Carbon.Gulp.svg?style=social&label=Stars)](https://github.com/jonnitto/Carbon.Gulp/stargazers)
-[![GitHub watchers](https://img.shields.io/github/watchers/jonnitto/Carbon.Gulp.svg?style=social&label=Watch)](https://github.com/jonnitto/Carbon.Gulp/subscription)
-[![GitHub followers](https://img.shields.io/github/followers/jonnitto.svg?style=social&label=Follow)](https://github.com/jonnitto/followers)
-[![Follow Jon on Twitter](https://img.shields.io/twitter/follow/jonnitto.svg?style=social&label=Follow)](https://twitter.com/jonnitto)
+[![GitHub forks](https://img.shields.io/github/forks/CarbonPackages/Carbon.Gulp.svg?style=social&label=Fork)](https://github.com/CarbonPackages/Carbon.Gulp/fork)
+[![GitHub stars](https://img.shields.io/github/stars/CarbonPackages/Carbon.Gulp.svg?style=social&label=Stars)](https://github.com/CarbonPackages/Carbon.Gulp/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/CarbonPackages/Carbon.Gulp.svg?style=social&label=Watch)](https://github.com/CarbonPackages/Carbon.Gulp/subscription)
 
-# Carbon.Gulp 
+# Carbon.Gulp
 
-Carbon.Gulp  is a delicious blend of tasks and build tools poured into Gulp to
+Carbon.Gulp is a delicious blend of tasks and build tools poured into Gulp to
 form a full-featured modern asset pipeline for Flow Framework and Neos CMS.
 Based on https://github.com/jonnitto/gulpfile.js and the inspiration of
 [@dfeyer](https://github.com/dfeyer) from [ttree ltd](https://github.com/ttreeagency).
 
-You can find an example installation [here](https://github.com/jonnitto/CarbonGulpExample).
+**[You can find an example installation here](https://github.com/jonnitto/CarbonGulpExample).**
 
 # Installation
 
@@ -110,8 +108,8 @@ Tasks
 | `yarn tasks`          |         | Show all available tasks                                       |
 | `yarn build`          |         | Generates all Assets, Javascript and CSS files                 |
 | `yarn pipeline`       |         | Make files production ready                                    |
-| `yarn beautify`       |    ✓    | Beautify and don't compress files                             |
-| `yarn debug`          |    ✓    | Files don't get compressed                                    |
+| `yarn beautify`       |    ✓    | Beautify and don't compress files                              |
+| `yarn debug`          |    ✓    | Files don't get compressed                                     |
 | `yarn nomaps`         |    ✓    | Don't write sourcemaps                                         |
 | `yarn css`            |         | Render CSS Files                                               |
 | `yarn js`             |         | Render Javascript Files                                        |
