@@ -220,7 +220,7 @@ function setPipelineEnvironment(callback) {
 }
 
 if (config.tasks.pipeline && typeof config.tasks.pipeline == "object") {
-    let series = gulp.series(setPipelineEnvironment,config.tasks.pipeline);
+    let series = gulp.series(setPipelineEnvironment, config.tasks.pipeline);
     gulp.task("pipeline", series);
     gulp.task("pipeline").description = "Make files production ready";
 }
