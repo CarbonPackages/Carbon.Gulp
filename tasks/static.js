@@ -5,16 +5,16 @@ if (!config.tasks.static) {
 }
 
 const PACKAGES_CONFIG = [];
-for (let key in config.packages) {
-    const CONFIG = config.packages[key];
+for (const KEY in config.packages) {
+    const CONFIG = config.packages[KEY];
     const STATIC_CONFIG = CONFIG.tasks.static;
 
     if (STATIC_CONFIG) {
         PACKAGES_CONFIG.push({
-            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
+            key: KEY ? KEY : CONFIG.info.package ? CONFIG.info.package : false,
             src: path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root.src,
                 STATIC_CONFIG.src,
                 "/**",
@@ -22,7 +22,7 @@ for (let key in config.packages) {
             ),
             dest: path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root.dest,
                 STATIC_CONFIG.dest
             )

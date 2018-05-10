@@ -8,8 +8,8 @@ if (
 }
 
 const PACKAGES_CONFIG = [];
-for (let key in config.packages) {
-    const CONFIG = config.packages[key];
+for (const KEY in config.packages) {
+    const CONFIG = config.packages[KEY];
     const CONFIG_OPTIMIZE_SVG = CONFIG.tasks.optimizeSvg;
 
     if (
@@ -17,18 +17,18 @@ for (let key in config.packages) {
         (CONFIG_OPTIMIZE_SVG == "src" || CONFIG_OPTIMIZE_SVG == "dest")
     ) {
         let configuration = {
-            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
+            key: KEY ? KEY : CONFIG.info.package ? CONFIG.info.package : false,
             src: [
                 path.join(
                     CONFIG.root.base,
-                    key,
+                    KEY,
                     CONFIG.root[CONFIG_OPTIMIZE_SVG],
                     "**/*.svg"
                 )
             ],
             dest: path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root[CONFIG_OPTIMIZE_SVG]
             ),
             pretty: CONFIG_OPTIMIZE_SVG == "src" ? true : false

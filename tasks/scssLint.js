@@ -8,13 +8,13 @@ const PACKAGES_CONFIG = [];
 const FUNCTIONS = require("../functions");
 const STYLELINT = require("gulp-stylelint");
 
-for (let key in config.packages) {
-    const CONFIG = config.packages[key];
+for (const KEY in config.packages) {
+    const CONFIG = config.packages[KEY];
 
     if (CONFIG.tasks.scssLint) {
         PACKAGES_CONFIG.push({
-            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
-            watch: FUNCTIONS.getFilesToWatch("css", CONFIG, key)
+            key: KEY ? KEY : CONFIG.info.package ? CONFIG.info.package : false,
+            watch: FUNCTIONS.getFilesToWatch("css", CONFIG, KEY)
         });
     }
 }

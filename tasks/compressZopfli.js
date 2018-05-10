@@ -8,13 +8,13 @@ const ZOPFLI = require("gulp-zopfli");
 
 let paths = [];
 
-for (let key in config.packages) {
-    const CONFIG = config.packages[key];
+for (const KEY in config.packages) {
+    const CONFIG = config.packages[KEY];
     if (CONFIG.tasks.compress && CONFIG.tasks.compress.zopfli) {
         paths = paths.concat(
             path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root.dest,
                 "/**/*.{js,css,svg,html}"
             )

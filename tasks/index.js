@@ -12,7 +12,7 @@ let task = {
     }
 };
 
-for (let taskName of [
+for (const TASK_NAME of [
     "clean",
     "compressBrotli",
     "compressZopfli",
@@ -28,19 +28,19 @@ for (let taskName of [
     "static",
     "svgSprite"
 ]) {
-    let func = require("./" + taskName);
+    let func = require("./" + TASK_NAME);
     if (typeof func !== "function") {
         func = task.noop;
     }
-    task[taskName] = func;
+    task[TASK_NAME] = func;
 }
 
-for (let taskWithTimeout of ["scss"]) {
-    let func = require("./" + taskWithTimeout);
+for (const TASK_WITH_TIMEOUT of ["scss"]) {
+    let func = require("./" + TASK_WITH_TIMEOUT);
     if (typeof func !== "function") {
-        task[taskWithTimeout] = task.noop;
+        task[TASK_WITH_TIMEOUT] = task.noop;
     } else {
-        task[taskWithTimeout] = bach.series(func, task.timeout);
+        task[TASK_WITH_TIMEOUT] = bach.series(func, task.timeout);
     }
 }
 

@@ -36,17 +36,17 @@ const POSTCSS_PLUGIN = {
 
 const PACKAGES_CONFIG = [];
 
-for (let key in config.packages) {
-    const CONFIG = config.packages[key];
+for (const KEY in config.packages) {
+    const CONFIG = config.packages[KEY];
     const CSS_CONFIG = CONFIG.tasks.css;
 
     if (CSS_CONFIG) {
         // Assets Path
-        let assetsPath = path.join(CONFIG.root.base, key, CONFIG.root.dest);
+        let assetsPath = path.join(CONFIG.root.base, KEY, CONFIG.root.dest);
         // Dest Path
         let destPath = path.join(
             CONFIG.root.base,
-            key,
+            KEY,
             CONFIG.root.dest,
             CSS_CONFIG.dest
         );

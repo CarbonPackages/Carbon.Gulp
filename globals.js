@@ -29,8 +29,8 @@ const LIBRARIES = {
     handleErrors: "./handleErrors"
 };
 
-for (let key in LIBRARIES) {
-    global[key] = require(LIBRARIES[key]);
+for (const KEY in LIBRARIES) {
+    global[KEY] = require(LIBRARIES[KEY]);
 }
 
 global.config = FUNCTIONS.readYaml("./Build/Gulp/config.yaml");

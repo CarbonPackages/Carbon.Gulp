@@ -170,35 +170,37 @@ function shureArray(input) {
 }
 
 function getFilesToWatch(taskName, configuration = config, key = "**") {
-    let conf = configuration.tasks[taskName];
-    let watchConfig = shureArray(configuration.root.watch);
-    let dontWatch = shureArray(configuration.root.dontWatch);
+    const TASK_CONF = configuration.tasks[taskName];
+    const WATCH_CONFIG = shureArray(configuration.root.watch);
+    const DONT_WATCH = shureArray(configuration.root.dontWatch);
+
     let filesToWatch = [];
-    if (conf && watchConfig && watchConfig.length) {
-        if (conf.watchOnlySrc) {
+
+    if (TASK_CONF && WATCH_CONFIG && WATCH_CONFIG.length) {
+        if (TASK_CONF.watchOnlySrc) {
             filesToWatch.push(
                 path.join(
                     configuration.root.base,
                     key,
                     configuration.root.src,
-                    conf.src,
+                    TASK_CONF.src,
                     "/**",
-                    getExtensions(conf.extensions, false)
+                    getExtensions(TASK_CONF.extensions, false)
                 )
             );
         } else {
-            filesToWatch = watchConfig.map(value =>
+            filesToWatch = WATCH_CONFIG.map(value =>
                 path.join(
                     configuration.root.base,
                     key,
                     value,
-                    getExtensions(conf.extensions, false)
+                    getExtensions(TASK_CONF.extensions, false)
                 )
             );
         }
 
-        if (dontWatch && dontWatch.length) {
-            dontWatch.forEach(value => {
+        if (DONT_WATCH && DONT_WATCH.length) {
+            DONT_WATCH.forEach(value => {
                 if (value) {
                     filesToWatch.push(
                         "!" +
@@ -206,7 +208,7 @@ function getFilesToWatch(taskName, configuration = config, key = "**") {
                                 configuration.root.base,
                                 key,
                                 value,
-                                getExtensions(conf.extensions, false)
+                                getExtensions(TASK_CONF.extensions, false)
                             )
                     );
                 }
@@ -214,7 +216,7 @@ function getFilesToWatch(taskName, configuration = config, key = "**") {
         }
 
         if (taskName === "css") {
-            watchConfig.forEach(value => {
+            WATCH_CONFIG.forEach(value => {
                 filesToWatch.push(
                     "!" +
                         path.join(

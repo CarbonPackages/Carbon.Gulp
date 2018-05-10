@@ -8,13 +8,13 @@ const PACKAGES_CONFIG = [];
 const FUNCTIONS = require("../functions");
 const ESLINT = require("gulp-eslint");
 
-for (let key in config.packages) {
-    const CONFIG = config.packages[key];
+for (const KEY in config.packages) {
+    const CONFIG = config.packages[KEY];
 
     if (CONFIG.tasks.jsLint) {
         PACKAGES_CONFIG.push({
-            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
-            watch: FUNCTIONS.getFilesToWatch("js", CONFIG, key)
+            key: KEY ? KEY : CONFIG.info.package ? CONFIG.info.package : false,
+            watch: FUNCTIONS.getFilesToWatch("js", CONFIG, KEY)
         });
     }
 }

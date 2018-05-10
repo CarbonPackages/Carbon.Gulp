@@ -5,8 +5,8 @@ if (!config.tasks.images) {
 }
 
 const PACKAGES_CONFIG = [];
-for (let key in config.packages) {
-    const CONFIG = config.packages[key];
+for (const KEY in config.packages) {
+    const CONFIG = config.packages[KEY];
     const IMAGES_CONFIG = CONFIG.tasks.images;
     const IMAGEMIN_CONFIG = {
         gifsicle: {},
@@ -30,10 +30,10 @@ for (let key in config.packages) {
     if (IMAGES_CONFIG) {
         PACKAGES_CONFIG.push({
             imagemin: IMAGEMIN_CONFIG,
-            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
+            key: KEY ? KEY : CONFIG.info.package ? CONFIG.info.package : false,
             src: path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root.src,
                 IMAGES_CONFIG.src,
                 "/**",
@@ -41,7 +41,7 @@ for (let key in config.packages) {
             ),
             dest: path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root.dest,
                 IMAGES_CONFIG.dest
             )

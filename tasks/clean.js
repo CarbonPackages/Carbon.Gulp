@@ -7,8 +7,8 @@ if (!config.tasks.clean) {
 const DEL = require("del");
 let assets = [];
 
-for (let key in config.packages) {
-    const CONFIG = config.packages[key];
+for (const KEY in config.packages) {
+    const CONFIG = config.packages[KEY];
     let entries = CONFIG.tasks.clean;
 
     if (typeof entries == "string") {
@@ -17,7 +17,7 @@ for (let key in config.packages) {
 
     assets = assets.concat(
         entries.map(entry =>
-            path.join(CONFIG.root.base, key, CONFIG.root.dest, entry)
+            path.join(CONFIG.root.base, KEY, CONFIG.root.dest, entry)
         )
     );
 
@@ -25,7 +25,7 @@ for (let key in config.packages) {
         assets.push(
             path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root.src,
                 CONFIG.root.inlinePath
             )

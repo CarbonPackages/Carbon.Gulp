@@ -19,8 +19,8 @@ const ROLLUP_PLUGIN = {
 };
 
 const PACKAGES_CONFIG = [];
-for (let key in config.packages) {
-    const CONFIG = config.packages[key];
+for (const KEY in config.packages) {
+    const CONFIG = config.packages[KEY];
     const JS_CONFIG = CONFIG.tasks.js;
 
     if (JS_CONFIG) {
@@ -83,26 +83,26 @@ for (let key in config.packages) {
         }
 
         PACKAGES_CONFIG.push({
-            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
+            key: KEY ? KEY : CONFIG.info.package ? CONFIG.info.package : false,
             info: CONFIG.info,
             rollup: rollup,
             src: path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root.src,
                 JS_CONFIG.src,
                 JS_CONFIG.file || getExtensions(JS_CONFIG.extensions)
             ),
             dest: path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root.dest,
                 JS_CONFIG.dest
             ),
             inlinePath: CONFIG.root.inlineAssets
                 ? path.join(
                       CONFIG.root.base,
-                      key,
+                      KEY,
                       CONFIG.root.src,
                       CONFIG.root.inlinePath
                   )
