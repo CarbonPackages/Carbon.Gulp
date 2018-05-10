@@ -21,6 +21,7 @@
     "max-empty-lines": 3,
     "max-nesting-depth": 5,
     "no-invalid-double-slash-comments": true,
+    "font-family-no-missing-generic-family-keyword": null,
     "property-no-unknown": [true, {
       ignoreProperties: [
         "box","box-item",
