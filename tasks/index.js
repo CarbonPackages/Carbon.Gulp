@@ -163,20 +163,24 @@ task.reload = function(done) {
 
 // Watch
 task.watch = () => {
-    const TASK = ["css", "js", "fonts", "images", "static", "svgSprite"];
+    const WATCH_TASK = ["css", "js", "fonts", "images", "static", "svgSprite"];
 
     if (browserSync) {
         browserSync.init(config.global.browserSync);
     }
 
-    TASK.forEach(taskName => {
-        if (config.tasks[taskName]) {
-            const FILES_TO_WATCH = FUNCTIONS.getFilesToWatch(taskName);
+    function watchTask(taskName, filesToWatch) {
+        if (
+            taskName &&
+            filesToWatch &&
+            filesToWatch.length &&
+            config.tasks[taskName]
+        ) {
             switch (taskName) {
                 case "css":
                     gulp
                         .watch(
-                            FILES_TO_WATCH,
+                            filesToWatch,
                             bach.parallel(task.css, task.scssLint)
                         )
                         .on("change", cache.update(taskName));
@@ -184,7 +188,7 @@ task.watch = () => {
                 case "js":
                     gulp
                         .watch(
-                            FILES_TO_WATCH,
+                            filesToWatch,
                             bach.parallel(
                                 bach.series(task.js, task.reload),
                                 task.jsLint
@@ -194,10 +198,21 @@ task.watch = () => {
                     break;
                 default:
                     gulp
-                        .watch(FILES_TO_WATCH, task[taskName])
+                        .watch(filesToWatch, task[taskName])
                         .on("change", cache.update(taskName));
             }
         }
+    }
+
+    WATCH_TASK.forEach(taskName => {
+        let filesToWatch = [];
+        for (const KEY in config.packages) {
+            const CONFIG = config.packages[KEY];
+            filesToWatch = filesToWatch.concat(
+                FUNCTIONS.getFilesToWatch(taskName, CONFIG)
+            );
+        }
+        watchTask(taskName, filesToWatch);
     });
 
     log(colors.dim("\n\n     Watching source files for changes\n\n"));

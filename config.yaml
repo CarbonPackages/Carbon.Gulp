@@ -34,7 +34,7 @@ global:
       execute: false
 
 root:
-  base: "./src/"
+  base: null
   src: "Resources/Private"
   dest: "Resources/Public"
   watch: "Resources/Private/**"
