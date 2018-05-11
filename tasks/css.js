@@ -119,7 +119,7 @@ for (const KEY in config.packages) {
         }
 
         PACKAGES_CONFIG.push({
-            key: key ? key : CONFIG.info.package ? CONFIG.info.package : false,
+            key: KEY ? KEY : CONFIG.info.package ? CONFIG.info.package : false,
             info: CONFIG.info,
             assets: assetsPath,
             saas: saasConfig,
@@ -127,7 +127,7 @@ for (const KEY in config.packages) {
             cssnano: POSTCSS_CONFIGURATION.cssnano,
             src: path.join(
                 CONFIG.root.base,
-                key,
+                KEY,
                 CONFIG.root.src,
                 CSS_CONFIG.src,
                 CSS_CONFIG.file || getExtensions(CSS_CONFIG.extensions)
@@ -136,7 +136,7 @@ for (const KEY in config.packages) {
             inlinePath: CONFIG.root.inlineAssets
                 ? path.join(
                       CONFIG.root.base,
-                      key,
+                      KEY,
                       CONFIG.root.src,
                       CONFIG.root.inlinePath
                   )
