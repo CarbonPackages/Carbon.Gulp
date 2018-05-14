@@ -70,6 +70,7 @@ tasks:
       sourceComments: true
       includePaths:
         - "./Packages/Sites/"
+        - "./Packages/Carbon/"
         - "./Packages/Plugins/"
         - "./node_modules/"
     postcss:
@@ -164,6 +165,7 @@ tasks:
           include: {}
           paths:
             - ""
+            - Packages/Carbon
             - Packages/Plugins
           external: []
           extensions:
