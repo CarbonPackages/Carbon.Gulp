@@ -38,9 +38,9 @@ global.env = require("minimist")(process.argv.slice(2));
 global.mode = {
     beautify: env.beautify || env.b ? true : false,
     minimize: env.debug || env.d ? false : true,
-    maps: env.nomaps || env.n || env.carbontest ? false : true,
+    maps: env.nomaps || env.n || env.carbon ? false : true,
     debug: env.debug || env.d ? true : false,
-    test: env.carbontest ? true : false
+    test: env.carbon ? true : false
 };
 
 global.config = FUNCTIONS.readYaml(

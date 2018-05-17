@@ -60,8 +60,7 @@
     "optimizeImages": "yarn gulp optimizeImages",
     "optimizeSvg": "yarn gulp optimizeSvg",
     "compress": "yarn gulp compress",
-    "showConfig": "yarn gulp showConfig",
-    "carbontest": "gulp --cwd ./ --gulpfile ./index.js test  --carbontest"
+    "showConfig": "yarn gulp showConfig"
   },
   "dependencies": {},
   "devDependencies": {
