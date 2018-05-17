@@ -1,5 +1,5 @@
 [![Development dependency status](https://david-dm.org/CarbonPackages/Carbon.Gulp/dev-status.svg)](https://david-dm.org/CarbonPackages/Carbon.Gulp?type=dev)
-[![Build status](https://travis-ci.org/CarbonPackages/Carbon.Gulp.svg?branch=master)](https://travis-ci.org/CarbonPackages/Carbon.Gulp)
+[![Build status](https://api.travis-ci.com/CarbonPackages/Carbon.Gulp.svg)](https://travis-ci.com/CarbonPackages/Carbon.Gulp)
 [![Latest Stable Version](https://poser.pugx.org/carbon/gulp/v/stable)](https://packagist.org/packages/carbon/gulp)
 [![Total Downloads](https://poser.pugx.org/carbon/gulp/downloads)](https://packagist.org/packages/carbon/gulp)
 [![License](https://poser.pugx.org/carbon/gulp/license)](LICENSE)
