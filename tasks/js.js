@@ -156,7 +156,9 @@ function js() {
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({
-                    title: `${packageConfig.key} JS:`,
+                    title: `${
+                        packageConfig.key ? `${packageConfig.key} ` : ""
+                    }JS:`,
                     showFiles: true
                 })
             );

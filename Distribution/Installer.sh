@@ -8,9 +8,22 @@ NC="\033[0m" # No Color
 
 echo ""
 echo "${GREEN}Copy files to root${NC}"
-cp Build/Gulp/Distribution/Essentials/.[^.]*  ./
-cp Build/Gulp/Distribution/Git/.gitignore  ./
-cp -nv Build/Gulp/Distribution/Default/*  ./
+
+# Copy the essentials
+cp Build/Gulp/.editorconfig ./
+cp Build/Gulp/.eslintignore ./
+cp Build/Gulp/.eslintrc ./
+cp Build/Gulp/Distribution/.gitignore  ./
+cp Build/Gulp/.jshintrc ./
+cp Build/Gulp/.nvmrc ./
+cp Build/Gulp/.prettierignore ./
+cp Build/Gulp/.stylelintrc ./
+cp Build/Gulp/.yarnclean ./
+
+# Copy the defaults (no overwriting)
+cp -nv Build/Gulp/gulp_global.yaml ./
+cp -nv Build/Gulp/gulp_local.yaml ./
+
 
 echo ""
 if which json > /dev/null
@@ -20,7 +33,7 @@ if which json > /dev/null
     echo "- package.json"
     dependencies=$(cat package.json | json dependencies)
     browserslist=$(cat package.json | json browserslist)
-    distribution=$(cat Build/Gulp/Distribution/Default/package.json | json)
+    distribution=$(cat Build/Gulp/package.json | json)
     echo "${distribution},{\"browserslist\":$browserslist},{\"dependencies\":$dependencies}" | json --merge > package.json
 
     # composer.json

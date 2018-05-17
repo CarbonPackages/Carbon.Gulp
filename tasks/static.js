@@ -44,7 +44,9 @@ function copy() {
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({
-                    title: `${packageConfig.key} Static Files:`,
+                    title: `${
+                        packageConfig.key ? `${packageConfig.key} ` : ""
+                    }Static Files:`,
                     showFiles: false
                 })
             );

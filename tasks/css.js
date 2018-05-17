@@ -190,7 +190,9 @@ function css() {
             .pipe(browserSync ? browserSync.stream() : noop())
             .pipe(
                 size({
-                    title: `${packageConfig.key} CSS:`,
+                    title: `${
+                        packageConfig.key ? `${packageConfig.key} ` : ""
+                    }CSS:`,
                     showFiles: true
                 })
             );

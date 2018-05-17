@@ -30,7 +30,9 @@ function lint() {
                     notifyText({
                         warnings: results.warningCount,
                         errors: results.errorCount,
-                        subtitle: `${packageConfig.key}: ES Lint`
+                        subtitle: `${
+                            packageConfig.key ? `${packageConfig.key} ` : ""
+                        }ES Lint`
                     });
                 })
             )

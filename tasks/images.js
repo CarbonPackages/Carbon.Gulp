@@ -45,7 +45,9 @@ function images() {
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({
-                    title: `${packageConfig.key} Images:`,
+                    title: `${
+                        packageConfig.key ? `${packageConfig.key} ` : ""
+                    }Images:`,
                     showFiles: false
                 })
             );

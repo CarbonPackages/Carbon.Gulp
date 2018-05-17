@@ -77,7 +77,9 @@ function svgSprite() {
                 .pipe(gulp.dest(packageConfig.dest))
                 .pipe(
                     size({
-                        title: `${packageConfig.key} SVG:`,
+                        title: `${
+                            packageConfig.key ? `${packageConfig.key} ` : ""
+                        }SVG:`,
                         showFiles: true
                     })
                 )

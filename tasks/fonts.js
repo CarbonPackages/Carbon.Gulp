@@ -45,7 +45,9 @@ function fonts() {
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({
-                    title: `${packageConfig.key} Fonts:`,
+                    title: `${
+                        packageConfig.key ? `${packageConfig.key} ` : ""
+                    }Fonts:`,
                     showFiles: false
                 })
             );

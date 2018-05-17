@@ -26,6 +26,15 @@ function readYaml(path) {
     return yaml.safeLoad(fs.readFileSync(path));
 }
 
+function checkTask(...tasks) {
+    tasks.forEach(task => {
+        if (!config.tasks[task]) {
+            return false;
+        }
+    });
+    return true;
+}
+
 function getInfoFromComposer(path = "") {
     try {
         let composer = require(`../../${path}composer.json`);
@@ -123,6 +132,10 @@ function mergeConfigAndLoadTasks() {
 
     mergeRootConfig("gulp_global.yaml");
     mergeRootConfig("gulp_local.yaml");
+
+    if (mode.test) {
+        mergeRootConfig("gulp_test.yaml");
+    }
 
     if (
         config.global &&
@@ -299,5 +312,6 @@ module.exports = {
     mergeConfigAndLoadTasks: mergeConfigAndLoadTasks,
     notifyText: notifyText,
     pluralize: pluralize,
-    shureArray: shureArray
+    shureArray: shureArray,
+    checkTask: checkTask
 };

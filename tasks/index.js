@@ -133,23 +133,22 @@ if (config.tasks.compress) {
 }
 
 // Build Task
-gulp.task(
-    "build",
-    bach.series(
-        task.clean,
-        task.info,
-        bach.parallel(
-            task.scss,
-            task.scssLint,
-            task.jsLint,
-            task.fonts,
-            task.images,
-            task.static,
-            task.svgSprite
-        ),
-        bach.parallel(task.css, task.js)
-    )
+task.build = bach.series(
+    task.clean,
+    task.info,
+    bach.parallel(
+        task.scss,
+        task.scssLint,
+        task.jsLint,
+        task.fonts,
+        task.images,
+        task.static,
+        task.svgSprite
+    ),
+    bach.parallel(task.css, task.js)
 );
+
+gulp.task("build", task.build);
 gulp.task("build").description =
     colors.inverse(" Generates all ") + " Assets, Javascript and CSS files";
 gulp.task("build").flags = flags;
@@ -238,4 +237,10 @@ if (config.tasks.pipeline && typeof config.tasks.pipeline == "object") {
     let series = gulp.series(setPipelineEnvironment, config.tasks.pipeline);
     gulp.task("pipeline", series);
     gulp.task("pipeline").description = "Make files production ready";
+}
+
+if (mode.test) {
+    const test = require("./test");
+    gulp.task("test", bach.series(task.build, test));
+    //gulp.task("test", task.build);
 }

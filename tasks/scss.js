@@ -15,6 +15,10 @@ for (const KEY in config.packages) {
     break;
 }
 
+if (base === null) {
+    base = "";
+}
+
 const PATHS = {
     all: FUNCTIONS.shureArray(config.root.watch).map(value =>
         path.join(base, "**", value, `_all${SUBSET_MATCHER}`)

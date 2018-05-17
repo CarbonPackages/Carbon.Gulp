@@ -76,7 +76,9 @@ function optimize() {
             .pipe(gulp.dest(packageConfig.dest))
             .pipe(
                 size({
-                    title: `${packageConfig.key} Optimize SVG Images:`,
+                    title: `${
+                        packageConfig.key ? `${packageConfig.key} ` : ""
+                    }Optimize SVG Images:`,
                     showFiles: true
                 })
             );

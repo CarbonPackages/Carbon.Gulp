@@ -1,0 +1,21 @@
+global:
+  mergeConfigFromPackages: false
+
+root:
+  base: "./Test"
+  src: "Private"
+  dest: "Public"
+  watch: "Private/**"
+  dontWatch: "Private/Templates/**"
+
+tasks:
+  clean:
+    - "*"
+  css:
+    src: ""
+    dest: ""
+  js:
+    src: ""
+    dest: ""
+  svgSprite:
+    dest: ""
