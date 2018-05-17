@@ -7,7 +7,11 @@
   "bugs": "https://github.com/CarbonPackages/Carbon.Gulp/issues",
   "homepage": "https://github.com/CarbonPackages/Carbon.Gulp",
   "license": "MIT",
-  "keywords": ["gulp", "neoscms", "flow"],
+  "keywords": [
+    "gulp",
+    "neoscms",
+    "flow"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/jonnitto/Carbon.Gulp.git"
@@ -21,9 +25,15 @@
         }
       ]
     ],
-    "plugins": ["external-helpers"]
+    "plugins": [
+      "external-helpers"
+    ]
   },
-  "browserslist": ["> 0.5%", "last 2 versions", "Explorer > 10"],
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Explorer > 10"
+  ],
   "prettier": {
     "overrides": [
       {
@@ -97,7 +107,7 @@
     "gulp-plumber": "^1.2.0",
     "gulp-postcss": "^7.0.1",
     "gulp-rename": "^1.2.3",
-    "gulp-rollup": "^2.16.2",
+    "gulp-rollup-each": "^2.1.0",
     "gulp-sass": "^4.0.1",
     "gulp-size": "^3.0.0",
     "gulp-sourcemaps": "^2.6.4",

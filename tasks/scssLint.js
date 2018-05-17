@@ -1,6 +1,6 @@
 "use strict";
 
-if (!config.tasks.scssLint) {
+if (!config.tasks.scssLint || !config.tasks.css) {
     return false;
 }
 
