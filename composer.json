@@ -28,7 +28,6 @@
     ],
     "archive": {
         "exclude": [
-            ".editorconfig",
             ".gitattributes",
             ".github",
             ".gitignore",

@@ -1,65 +1,25 @@
+#!/bin/bash
+
 ## You have to install json if you want to merge .json files
 ## https://www.npmjs.com/package/json
 ## yarn global add json
 
-RED="\033[0;31m"
-GREEN="\033[0;32m"
-NC="\033[0m" # No Color
-
-echo ""
+source Build/Gulp/Distribution/Helper/SetColors.sh
 echo "${GREEN}Copy files to root${NC}"
 
-# Copy the essentials
-cp Build/Gulp/.editorconfig ./
-cp Build/Gulp/.eslintignore ./
-cp Build/Gulp/.eslintrc ./
-cp Build/Gulp/Distribution/.gitignore  ./
-cp Build/Gulp/.jshintrc ./
-cp Build/Gulp/.nvmrc ./
-cp Build/Gulp/.prettierignore ./
-cp Build/Gulp/.stylelintrc ./
-cp Build/Gulp/.yarnclean ./
-
 # Copy the defaults (no overwriting)
+cp -nv Build/Gulp/Distribution/.gitignore  ./
+cp -nv Build/Gulp/package.json ./
 cp -nv Build/Gulp/gulp_global.yaml ./
 cp -nv Build/Gulp/gulp_local.yaml ./
+source Build/Gulp/Distribution/Helper/CopyEssentials.sh
 
-
-echo ""
 if which json > /dev/null
   then
-    # merge package.json
-    echo "${GREEN}Merge json files${NC}"
-    echo "- package.json"
-    dependencies=$(cat package.json | json dependencies)
-    browserslist=$(cat package.json | json browserslist)
-    distribution=$(cat Build/Gulp/package.json | json)
-    echo "${distribution},{\"browserslist\":$browserslist},{\"dependencies\":$dependencies}" | json --merge > package.json
-
-    # composer.json
-    composer=$(cat composer.json)
-    replacedComposer=${composer//\\/\\\\}
-    composer show neos/neos -q -n > /dev/null 2>&1
-    if [ $? -eq 0 ]
-      then
-        version="Neos"
-    fi
-    composer show typo3/neos -q -n > /dev/null 2>&1
-    if [ $? -eq 0 ]
-      then
-        version="TYPO3"
-    fi
-    if [ $version ]
-      then
-        echo "- composer.json"
-        scripts=$(cat Build/Gulp/Distribution/${version}.json)
-        echo "${replacedComposer},${scripts}" | json --deep-merge -4 > composer.json
-    fi
-
+    source Build/Gulp/Distribution/Helper/MergePackageJson.sh
+    source Build/Gulp/Distribution/Helper/MergeComposerJson.sh
   else
-    echo "If you want to merge json files, you need to install following package globally:"
-    echo "${RED}https://www.npmjs.com/package/json${NC}"
-    echo "You can install it with this command: ${RED}yarn global add json${NC}"
+    source Build/Gulp/Distribution/Helper/NoJsonInstalled.sh
 fi
 
 exit 0
