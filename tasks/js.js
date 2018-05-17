@@ -4,4 +4,4 @@ if (!config.tasks.js) {
     return false;
 }
 
-module.exports = require("./jsRenderShared")("js");
+module.exports = () => require("./jsRenderShared")("js");
