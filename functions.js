@@ -22,6 +22,13 @@ function getExtensions(extensions, excludeUnderscore = true, prepend = "") {
     return `/${prepend}${excludeUnderscore ? "[^_]" : ""}*.${extensions}`;
 }
 
+function getFiles(files) {
+    if (Array.isArray(files)) {
+        files = files.length > 1 ? `{${files.join(",")}}` : files[0];
+    }
+    return files;
+}
+
 function readYaml(path) {
     return yaml.safeLoad(fs.readFileSync(path));
 }
@@ -307,6 +314,7 @@ function notifyText(object) {
 module.exports = {
     readYaml: readYaml,
     getExtensions: getExtensions,
+    getFiles: getFiles,
     getFilesToWatch: getFilesToWatch,
     getTimestamp: getTimestamp,
     mergeConfigAndLoadTasks: mergeConfigAndLoadTasks,

@@ -130,7 +130,8 @@ for (const KEY in config.packages) {
                 KEY,
                 CONFIG.root.src,
                 CSS_CONFIG.src,
-                CSS_CONFIG.file || getExtensions(CSS_CONFIG.extensions)
+                getFiles(CSS_CONFIG.file) ||
+                    getExtensions(CSS_CONFIG.extensions)
             ),
             dest: destPath,
             inlinePath: CONFIG.root.inlineAssets

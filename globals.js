@@ -63,6 +63,7 @@ global.gulpIcons = {
 
 global.getTimestamp = FUNCTIONS.getTimestamp;
 global.getExtensions = FUNCTIONS.getExtensions;
+global.getFiles = FUNCTIONS.getFiles;
 global.notifyText = FUNCTIONS.notifyText;
 
 // Overwrite Config with an external files

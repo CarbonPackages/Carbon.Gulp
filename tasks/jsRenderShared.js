@@ -95,7 +95,8 @@ function getConfig(taskName) {
                     KEY,
                     CONFIG.root.src,
                     JS_CONFIG.src,
-                    JS_CONFIG.file || getExtensions(JS_CONFIG.extensions)
+                    getFiles(JS_CONFIG.file) ||
+                        getExtensions(JS_CONFIG.extensions)
                 ),
                 dest: path.join(
                     CONFIG.root.base,
