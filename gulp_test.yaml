@@ -12,6 +12,8 @@ tasks:
   clean:
     - "*"
   css:
+    file:
+      - Test.scss
     src: ""
     dest: ""
   js:
