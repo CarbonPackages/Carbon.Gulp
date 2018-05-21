@@ -38,6 +38,20 @@
     imurmurhash "^0.1.4"
     slide "^1.1.5"
 
+"@babel/code-frame@^7.0.0-beta.47":
+  version "7.0.0-beta.47"
+  resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.47.tgz#d18c2f4c4ba8d093a2bcfab5616593bfe2441a27"
+  dependencies:
+    "@babel/highlight" "7.0.0-beta.47"
+
+"@babel/highlight@7.0.0-beta.47":
+  version "7.0.0-beta.47"
+  resolved "https://registry.yarnpkg.com/@babel/highlight/-/highlight-7.0.0-beta.47.tgz#8fbc83fb2a21f0bd2b95cdbeb238cf9689cad494"
+  dependencies:
+    chalk "^2.0.0"
+    esutils "^2.0.2"
+    js-tokens "^3.0.0"
+
 "@buxlabs/amd-to-es6@^0.12.0":
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/@buxlabs/amd-to-es6/-/amd-to-es6-0.12.0.tgz#7bc7e1fa5b6fe186c873e13593d41397212fddd8"
@@ -2074,9 +2088,9 @@ commander@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.1.0.tgz#d121bbae860d9992a3d517ba96f56588e47c6781"
 
-commander@~2.13.0:
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
+commander@~2.14.1:
+  version "2.14.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.14.1.tgz#2235123e37af8ca3c65df45b026dbd357b01b9aa"
 
 commander@~2.8.1:
   version "2.8.1"
@@ -3483,6 +3497,10 @@ find-cache-dir@^0.1.1:
     commondir "^1.0.1"
     mkdirp "^0.5.1"
     pkg-dir "^1.0.0"
+
+find-parent-dir@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/find-parent-dir/-/find-parent-dir-0.3.0.tgz#33c44b429ab2b2f0646299c5f9f718f376ff8d54"
 
 find-up@^1.0.0:
   version "1.1.2"
@@ -6288,6 +6306,12 @@ node-pre-gyp@^0.6.39, node-pre-gyp@^0.6.4:
     tar "^2.2.1"
     tar-pack "^3.4.0"
 
+node-sass-tilde-importer@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/node-sass-tilde-importer/-/node-sass-tilde-importer-1.0.2.tgz#1a15105c153f648323b4347693fdb0f331bad1ce"
+  dependencies:
+    find-parent-dir "^0.3.0"
+
 node-sass@^4.8.3:
   version "4.8.3"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.8.3.tgz#d077cc20a08ac06f661ca44fb6f19cd2ed41debb"
@@ -8449,11 +8473,12 @@ rollup-plugin-sourcemaps@^0.4.2:
     rollup-pluginutils "^2.0.1"
     source-map-resolve "^0.5.0"
 
-rollup-plugin-uglify@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-uglify/-/rollup-plugin-uglify-3.0.0.tgz#a34eca24617709c6bf1778e9653baafa06099b86"
+rollup-plugin-terser@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-1.0.1.tgz#ba5f497cbc9aa38ba19d3ee2167c04ea3ed279af"
   dependencies:
-    uglify-es "^3.3.7"
+    "@babel/code-frame" "^7.0.0-beta.47"
+    terser "^3.7.5"
 
 rollup-pluginutils@^1.5.0:
   version "1.5.2"
@@ -9427,6 +9452,13 @@ term-size@^1.2.0:
   dependencies:
     execa "^0.7.0"
 
+terser@^3.7.5:
+  version "3.7.5"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-3.7.5.tgz#b18090210794c79a5774bc1f0ebe80fb877a31bd"
+  dependencies:
+    commander "~2.14.1"
+    source-map "~0.6.1"
+
 text-table@^0.2.0, text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
@@ -9745,13 +9777,6 @@ typedarray@^0.0.6:
 ua-parser-js@0.7.17:
   version "0.7.17"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
-
-uglify-es@^3.3.7:
-  version "3.3.8"
-  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.8.tgz#f2c68e6cff0d0f9dc9577e4da207151c2e753b7e"
-  dependencies:
-    commander "~2.13.0"
-    source-map "~0.6.1"
 
 uid-number@^0.0.6:
   version "0.0.6"

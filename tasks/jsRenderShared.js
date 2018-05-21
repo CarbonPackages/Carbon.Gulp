@@ -10,7 +10,7 @@ const ROLLUP_PLUGIN = {
     REPLACE: require("rollup-plugin-replace"),
     RESOLVE: require("rollup-plugin-node-resolve"),
     SOURCEMAPS: require("rollup-plugin-sourcemaps"),
-    UGLIFY: require("rollup-plugin-uglify")
+    TERSER: require("rollup-plugin-terser").terser
 };
 
 const ROLLUP_EACH = require("gulp-rollup-each");
@@ -79,7 +79,9 @@ function getConfig(taskName) {
             }
 
             if (mode.minimize) {
-                rollup.plugins.push(ROLLUP_PLUGIN.UGLIFY({ mangle: true }));
+                rollup.plugins.push(
+                    ROLLUP_PLUGIN.TERSER(rollup.config.plugins.terser)
+                );
             }
 
             PACKAGES_CONFIG.push({

@@ -177,6 +177,10 @@ tasks:
           include:
             - node_modules/**
         amd: false
+        terser:
+          warnings: false
+          mangle: true
+          module: false
   images:
     src: Images
     dest: Assets
