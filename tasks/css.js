@@ -7,6 +7,7 @@ if (!config.tasks.css) {
 const sass = require("gulp-sass");
 const postcss = require("gulp-postcss");
 const beautify = require("gulp-cssbeautify");
+const tildeImporter = require("node-sass-tilde-importer");
 
 const POSTCSS_PLUGIN = {
     ASSETS: require("postcss-assets"),
@@ -51,10 +52,11 @@ for (const KEY in config.packages) {
             CSS_CONFIG.dest
         );
 
-        // Saas Configuration
-        let saasConfig = CSS_CONFIG.sass;
-        saasConfig.imagePath =
-            (CSS_CONFIG.dest ? "../" : "") + saasConfig.imagePath;
+        // Sass Configuration
+        let sassConfig = CSS_CONFIG.sass;
+	    sassConfig.imagePath =
+            (CSS_CONFIG.dest ? "../" : "") + sassConfig.imagePath;
+	    sassConfig.importer = tildeImporter;
 
         // PostCSS Configuration
         const POSTCSS_CONFIGURATION = CSS_CONFIG.postcss;
@@ -122,7 +124,7 @@ for (const KEY in config.packages) {
             key: KEY ? KEY : CONFIG.info.package ? CONFIG.info.package : false,
             info: CONFIG.info,
             assets: assetsPath,
-            saas: saasConfig,
+            sass: sassConfig,
             postcssConfig: postcssConfig,
             cssnano: POSTCSS_CONFIGURATION.cssnano,
             src: path.join(
@@ -155,7 +157,7 @@ function css() {
             })
             .pipe(plumber(handleErrors))
             .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
-            .pipe(sass(packageConfig.saas))
+            .pipe(sass(packageConfig.sass))
             .pipe(flatten())
             .pipe(postcss(packageConfig.postcssConfig))
             .pipe(
