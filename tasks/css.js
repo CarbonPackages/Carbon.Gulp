@@ -5,9 +5,9 @@ if (!config.tasks.css) {
 }
 
 const sass = require("gulp-sass");
+const sassTildeImporter = require("node-sass-tilde-importer");
 const postcss = require("gulp-postcss");
 const beautify = require("gulp-cssbeautify");
-const tildeImporter = require("node-sass-tilde-importer");
 
 const POSTCSS_PLUGIN = {
     ASSETS: require("postcss-assets"),
@@ -54,9 +54,9 @@ for (const KEY in config.packages) {
 
         // Sass Configuration
         let sassConfig = CSS_CONFIG.sass;
-	    sassConfig.imagePath =
+        sassConfig.imagePath =
             (CSS_CONFIG.dest ? "../" : "") + sassConfig.imagePath;
-	    sassConfig.importer = tildeImporter;
+        sassConfig.importer = sassTildeImporter;
 
         // PostCSS Configuration
         const POSTCSS_CONFIGURATION = CSS_CONFIG.postcss;
