@@ -7,7 +7,11 @@
   "bugs": "https://github.com/CarbonPackages/Carbon.Gulp/issues",
   "homepage": "https://github.com/CarbonPackages/Carbon.Gulp",
   "license": "MIT",
-  "keywords": ["gulp", "neoscms", "flow"],
+  "keywords": [
+    "gulp",
+    "neoscms",
+    "flow"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/jonnitto/Carbon.Gulp.git"
@@ -21,9 +25,15 @@
         }
       ]
     ],
-    "plugins": ["external-helpers"]
+    "plugins": [
+      "external-helpers"
+    ]
   },
-  "browserslist": ["> 0.5%", "last 2 versions", "Explorer > 10"],
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Explorer > 10"
+  ],
   "prettier": {
     "overrides": [
       {
@@ -72,7 +82,7 @@
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.7.0",
     "browser-sync": "2.24.4",
-    "caniuse-db": "^1.0.30000844",
+    "caniuse-db": "^1.0.30000845",
     "css-mqpacker": "^6.0.2",
     "cssnano": "^3.10.0",
     "del": "^3.0.0",
@@ -131,7 +141,7 @@
     "postcss-vmax": "^1.0.0",
     "prettier": "^1.12.1",
     "prettyjson": "^1.2.1",
-    "rollup": "^0.59.1",
+    "rollup": "^0.59.2",
     "rollup-plugin-amd": "^3.0.0",
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-buble": "^0.19.2",
