@@ -4,7 +4,7 @@
 ## https://www.npmjs.com/package/json
 ## yarn global add json
 
-source Build/Gulp/Distribution/Helper/SetColors.sh
+. "$PWD/Build/Gulp/Distribution/Helper/SetColors.sh"
 echo "${GREEN}Copy files to root${NC}"
 
 # Copy the defaults (no overwriting)
@@ -12,14 +12,14 @@ cp -nv Build/Gulp/Distribution/.gitignore  ./
 cp -nv Build/Gulp/package.json ./
 cp -nv Build/Gulp/gulp_global.yaml ./
 cp -nv Build/Gulp/gulp_local.yaml ./
-source Build/Gulp/Distribution/Helper/CopyEssentials.sh
+. "$PWD/Build/Gulp/Distribution/Helper/CopyEssentials.sh"
 
 if which json > /dev/null
   then
-    source Build/Gulp/Distribution/Helper/MergePackageJson.sh
-    source Build/Gulp/Distribution/Helper/MergeComposerJson.sh
+    . "$PWD/Build/Gulp/Distribution/Helper/MergePackageJson.sh"
+    . "$PWD/Build/Gulp/Distribution/Helper/MergeComposerJson.sh"
   else
-    source Build/Gulp/Distribution/Helper/NoJsonInstalled.sh
+    . "$PWD/Build/Gulp/Distribution/Helper/NoJsonInstalled.sh"
 fi
 
 exit 0
