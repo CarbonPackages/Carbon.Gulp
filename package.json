@@ -1,17 +1,13 @@
 {
   "name": "Carbon.Gulp",
-  "version": "5.3.2",
+  "version": "5.3.3",
   "description": "Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to form a full-featured modern asset pipeline for Flow Framework and Neos CMS.",
   "private": true,
   "author": "Jon Uhlmann <me@jonnitto.ch> (https://jonnitto.ch)",
   "bugs": "https://github.com/CarbonPackages/Carbon.Gulp/issues",
   "homepage": "https://github.com/CarbonPackages/Carbon.Gulp",
   "license": "MIT",
-  "keywords": [
-    "gulp",
-    "neoscms",
-    "flow"
-  ],
+  "keywords": ["gulp", "neoscms", "flow"],
   "repository": {
     "type": "git",
     "url": "https://github.com/jonnitto/Carbon.Gulp.git"
@@ -25,15 +21,9 @@
         }
       ]
     ],
-    "plugins": [
-      "external-helpers"
-    ]
+    "plugins": ["external-helpers"]
   },
-  "browserslist": [
-    "> 0.5%",
-    "last 2 versions",
-    "Explorer > 10"
-  ],
+  "browserslist": ["> 0.5%", "last 2 versions", "Explorer > 10"],
   "prettier": {
     "overrides": [
       {
