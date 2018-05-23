@@ -279,6 +279,25 @@ global:
 This configuration enable notifications and disable the
 proxy based by project folder name.
 
+## Use custom functions for specific tasks
+
+You are able to set a own function for each task. Just set `custom` in the config. For example:
+
+```yaml
+tasks:
+  js:
+    custom: 'Path/to/js/file/from/Root/MyOwnJsTask.js'
+```
+
+A Javscript with a custom task could look like this:
+
+```js
+module.exports = callback => {
+    console.log("Do what you want");
+    callback();
+};
+```
+
 ## Show the merged configuration
 
 You can output the merged configuration with `yarn showConfig`. To reduce output
