@@ -112,6 +112,7 @@ Tasks
 | `yarn tasks`          |         | Show all available tasks                                       |
 | `yarn build`          |         | Generates all Assets, Javascript and CSS files                 |
 | `yarn pipeline`       |         | Make files production ready                                    |
+| `yarn watch`          |    ✓    | Start watch task                                               |
 | `yarn beautify`       |    ✓    | Beautify and don't compress files                              |
 | `yarn debug`          |    ✓    | Files don't get compressed                                     |
 | `yarn nomaps`         |    ✓    | Don't write sourcemaps                                         |

@@ -1,3 +1,3 @@
 "use strict";
 
-require("./globals");
+require("./functions");

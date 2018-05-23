@@ -1,7 +1,5 @@
-"use strict";
-
-function showConfig(callback) {
-    let prettyjson = require("prettyjson");
+function getTask(callback) {
+    const PRETTYJSON = require("prettyjson");
     let options = {
         inlineArrays: true
     };
@@ -34,9 +32,9 @@ function showConfig(callback) {
         }
     }
 
-    render = render ? `${prettyjson.render(output, options)}\n\n` : "";
+    render = render ? `${PRETTYJSON.render(output, options)}\n\n` : "";
     log(`\n\n ${colors.white(headline)}\n\n${render}`);
     return callback();
 }
 
-module.exports = showConfig;
+module.exports = exportTask("showConfig", getTask);

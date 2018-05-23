@@ -1,7 +1,5 @@
-"use strict";
-
-const FUNCTIONS = require("./functions");
-
+const readYaml = require("./readYaml");
+const mergeConfigAndLoadTasks = require("./mergeConfigAndLoadTasks");
 const LIBRARIES = {
     bach: "bach",
     cache: "gulp-memory-cache",
@@ -22,11 +20,19 @@ const LIBRARIES = {
     path: "path",
     plumber: "gulp-plumber",
     rename: "gulp-rename",
-    size: "gulp-size",
     sourcemaps: "gulp-sourcemaps",
     textTable: "text-table",
     yaml: "js-yaml",
-    handleErrors: "./handleErrors"
+    callbackFunc: "./callbackFunc",
+    callbackTimeout: "./callbackTimeout",
+    exportTask: "./exportTask",
+    getExtensions: "./getExtensions",
+    getFiles: "./getFiles",
+    getFilesToWatch: "./getFilesToWatch",
+    getTimestamp: "./getTimestamp",
+    handleErrors: "./handleErrors",
+    notifyText: "./notifyText",
+    sizeOutput: "./sizeOutput"
 };
 
 for (const KEY in LIBRARIES) {
@@ -43,7 +49,7 @@ global.mode = {
     test: env.carbon ? true : false
 };
 
-global.config = FUNCTIONS.readYaml(
+global.config = readYaml(
     mode.test ? "./config.yaml" : "./Build/Gulp/config.yaml"
 );
 
@@ -55,16 +61,15 @@ global.flags = {
     "--n, --nomaps": " Don't write sourcemaps"
 };
 
+const ICON_PATH = "../assets/";
+
 global.gulpIcons = {
-    error: path.join(__dirname, "assets/gulp-error.png"),
-    warning: path.join(__dirname, "assets/gulp-warning.png"),
-    normal: path.join(__dirname, "assets/gulp.png")
+    error: path.join(__dirname, ICON_PATH, "gulp-error.png"),
+    warning: path.join(__dirname, ICON_PATH, "gulp-warning.png"),
+    normal: path.join(__dirname, ICON_PATH, "gulp.png")
 };
 
-global.getTimestamp = FUNCTIONS.getTimestamp;
-global.getExtensions = FUNCTIONS.getExtensions;
-global.getFiles = FUNCTIONS.getFiles;
-global.notifyText = FUNCTIONS.notifyText;
+
 
 // Overwrite Config with an external files
-FUNCTIONS.mergeConfigAndLoadTasks();
+mergeConfigAndLoadTasks();

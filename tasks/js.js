@@ -1,7 +1,5 @@
-"use strict";
-
-if (!config.tasks.js) {
-    return false;
+function getTask() {
+    return require("./jsRenderShared")("js");
 }
 
-module.exports = () => require("./jsRenderShared")("js");
+module.exports = exportTask("js", getTask);
