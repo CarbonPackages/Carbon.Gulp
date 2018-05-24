@@ -1,21 +1,8 @@
-"use strict";
-const FUNCTIONS = require("../functions");
-
-let task = {
-    noop: callback => {
-        callback();
-    },
-    timeout: callback => {
-        setTimeout(() => {
-            callback();
-        }, 10);
-    }
-};
+let task = {};
 
 for (const TASK_NAME of [
     "clean",
-    "compressBrotli",
-    "compressZopfli",
+    "compress",
     "css",
     "fonts",
     "images",
@@ -28,19 +15,19 @@ for (const TASK_NAME of [
     "static",
     "svgSprite"
 ]) {
-    let func = require("./" + TASK_NAME);
+    let func = require(`./${TASK_NAME}`);
     if (typeof func !== "function") {
-        func = task.noop;
+        func = callbackFunc;
     }
     task[TASK_NAME] = func;
 }
 
 for (const TASK_WITH_TIMEOUT of ["scss"]) {
-    let func = require("./" + TASK_WITH_TIMEOUT);
+    let func = require(`./${TASK_WITH_TIMEOUT}`);
     if (typeof func !== "function") {
-        task[TASK_WITH_TIMEOUT] = task.noop;
+        task[TASK_WITH_TIMEOUT] = callbackFunc;
     } else {
-        task[TASK_WITH_TIMEOUT] = bach.series(func, task.timeout);
+        task[TASK_WITH_TIMEOUT] = bach.series(func, callbackTimeout);
     }
 }
 
@@ -113,10 +100,7 @@ if (config.tasks.optimizeSvg) {
 }
 
 if (config.tasks.compress) {
-    gulp.task(
-        "compress",
-        bach.parallel(task.compressBrotli, task.compressZopfli)
-    );
+    gulp.task("compress", task.compress);
     gulp.task("compress").description =
         "Compress all CSS/JS/SVG with Brotli and Zopfli";
 } else {
@@ -149,8 +133,10 @@ task.build = bach.series(
 );
 
 gulp.task("build", task.build);
-gulp.task("build").description =
-    colors.inverse(" Generates all ") + " Assets, Javascript and CSS files";
+gulp.task("build").description = `${colors.inverse(
+    " Generates all "
+)} Assets, Javascript and CSS files`;
+
 gulp.task("build").flags = flags;
 
 task.reload = function(done) {
@@ -208,7 +194,7 @@ task.watch = () => {
         for (const KEY in config.packages) {
             const CONFIG = config.packages[KEY];
             filesToWatch = filesToWatch.concat(
-                FUNCTIONS.getFilesToWatch(taskName, CONFIG)
+                getFilesToWatch(taskName, CONFIG)
             );
         }
         watchTask(taskName, filesToWatch);
@@ -222,10 +208,10 @@ gulp.task("watch").description = "Watch files and regenereate them";
 
 // Default Task
 gulp.task("default", gulp.series("build", "watch"));
-gulp.task("default").description =
-    colors.inverse(" Generates all ") +
-    " Assets, Javascript and CSS files & " +
-    colors.inverse(" watch them ");
+gulp.task("default").description = `${colors.inverse(
+    " Generates all "
+)} Assets, Javascript and CSS files & ${colors.inverse(" watch them ")}`;
+
 gulp.task("default").flags = flags;
 
 function setPipelineEnvironment(callback) {

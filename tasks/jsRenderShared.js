@@ -1,5 +1,3 @@
-"use strict";
-
 const ROLLUP_PLUGIN = {
     AMD: require("rollup-plugin-amd"),
     BABEL: require("rollup-plugin-babel"),
@@ -16,7 +14,7 @@ const ROLLUP_PLUGIN = {
 const ROLLUP_EACH = require("gulp-rollup-each");
 
 function getConfig(taskName) {
-    const PACKAGES_CONFIG = [];
+    const TASK_CONFIG = [];
     for (const KEY in config.packages) {
         const CONFIG = config.packages[KEY];
         const JS_CONFIG = CONFIG.tasks[taskName];
@@ -84,7 +82,7 @@ function getConfig(taskName) {
                 );
             }
 
-            PACKAGES_CONFIG.push({
+            TASK_CONFIG.push({
                 key: KEY
                     ? KEY
                     : CONFIG.info.package
@@ -118,65 +116,55 @@ function getConfig(taskName) {
         }
     }
 
-    return PACKAGES_CONFIG;
+    return TASK_CONFIG;
 }
 
 function jsRender(taskName) {
-    const PACKAGES_CONFIG = getConfig(taskName);
+    const TASK_CONFIG = getConfig(taskName);
 
-    let tasks = PACKAGES_CONFIG.map(packageConfig => {
-        return gulp
-            .src(packageConfig.src, {
-                since: cache.lastMtime(taskName)
-            })
-            .pipe(plumber(handleErrors))
-            .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
-            .pipe(
-                ROLLUP_EACH(
-                    {
-                        plugins: packageConfig.rollup.plugins
-                    },
-                    file => {
-                        return {
-                            format: packageConfig.rollup.config.format,
-                            name: path.parse(file.path)["name"]
-                        };
-                    },
-                    require("rollup")
-                )
-            )
-            .pipe(chmod(config.global.chmod))
-            .pipe(
-                packageConfig.inlinePath
-                    ? gulp.dest(packageConfig.inlinePath)
-                    : noop()
-            )
-            .pipe(
-                packageConfig.key &&
-                packageConfig.info.banner &&
-                packageConfig.info.author &&
-                packageConfig.info.homepage
-                    ? header(packageConfig.info.banner, {
-                          package: packageConfig.key,
-                          author: packageConfig.info.author,
-                          homepage: packageConfig.info.homepage,
-                          timestamp: getTimestamp()
-                      })
-                    : noop()
-            )
-            .pipe(mode.maps ? sourcemaps.write("") : noop())
-            .pipe(plumber.stop())
-            .pipe(gulp.dest(packageConfig.dest))
-            .pipe(
-                size({
-                    title: `${
-                        packageConfig.key ? `${packageConfig.key} ` : ""
-                    }${taskName.toUpperCase()}:`,
-                    showFiles: true
+    return merge(
+        TASK_CONFIG.map(task => {
+            return gulp
+                .src(task.src, {
+                    since: cache.lastMtime(taskName)
                 })
-            );
-    });
-    return merge(tasks);
+                .pipe(plumber(handleErrors))
+                .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
+                .pipe(
+                    ROLLUP_EACH(
+                        {
+                            plugins: task.rollup.plugins
+                        },
+                        file => {
+                            return {
+                                format: task.rollup.config.format,
+                                name: path.parse(file.path)["name"]
+                            };
+                        },
+                        require("rollup")
+                    )
+                )
+                .pipe(chmod(config.global.chmod))
+                .pipe(task.inlinePath ? gulp.dest(task.inlinePath) : noop())
+                .pipe(
+                    task.key &&
+                    task.info.banner &&
+                    task.info.author &&
+                    task.info.homepage
+                        ? header(task.info.banner, {
+                              package: task.key,
+                              author: task.info.author,
+                              homepage: task.info.homepage,
+                              timestamp: getTimestamp()
+                          })
+                        : noop()
+                )
+                .pipe(mode.maps ? sourcemaps.write("") : noop())
+                .pipe(plumber.stop())
+                .pipe(gulp.dest(task.dest))
+                .pipe(sizeOutput(task.key, taskName.toUpperCase()));
+        })
+    );
 }
 
 module.exports = jsRender;

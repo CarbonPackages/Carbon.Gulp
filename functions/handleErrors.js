@@ -1,6 +1,4 @@
-"use strict";
-
-function handleErrors(error) {
+module.exports = function(error) {
     // Output an error message in the console
     log(colors.red(`${error.name} (${error.plugin}): ${error.message}`));
 
@@ -22,6 +20,4 @@ function handleErrors(error) {
     if (mode.pipeline) {
         process.exit(1);
     }
-}
-
-module.exports = handleErrors;
+};

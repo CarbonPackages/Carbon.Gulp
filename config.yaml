@@ -57,6 +57,7 @@ tasks:
     - "*.css.br"
     - "*.css.gz"
   css:
+    custom: false
     src: Assets
     dest: Styles
     file: null
@@ -142,6 +143,7 @@ tasks:
   scssLint: true
   jsLint: true
   js:
+    custom: false
     src: Assets
     dest: Scripts
     file: null
@@ -181,7 +183,10 @@ tasks:
           warnings: false
           mangle: true
           module: false
+  optimizeImages:
+    custom: false
   images:
+    custom: false
     src: Images
     dest: Assets
     watchOnlySrc: true
@@ -193,6 +198,7 @@ tasks:
       - gif
       - ico
   fonts:
+    custom: false
     src: Fonts
     dest: Assets
     watchOnlySrc: true
@@ -203,6 +209,7 @@ tasks:
       - ttf
       - svg
   static:
+    custom: false
     src: Static
     dest: Assets
     watchOnlySrc: true
@@ -210,6 +217,7 @@ tasks:
       - "*"
   optimizeSvg: src
   svgSprite:
+    custom: false
     src: Sprite
     dest: Assets
     watchOnlySrc: true
@@ -242,6 +250,7 @@ tasks:
       format: gzip
       numiterations: 15
       blocksplitting: true
+  showConfig: true
   pipeline:
     - build
     - optimizeImages

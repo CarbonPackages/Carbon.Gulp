@@ -1,5 +1,3 @@
-"use strict";
-
 const DEL = require("del");
 const EXPECTED = {
     css: `body{margin-right:10px;margin-left:10px}`,

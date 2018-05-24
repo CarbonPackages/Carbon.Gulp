@@ -1,6 +1,6 @@
 {
   "name": "Carbon.Gulp",
-  "version": "5.3.3",
+  "version": "5.4.0",
   "description": "Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to form a full-featured modern asset pipeline for Flow Framework and Neos CMS.",
   "private": true,
   "author": "Jon Uhlmann <me@jonnitto.ch> (https://jonnitto.ch)",
@@ -64,6 +64,7 @@
     "beautify": "yarn gulp --beautify",
     "nomaps": "yarn gulp --nomaps",
     "build": "yarn;yarn gulp build",
+    "watch": "yarn;yarn gulp watch",
     "pipeline": "yarn;yarn gulp pipeline",
     "css": "yarn gulp css",
     "scss": "yarn gulp scss",

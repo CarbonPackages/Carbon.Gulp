@@ -112,6 +112,7 @@ Tasks
 | `yarn tasks`          |         | Show all available tasks                                       |
 | `yarn build`          |         | Generates all Assets, Javascript and CSS files                 |
 | `yarn pipeline`       |         | Make files production ready                                    |
+| `yarn watch`          |    ✓    | Start watch task                                               |
 | `yarn beautify`       |    ✓    | Beautify and don't compress files                              |
 | `yarn debug`          |    ✓    | Files don't get compressed                                     |
 | `yarn nomaps`         |    ✓    | Don't write sourcemaps                                         |
@@ -277,6 +278,25 @@ global:
 
 This configuration enable notifications and disable the
 proxy based by project folder name.
+
+## Use custom functions for specific tasks
+
+You are able to set a own function for each task. Just set `custom` in the config. For example:
+
+```yaml
+tasks:
+  js:
+    custom: 'Path/to/js/file/from/Root/MyOwnJsTask.js'
+```
+
+A Javscript with a custom task could look like this:
+
+```js
+module.exports = callback => {
+    console.log("Do what you want");
+    callback();
+};
+```
 
 ## Show the merged configuration
 
