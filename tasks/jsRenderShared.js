@@ -125,11 +125,8 @@ function jsRender(taskName) {
     return merge(
         TASK_CONFIG.map(task => {
             return gulp
-                .src(task.src, {
-                    since: cache.lastMtime(`${task.key}${taskName}`)
-                })
+                .src(task.src)
                 .pipe(plumber(handleErrors))
-                .pipe(cache(`${task.key}${taskName}`))
                 .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
                 .pipe(
                     ROLLUP_EACH(

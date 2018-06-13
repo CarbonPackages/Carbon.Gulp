@@ -166,7 +166,7 @@ task.watch = () => {
                     gulp.watch(
                         filesToWatch,
                         bach.parallel(task.css, task.scssLint)
-                    ).on("change", cache.update(`${task.key}${taskName}`));
+                    );
                     break;
                 case "js":
                     gulp.watch(
@@ -175,7 +175,7 @@ task.watch = () => {
                             bach.series(task.js, task.reload),
                             task.jsLint
                         )
-                    ).on("change", cache.update(`${task.key}${taskName}`));
+                    );
                     break;
                 default:
                     gulp.watch(filesToWatch, task[taskName]).on(
