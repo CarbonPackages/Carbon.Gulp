@@ -37,10 +37,10 @@ function getTask() {
         TASK_CONFIG.map(task => {
             return gulp
                 .src(task.src, {
-                    since: cache.lastMtime("images")
+                    since: cache.lastMtime(`${task.key}images`)
                 })
                 .pipe(plumber(handleErrors))
-                .pipe(cache("images"))
+                .pipe(cache(`${task.key}images`))
                 .pipe(changed(task.dest)) // Ignore unchanged files
                 .pipe(flatten())
                 .pipe(chmod(config.global.chmod))

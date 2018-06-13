@@ -163,28 +163,25 @@ task.watch = () => {
         ) {
             switch (taskName) {
                 case "css":
-                    gulp
-                        .watch(
-                            filesToWatch,
-                            bach.parallel(task.css, task.scssLint)
-                        )
-                        .on("change", cache.update(taskName));
+                    gulp.watch(
+                        filesToWatch,
+                        bach.parallel(task.css, task.scssLint)
+                    ).on("change", cache.update(`${task.key}${taskName}`));
                     break;
                 case "js":
-                    gulp
-                        .watch(
-                            filesToWatch,
-                            bach.parallel(
-                                bach.series(task.js, task.reload),
-                                task.jsLint
-                            )
+                    gulp.watch(
+                        filesToWatch,
+                        bach.parallel(
+                            bach.series(task.js, task.reload),
+                            task.jsLint
                         )
-                        .on("change", cache.update(taskName));
+                    ).on("change", cache.update(`${task.key}${taskName}`));
                     break;
                 default:
-                    gulp
-                        .watch(filesToWatch, task[taskName])
-                        .on("change", cache.update(taskName));
+                    gulp.watch(filesToWatch, task[taskName]).on(
+                        "change",
+                        cache.update(`${task.key}${taskName}`)
+                    );
             }
         }
     }

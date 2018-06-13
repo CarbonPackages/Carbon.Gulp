@@ -158,9 +158,10 @@ function getTask() {
         TASK_CONFIG.map(task => {
             return gulp
                 .src(task.src, {
-                    since: cache.lastMtime("css")
+                    since: cache.lastMtime(`${task.key}css`)
                 })
                 .pipe(plumber(handleErrors))
+                .pipe(cache(`${task.key}css`))
                 .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
                 .pipe(sass(task.sass))
                 .pipe(flatten())

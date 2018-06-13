@@ -37,10 +37,10 @@ function getTask() {
         TASK_CONFIG.map(task => {
             return gulp
                 .src(task.src, {
-                    since: cache.lastMtime("fonts")
+                    since: cache.lastMtime(`${task.key}fonts`)
                 })
                 .pipe(plumber(handleErrors))
-                .pipe(cache("fonts"))
+                .pipe(cache(`${task.key}fonts`))
                 .pipe(changed(task.dest)) // Ignore unchanged files
                 .pipe(flatten())
                 .pipe(chmod(config.global.chmod))

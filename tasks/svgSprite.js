@@ -52,15 +52,15 @@ function getTask() {
         TASK_CONFIG.map(task => {
             const PRE_SPRITE = gulp
                 .src(task.src, {
-                    since: cache.lastMtime("svgSprite")
+                    since: cache.lastMtime(`${task.key}svgSprite`)
                 })
                 .pipe(plumber(handleErrors))
+                .pipe(cache(`${task.key}svgSprite`))
                 .pipe(
                     rename(file => {
                         file.basename = "icon-" + file.basename.toLowerCase();
                     })
                 )
-                .pipe(cache("svgSprite"))
                 .pipe(imagemin([imagemin.svgo({ plugins: [task.svgo] })]));
 
             const PRIVATE_TASK = task.inlinePath

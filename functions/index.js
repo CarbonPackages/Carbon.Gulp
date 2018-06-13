@@ -69,7 +69,5 @@ global.gulpIcons = {
     normal: path.join(__dirname, ICON_PATH, "gulp.png")
 };
 
-
-
 // Overwrite Config with an external files
 mergeConfigAndLoadTasks();
