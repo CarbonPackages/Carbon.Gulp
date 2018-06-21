@@ -111,7 +111,8 @@ function getConfig(taskName) {
                           CONFIG.root.src,
                           CONFIG.root.inlinePath
                       )
-                    : false
+                    : false,
+                publicAssets: CONFIG.root.publicAssets
             });
         }
     }
@@ -148,7 +149,8 @@ function jsRender(taskName) {
                     task.key &&
                     task.info.banner &&
                     task.info.author &&
-                    task.info.homepage
+                    task.info.homepage &&
+                    task.publicAssets
                         ? header(task.info.banner, {
                               package: task.key,
                               author: task.info.author,
@@ -157,9 +159,13 @@ function jsRender(taskName) {
                           })
                         : noop()
                 )
-                .pipe(mode.maps ? sourcemaps.write("") : noop())
+                .pipe(
+                    mode.maps && task.publicAssets
+                        ? sourcemaps.write("")
+                        : noop()
+                )
                 .pipe(plumber.stop())
-                .pipe(gulp.dest(task.dest))
+                .pipe(task.publicAssets ? gulp.dest(task.dest) : noop())
                 .pipe(sizeOutput(task.key, taskName.toUpperCase()));
         })
     );

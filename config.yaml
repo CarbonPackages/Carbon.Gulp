@@ -41,6 +41,7 @@ root:
   dontWatch: "Resources/Private/Templates/**"
   inlinePath: "Templates/InlineAssets"
   inlineAssets: false
+  publicAssets: true
 
 packages: {}
 

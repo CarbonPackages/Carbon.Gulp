@@ -1,6 +1,6 @@
 {
   "name": "Carbon.Gulp",
-  "version": "5.4.5",
+  "version": "5.5.0",
   "description": "Carbon/Gulp is a delicious blend of tasks and build tools poured into Gulp to form a full-featured modern asset pipeline for Flow Framework and Neos CMS.",
   "private": true,
   "author": "Jon Uhlmann <me@jonnitto.ch> (https://jonnitto.ch)",
@@ -141,6 +141,8 @@
     "postcss-short": "^4.1.0",
     "postcss-vmax": "^1.0.0",
     "prettier": "^1.13.5",
+    "prettier-eslint": "^8.8.1",
+    "prettier-stylelint": "^0.4.2",
     "prettyjson": "^1.2.1",
     "rollup": "^0.60.7",
     "rollup-plugin-amd": "^3.0.0",

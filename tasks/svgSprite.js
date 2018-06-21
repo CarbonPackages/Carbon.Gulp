@@ -37,6 +37,7 @@ function getConfig() {
                           CONFIG.root.inlinePath
                       )
                     : false,
+                publicAssets: CONFIG.root.publicAssets,
                 svgo: SPRITE_CONFIG.svgo,
                 config: config
             });
@@ -70,16 +71,21 @@ function getTask() {
                       .pipe(gulp.dest(task.inlinePath))
                 : false;
 
-            const SVG_TASKS = [
-                PRE_SPRITE.pipe(SVG_SPRITE(task.config.public))
-                    .pipe(chmod(config.global.chmod))
-                    .pipe(plumber.stop())
-                    .pipe(gulp.dest(task.dest))
-                    .pipe(sizeOutput(task.key, "SVG Sprite"))
-            ];
+            const PUBLIC_TASK = task.publicAssets
+                ? PRE_SPRITE.pipe(SVG_SPRITE(task.config.public))
+                      .pipe(chmod(config.global.chmod))
+                      .pipe(plumber.stop())
+                      .pipe(gulp.dest(task.dest))
+                      .pipe(sizeOutput(task.key, "SVG Sprite"))
+                : false;
+
+            const SVG_TASKS = [];
 
             if (PRIVATE_TASK) {
-                SVG_TASKS.unshift(PRIVATE_TASK);
+                SVG_TASKS.push(PRIVATE_TASK);
+            }
+            if (PUBLIC_TASK) {
+                SVG_TASKS.push(PUBLIC_TASK);
             }
 
             return merge(SVG_TASKS);
