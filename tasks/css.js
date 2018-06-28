@@ -10,6 +10,7 @@ function getConfig() {
         FLEXBOX: require("postcss-flexbox"),
         MAGIC_ANIMATIONS: require("postcss-magic-animations"),
         MEDIA_MINMAX: require("postcss-media-minmax"),
+        MOMENTUM_SCROLLING: require("postcss-momentum-scrolling"),
         PLEEEASE_FILTERS: require("pleeease-filters"),
         PSEUDOELEMENTS: require("postcss-pseudoelements"),
         PXTOREM: require("postcss-pxtorem"),
@@ -84,6 +85,9 @@ function getConfig() {
                 POSTCSS_PLUGIN.CUSTOM_MEDIA,
                 POSTCSS_PLUGIN.MEDIA_MINMAX,
                 POSTCSS_PLUGIN.QUANTITY_QUERIES,
+                POSTCSS_PLUGIN.MOMENTUM_SCROLLING(
+                    POSTCSS_CONFIGURATION.momentumScrolling
+                ),
                 POSTCSS_PLUGIN.FIXES(POSTCSS_CONFIGURATION.fixes),
                 POSTCSS_PLUGIN.CSS_MQPACKER({
                     sort: POSTCSS_CONFIGURATION.mqpacker.sort

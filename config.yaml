@@ -67,7 +67,7 @@ tasks:
       - scss
       - css
     sass:
-      imagePath: "Assets"
+      imagePath: Assets
       precision: 10
       sourceComments: true
       includePaths:
@@ -79,19 +79,24 @@ tasks:
       activateRtlCss: false
       assets:
         loadPaths:
-          - "Assets"
+          - Assets
           - "../Private/Sprite"
           - "../Private/Fusion"
         cachebuster: false
       magicAnimations:
         atRoot: true
+      momentumScrolling:
+        - hidden
+        - scroll
+        - auto
+        - inherit
       pseudoelements:
         single: true
         selectors:
-          - "before"
-          - "after"
-          - "first-letter"
-          - "first-line"
+          - before
+          - after
+          - first-letter
+          - first-line
       short:
         border:
           skip: x
