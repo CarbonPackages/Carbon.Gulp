@@ -1,9 +1,6 @@
 const DEL = require("del");
-const EXPECTED = {
-    css: `body{margin-right:10px;margin-left:10px;overflow:scroll;-webkit-overflow-scrolling:touch}`,
-    js: JSON.stringify([`Hello World`, `Hello Carbon.Gulp`]),
-    svg: `<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol viewBox="0 0 260 260" id="icon-circle" xmlns="http://www.w3.org/2000/svg"><circle fill="#FFF" cx="130" cy="130" r="130"/></symbol></svg>`
-};
+const EXPECTED = config.tasks.test.expected;
+EXPECTED.js = JSON.stringify(EXPECTED.js);
 
 let passAllTest = true;
 

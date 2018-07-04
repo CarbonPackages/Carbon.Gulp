@@ -3,4 +3,6 @@ $margin: 10px;
 body {
   margin: x 10px;
   overflow: scroll;
+  min-height: calc(100vh - constant(safe-area-inset-top));
+  min-height: calc(100vh - env(safe-area-inset-top));
 }
