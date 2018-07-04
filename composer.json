@@ -31,7 +31,9 @@
             ".gitattributes",
             ".github",
             ".gitignore",
-            "CODE_OF_CONDUCT.md"
+            ".travis.yaml",
+            "CODE_OF_CONDUCT.md",
+            "gulp_test.yaml"
         ]
     },
     "extra": {
