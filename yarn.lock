@@ -7924,13 +7924,9 @@ prettier-stylelint@^0.4.2:
     tempy "^0.2.1"
     update-notifier "^2.2.0"
 
-prettier@^1.13.6:
-  version "1.13.6"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.6.tgz#00ae0b777ad92f81a9e7a1df2f0470b6dab0cb44"
-
-prettier@^1.7.0, prettier@^1.7.4:
-  version "1.13.5"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.5.tgz#7ae2076998c8edce79d63834e9b7b09fead6bfd0"
+prettier@^1.13.7, prettier@^1.7.0, prettier@^1.7.4:
+  version "1.13.7"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.7.tgz#850f3b8af784a49a6ea2d2eaa7ed1428a34b7281"
 
 pretty-bytes@^4.0.2:
   version "4.0.2"
