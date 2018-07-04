@@ -33,7 +33,8 @@
             ".gitignore",
             ".travis.yaml",
             "CODE_OF_CONDUCT.md",
-            "gulp_test.yaml"
+            "gulp_test.yaml",
+            "yarn.lock"
         ]
     },
     "extra": {
