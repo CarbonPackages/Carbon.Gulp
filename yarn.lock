@@ -7632,9 +7632,9 @@ postcss-round-subpixels@^1.2.0:
     postcss "^5.0.2"
     postcss-value-parser "^3.1.2"
 
-postcss-rtl@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/postcss-rtl/-/postcss-rtl-1.3.0.tgz#e2b2eb1526758525c10966059b3623005e817c27"
+postcss-rtl@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/postcss-rtl/-/postcss-rtl-1.3.1.tgz#86e497172ce2fb6a903d0ad353244c45dbeb747e"
   dependencies:
     rtlcss "^2.3.0"
 
@@ -7924,9 +7924,9 @@ prettier-stylelint@^0.4.2:
     tempy "^0.2.1"
     update-notifier "^2.2.0"
 
-prettier@^1.13.6:
-  version "1.13.6"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.6.tgz#00ae0b777ad92f81a9e7a1df2f0470b6dab0cb44"
+prettier@^1.13.7:
+  version "1.13.7"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.7.tgz#850f3b8af784a49a6ea2d2eaa7ed1428a34b7281"
 
 prettier@^1.7.0, prettier@^1.7.4:
   version "1.13.5"
@@ -8685,9 +8685,9 @@ rollup-plugin-amd@^3.0.0:
     "@buxlabs/amd-to-es6" "^0.12.0"
     rollup-pluginutils "^2.0.1"
 
-rollup-plugin-babel@^3.0.5:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-babel/-/rollup-plugin-babel-3.0.5.tgz#9769a7977098da1dce5b5888fe38dfd8666bf08d"
+rollup-plugin-babel@^3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-babel/-/rollup-plugin-babel-3.0.7.tgz#5b13611f1ab8922497e9d15197ae5d8a23fe3b1e"
   dependencies:
     rollup-pluginutils "^1.5.0"
 
