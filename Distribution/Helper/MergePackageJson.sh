@@ -12,4 +12,3 @@ echo
 echo "${RED}Important:${NC}"
 echo "If you problems with your installation, please delete ${RED}node_modules${NC} and ${RED}yarn.lock${NC} and try it again"
 echo
-rm yarn.lock 2> /dev/null
