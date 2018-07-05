@@ -1,0 +1,6 @@
+:root {
+  --env-safe-area-inset-top: env(safe-area-inset-top);
+  --constant-safe-area-inset-top: constant(safe-area-inset-top);
+}
+
+$margin: 10px;

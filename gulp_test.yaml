@@ -23,7 +23,7 @@ tasks:
     dest: ""
   test:
     expected:
-      css: body{margin-right:10px;margin-left:10px;overflow:scroll;min-height:calc(100vh - constant(safe-area-inset-top));min-height:calc(100vh - env(safe-area-inset-top));-webkit-overflow-scrolling:touch}
+      css: :root{--constant-safe-area-inset-top:constant(safe-area-inset-top);--env-safe-area-inset-top:env(safe-area-inset-top)}body{-webkit-overflow-scrolling:touch;margin-left:10px;margin-right:10px;min-height:calc(100vh - var(--constant-safe-area-inset-top));min-height:calc(100vh - var(--env-safe-area-inset-top));overflow:scroll}
       js:
         - Hello World
         - Hello Carbon.Gulp
