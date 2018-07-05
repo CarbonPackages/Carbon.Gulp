@@ -4133,12 +4133,12 @@ gulp-rename@^1.2.0, gulp-rename@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/gulp-rename/-/gulp-rename-1.3.0.tgz#2e789d8f563ab0c924eeb62967576f37ff4cb826"
 
-gulp-rollup-each@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/gulp-rollup-each/-/gulp-rollup-each-2.1.0.tgz#130c34a3d0427a7824b6135ec3264dec61d1be37"
+gulp-rollup-each@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/gulp-rollup-each/-/gulp-rollup-each-2.1.1.tgz#c27b0aa506cb62f321dd93d211eea3fa60a5318b"
   dependencies:
     plugin-error "^0.1.2"
-    rollup "^0.49.3"
+    rollup "^0.62.0"
     vinyl-sourcemaps-apply "^0.2.1"
 
 gulp-sass@^4.0.1:
@@ -8474,13 +8474,16 @@ rollup-pluginutils@^2.0.1:
     estree-walker "^0.5.2"
     micromatch "^2.3.11"
 
-rollup@^0.49.3:
-  version "0.49.3"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.49.3.tgz#4cce32643dd8cf2154c69ff0e43470067db0adbf"
-
 rollup@^0.60.7:
   version "0.60.7"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.60.7.tgz#2b62ef9306f719b1ab85a7814b3e6596ac51fae8"
+  dependencies:
+    "@types/estree" "0.0.39"
+    "@types/node" "*"
+
+rollup@^0.62.0:
+  version "0.62.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.62.0.tgz#4ca8b3c9582195dc9341ff8a1375f58319b95bfc"
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "*"
