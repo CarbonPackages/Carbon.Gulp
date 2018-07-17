@@ -62,6 +62,7 @@ tasks:
     src: Assets
     dest: Styles
     file: null
+    sourceMaps: true
     extensions:
       - sass
       - scss
@@ -153,6 +154,7 @@ tasks:
     src: Assets
     dest: Scripts
     file: null
+    sourceMaps: true
     extensions:
       - js
       - jsx

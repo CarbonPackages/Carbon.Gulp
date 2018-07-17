@@ -89,6 +89,7 @@ function getConfig(taskName) {
                         ? CONFIG.info.package
                         : false,
                 info: CONFIG.info,
+                sourceMaps: JS_CONFIG.sourceMaps,
                 rollup: rollup,
                 src: path.join(
                     CONFIG.root.base,
@@ -128,7 +129,11 @@ function jsRender(taskName) {
             return gulp
                 .src(task.src)
                 .pipe(plumber(handleErrors))
-                .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
+                .pipe(
+                    mode.maps && task.sourceMaps
+                        ? sourcemaps.init({ loadMaps: true })
+                        : noop()
+                )
                 .pipe(
                     ROLLUP_EACH(
                         {
@@ -160,7 +165,7 @@ function jsRender(taskName) {
                         : noop()
                 )
                 .pipe(
-                    mode.maps && task.publicAssets
+                    mode.maps && task.sourceMaps && task.publicAssets
                         ? sourcemaps.write("")
                         : noop()
                 )

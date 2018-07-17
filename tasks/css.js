@@ -123,6 +123,7 @@ function getConfig() {
                         ? CONFIG.info.package
                         : false,
                 info: CONFIG.info,
+                sourceMaps: CSS_CONFIG.sourceMaps,
                 assets: assetsPath,
                 sass: sassConfig,
                 postcssConfig: postcssConfig,
@@ -164,7 +165,11 @@ function getTask() {
             return gulp
                 .src(task.src)
                 .pipe(plumber(handleErrors))
-                .pipe(mode.maps ? sourcemaps.init({ loadMaps: true }) : noop())
+                .pipe(
+                    mode.maps && task.sourceMaps
+                        ? sourcemaps.init({ loadMaps: true })
+                        : noop()
+                )
                 .pipe(sass(task.sass))
                 .pipe(flatten())
                 .pipe(postcss(task.postcssConfig))
@@ -191,7 +196,7 @@ function getTask() {
                         : noop()
                 )
                 .pipe(
-                    mode.maps && task.publicAssets
+                    mode.maps && task.sourceMaps && task.publicAssets
                         ? sourcemaps.write("")
                         : noop()
                 )
