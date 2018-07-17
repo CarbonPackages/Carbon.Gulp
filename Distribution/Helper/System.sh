@@ -23,7 +23,7 @@ if [ -f ~/.nvm/nvm.sh ]
     . ~/.nvm/nvm.sh
     if [[ "$(command -v nvm | tr -d '\n')" == "nvm" ]]
       then
-        nvm use
+        nvm use >/dev/null
       else
         _noNvm
     fi
