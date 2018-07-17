@@ -13,6 +13,7 @@ if which json > /dev/null
   else
     . "$PWD/Build/Gulp/Distribution/Helper/NoJsonInstalled.sh"
 fi
+. "$PWD/Build/Gulp/Distribution/Helper/System.sh"
 
 echo $GREEN
 echo "Update dependencies"
