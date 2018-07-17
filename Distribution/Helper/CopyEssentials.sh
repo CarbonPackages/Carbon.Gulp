@@ -7,4 +7,4 @@ cp Build/Gulp/.nvmrc ./
 cp Build/Gulp/.prettierignore ./
 cp Build/Gulp/.stylelintrc ./
 cp Build/Gulp/.yarnclean ./
-echo ""
+echo
