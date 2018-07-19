@@ -1,6 +1,15 @@
-body {
-  margin: x 10px;
+p {
+  margin: x x 10px;
   overflow: scroll;
-  min-height: calc(100vh - var(--constant-safe-area-inset-top));
-  min-height: calc(100vh - var(--env-safe-area-inset-top));
+  min-height: calc(100vh - var(--safe-area-inset-top));
+
+  a {
+    &:hover {
+      color: blue;
+    }
+
+    &:focus-within {
+      color: red;
+    }
+  }
 }
