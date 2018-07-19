@@ -1,7 +1,6 @@
 function getConfig() {
     const sassTildeImporter = require("node-sass-tilde-importer");
     const POSTCSS_PLUGIN = {
-        ASSETS: require("postcss-assets"),
         AUTOPREFIXER: require("autoprefixer"),
         CENTER: require("postcss-center"),
         CSS_MQPACKER: require("css-mqpacker"),
@@ -27,15 +26,18 @@ function getConfig() {
         const CSS_CONFIG = CONFIG.tasks.css;
 
         if (CSS_CONFIG) {
-            // Assets Path
-            let assetsPath = path.join(CONFIG.root.base, KEY, CONFIG.root.dest);
-            // Dest Path
-            let destPath = path.join(
-                CONFIG.root.base,
-                KEY,
-                CONFIG.root.dest,
-                CSS_CONFIG.dest
-            );
+            const PATHS = {
+                key: path.join(CONFIG.root.base, KEY)
+            };
+            PATHS.root = {
+                src: path.join(PATHS.key, CONFIG.root.src),
+                dest: path.join(PATHS.key, CONFIG.root.dest)
+            };
+            PATHS.dest = {
+                private: path.join(PATHS.root.src, CONFIG.root.inlinePath),
+                public: path.join(PATHS.root.dest, CSS_CONFIG.dest)
+            };
+            PATHS.base = path.join(PATHS.root.src, CSS_CONFIG.src);
 
             // Sass Configuration
             let sassConfig = CSS_CONFIG.sass;
@@ -46,24 +48,50 @@ function getConfig() {
             // PostCSS Configuration
             const POSTCSS_CONFIGURATION = CSS_CONFIG.postcss;
 
-            let postcssAssetConfig = objectAssignDeep(
-                {},
-                POSTCSS_CONFIGURATION.assets
-            );
-            if (Array.isArray(postcssAssetConfig.loadPaths)) {
-                postcssAssetConfig.loadPaths = postcssAssetConfig.loadPaths.map(
-                    value => path.join(assetsPath, value)
-                );
-            } else {
-                postcssAssetConfig.loadPaths = path.join(
-                    assetsPath,
-                    postcssAssetConfig.loadPaths
-                );
+            let loadPathsConf = POSTCSS_CONFIGURATION.assets.loadPaths;
+            let loadPaths = [];
+            if (loadPathsConf.dest) {
+                loadPaths.push(path.join(PATHS.root.dest, loadPathsConf.dest));
             }
-            postcssAssetConfig.relative = destPath;
+            if (loadPathsConf.src && Array.isArray(loadPathsConf.src)) {
+                loadPathsConf.src.forEach(value => {
+                    loadPaths.push(path.join(PATHS.root.src, value));
+                });
+            }
+
+            const POSTCSS_ASSET_CONFIG = {
+                private: objectAssignDeep(
+                    {},
+                    POSTCSS_CONFIGURATION.assets.private,
+                    {
+                        relative: false,
+                        loadPaths: loadPathsConf.src.map(value =>
+                            path.join(loadPathsConf.srcRelativeToDest, value)
+                        ),
+                        basePath: path.join(
+                            PATHS.root.dest,
+                            loadPathsConf.dest
+                        ),
+                        baseUrl: path.join(
+                            POSTCSS_CONFIGURATION.assets.private.baseUrl.replace(
+                                "%KEY%",
+                                KEY
+                            ),
+                            loadPathsConf.dest
+                        )
+                    }
+                ),
+                public: objectAssignDeep(
+                    {},
+                    POSTCSS_CONFIGURATION.assets.public,
+                    {
+                        loadPaths: loadPaths,
+                        relative: PATHS.dest.public
+                    }
+                )
+            };
 
             let postcssConfig = [
-                POSTCSS_PLUGIN.ASSETS(postcssAssetConfig),
                 POSTCSS_PLUGIN.PRESET_ENV(POSTCSS_CONFIGURATION.presetEnv),
                 POSTCSS_PLUGIN.VMAX,
                 POSTCSS_PLUGIN.SHORT(POSTCSS_CONFIGURATION.short),
@@ -114,29 +142,25 @@ function getConfig() {
                         : false,
                 info: CONFIG.info,
                 sourceMaps: CSS_CONFIG.sourceMaps,
-                assets: assetsPath,
                 sass: sassConfig,
                 postcssConfig: postcssConfig,
+                postcssAsset: POSTCSS_ASSET_CONFIG,
                 cssnano: POSTCSS_CONFIGURATION.cssnano,
-                src: path.join(
-                    CONFIG.root.base,
-                    KEY,
-                    CONFIG.root.src,
-                    CSS_CONFIG.src,
-                    getFiles(CSS_CONFIG.file) ||
-                        getExtensions(CSS_CONFIG.extensions)
-                ),
-                dest: destPath,
-                inlinePath: CONFIG.root.inlineAssets
-                    ? path.join(
-                          CONFIG.root.base,
-                          KEY,
-                          CONFIG.root.src,
-                          CONFIG.root.inlinePath
-                      )
-                    : false,
-                publicAssets: CONFIG.root.publicAssets,
-                beautifyOptions: CSS_CONFIG.cssbeautifyOptions
+                beautifyOptions: CSS_CONFIG.cssbeautifyOptions,
+                dest: PATHS.dest,
+                src: {
+                    private: getSrcPath({
+                        basePath: PATHS.base,
+                        extensions: CSS_CONFIG.extensions,
+                        file: CSS_CONFIG.file,
+                        inline: true
+                    }),
+                    public: getSrcPath({
+                        basePath: PATHS.base,
+                        extensions: CSS_CONFIG.extensions,
+                        file: CSS_CONFIG.file
+                    })
+                }
             });
         }
     }
@@ -148,6 +172,7 @@ function getTask() {
     const postcss = require("gulp-postcss");
     const beautify = require("gulp-cssbeautify");
     const cssnano = require("cssnano");
+    const assets = require("postcss-assets");
     const reporter = require("postcss-reporter");
     const TASK_CONFIG = getConfig();
 
@@ -157,44 +182,57 @@ function getTask() {
                 task.postcssConfig.push(cssnano(task.cssnano));
             }
             task.postcssConfig.push(reporter);
+            const POSTCSS_CONFIG = {
+                private: [assets(task.postcssAsset.private)].concat(
+                    task.postcssConfig
+                ),
+                public: [assets(task.postcssAsset.public)].concat(
+                    task.postcssConfig
+                )
+            };
 
-            return gulp
-                .src(task.src)
-                .pipe(plumber(handleErrors))
-                .pipe(
-                    mode.maps && task.sourceMaps
-                        ? sourcemaps.init({ loadMaps: true })
-                        : noop()
-                )
-                .pipe(sass(task.sass))
-                .pipe(flatten())
-                .pipe(postcss(task.postcssConfig))
-                .pipe(mode.beautify ? beautify(task.beautifyOptions) : noop())
-                .pipe(chmod(config.global.chmod))
-                .pipe(task.inlinePath ? gulp.dest(task.inlinePath) : noop())
-                .pipe(
-                    task.key &&
-                    task.info.banner &&
-                    task.info.author &&
-                    task.info.homepage &&
-                    task.publicAssets
-                        ? header(task.info.banner, {
-                              package: task.key,
-                              author: task.info.author,
-                              homepage: task.info.homepage,
-                              timestamp: getTimestamp()
-                          })
-                        : noop()
-                )
-                .pipe(
-                    mode.maps && task.sourceMaps && task.publicAssets
-                        ? sourcemaps.write("")
-                        : noop()
-                )
-                .pipe(plumber.stop())
-                .pipe(task.publicAssets ? gulp.dest(task.dest) : noop())
-                .pipe(browserSync ? browserSync.stream() : noop())
-                .pipe(sizeOutput(task.key, "CSS"));
+            return merge([
+                gulp
+                    .src(task.src.private)
+                    .pipe(plumber(handleErrors))
+                    .pipe(sass(task.sass))
+                    .pipe(flatten())
+                    .pipe(postcss(POSTCSS_CONFIG.private))
+                    .pipe(
+                        mode.beautify ? beautify(task.beautifyOptions) : noop()
+                    )
+                    .pipe(chmod(config.global.chmod))
+                    .pipe(plumber.stop())
+                    .pipe(gulp.dest(task.dest.private))
+                    .pipe(browserSync ? browserSync.stream() : noop())
+                    .pipe(sizeOutput(task.key, "CSS", false)),
+
+                gulp
+                    .src(task.src.public)
+                    .pipe(plumber(handleErrors))
+                    .pipe(
+                        mode.maps && task.sourceMaps
+                            ? sourcemaps.init({ loadMaps: true })
+                            : noop()
+                    )
+                    .pipe(sass(task.sass))
+                    .pipe(flatten())
+                    .pipe(postcss(POSTCSS_CONFIG.public))
+                    .pipe(
+                        mode.beautify ? beautify(task.beautifyOptions) : noop()
+                    )
+                    .pipe(chmod(config.global.chmod))
+                    .pipe(pipeBanner(task))
+                    .pipe(
+                        mode.maps && task.sourceMaps
+                            ? sourcemaps.write("")
+                            : noop()
+                    )
+                    .pipe(plumber.stop())
+                    .pipe(gulp.dest(task.dest.public))
+                    .pipe(browserSync ? browserSync.stream() : noop())
+                    .pipe(sizeOutput(task.key, "CSS"))
+            ]);
         })
     );
 }

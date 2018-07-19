@@ -20,6 +20,19 @@ function getConfig(taskName) {
         const JS_CONFIG = CONFIG.tasks[taskName];
 
         if (JS_CONFIG) {
+            const PATHS = {
+                key: path.join(CONFIG.root.base, KEY)
+            };
+            PATHS.root = {
+                src: path.join(PATHS.key, CONFIG.root.src),
+                dest: path.join(PATHS.key, CONFIG.root.dest)
+            };
+            PATHS.dest = {
+                private: path.join(PATHS.root.src, CONFIG.root.inlinePath),
+                public: path.join(PATHS.root.dest, JS_CONFIG.dest)
+            };
+            PATHS.base = path.join(PATHS.root.src, JS_CONFIG.src);
+
             let rollup = {
                 config: JS_CONFIG.rollup,
                 plugins: []
@@ -31,8 +44,7 @@ function getConfig(taskName) {
                     rollup.config.plugins.includePaths.paths[0] == ""
                 ) {
                     rollup.config.plugins.includePaths.paths[0] = path.join(
-                        CONFIG.root.base,
-                        CONFIG.root.src
+                        PATHS.root.src
                     );
                 }
                 rollup.plugins = [
@@ -91,29 +103,20 @@ function getConfig(taskName) {
                 info: CONFIG.info,
                 sourceMaps: JS_CONFIG.sourceMaps,
                 rollup: rollup,
-                src: path.join(
-                    CONFIG.root.base,
-                    KEY,
-                    CONFIG.root.src,
-                    JS_CONFIG.src,
-                    getFiles(JS_CONFIG.file) ||
-                        getExtensions(JS_CONFIG.extensions)
-                ),
-                dest: path.join(
-                    CONFIG.root.base,
-                    KEY,
-                    CONFIG.root.dest,
-                    JS_CONFIG.dest
-                ),
-                inlinePath: CONFIG.root.inlineAssets
-                    ? path.join(
-                          CONFIG.root.base,
-                          KEY,
-                          CONFIG.root.src,
-                          CONFIG.root.inlinePath
-                      )
-                    : false,
-                publicAssets: CONFIG.root.publicAssets
+                dest: PATHS.dest,
+                src: {
+                    private: getSrcPath({
+                        basePath: PATHS.base,
+                        extensions: JS_CONFIG.extensions,
+                        file: JS_CONFIG.file,
+                        inline: true
+                    }),
+                    public: getSrcPath({
+                        basePath: PATHS.base,
+                        extensions: JS_CONFIG.extensions,
+                        file: JS_CONFIG.file
+                    })
+                }
             });
         }
     }
@@ -126,52 +129,49 @@ function jsRender(taskName) {
 
     return merge(
         TASK_CONFIG.map(task => {
-            return gulp
-                .src(task.src)
-                .pipe(plumber(handleErrors))
-                .pipe(
-                    mode.maps && task.sourceMaps
-                        ? sourcemaps.init({ loadMaps: true })
-                        : noop()
-                )
-                .pipe(
-                    ROLLUP_EACH(
-                        {
-                            plugins: task.rollup.plugins
-                        },
-                        file => {
-                            return {
-                                format: task.rollup.config.format,
-                                name: path.parse(file.path)["name"]
-                            };
-                        },
-                        require("rollup")
+            function rollupPipe() {
+                return ROLLUP_EACH(
+                    {
+                        plugins: task.rollup.plugins
+                    },
+                    file => {
+                        return {
+                            format: task.rollup.config.format,
+                            name: path.parse(file.path)["name"]
+                        };
+                    },
+                    require("rollup")
+                );
+            }
+            return merge([
+                gulp
+                    .src(task.src.private)
+                    .pipe(plumber(handleErrors))
+                    .pipe(rollupPipe())
+                    .pipe(chmod(config.global.chmod))
+                    .pipe(plumber.stop())
+                    .pipe(gulp.dest(task.dest.private))
+                    .pipe(sizeOutput(task.key, taskName.toUpperCase(), false)),
+                gulp
+                    .src(task.src.public)
+                    .pipe(plumber(handleErrors))
+                    .pipe(
+                        mode.maps && task.sourceMaps
+                            ? sourcemaps.init({ loadMaps: true })
+                            : noop()
                     )
-                )
-                .pipe(chmod(config.global.chmod))
-                .pipe(task.inlinePath ? gulp.dest(task.inlinePath) : noop())
-                .pipe(
-                    task.key &&
-                    task.info.banner &&
-                    task.info.author &&
-                    task.info.homepage &&
-                    task.publicAssets
-                        ? header(task.info.banner, {
-                              package: task.key,
-                              author: task.info.author,
-                              homepage: task.info.homepage,
-                              timestamp: getTimestamp()
-                          })
-                        : noop()
-                )
-                .pipe(
-                    mode.maps && task.sourceMaps && task.publicAssets
-                        ? sourcemaps.write("")
-                        : noop()
-                )
-                .pipe(plumber.stop())
-                .pipe(task.publicAssets ? gulp.dest(task.dest) : noop())
-                .pipe(sizeOutput(task.key, taskName.toUpperCase()));
+                    .pipe(rollupPipe())
+                    .pipe(chmod(config.global.chmod))
+                    .pipe(pipeBanner(task))
+                    .pipe(
+                        mode.maps && task.sourceMaps && task.publicAssets
+                            ? sourcemaps.write("")
+                            : noop()
+                    )
+                    .pipe(plumber.stop())
+                    .pipe(gulp.dest(task.dest.public))
+                    .pipe(sizeOutput(task.key, taskName.toUpperCase()))
+            ]);
         })
     );
 }

@@ -1,13 +1,13 @@
 module.exports = function() {
-    let n = new Date();
-    let t = n.getFullYear().toString();
-    t += "-";
-    t += (n.getMonth() < 9 ? "0" : "") + (n.getMonth() + 1).toString();
-    t += "-";
-    t += (n.getDate() < 10 ? "0" : "") + n.getDate().toString();
-    t += " ";
-    t += (n.getHours() < 10 ? "0" : "") + n.getHours().toString();
-    t += ":";
-    t += (n.getMinutes() < 10 ? "0" : "") + n.getMinutes().toString();
-    return t;
+    const NOW = new Date();
+    let value = NOW.getFullYear().toString();
+    value += "-";
+    value += (NOW.getMonth() < 9 ? "0" : "") + (NOW.getMonth() + 1).toString();
+    value += "-";
+    value += (NOW.getDate() < 10 ? "0" : "") + NOW.getDate().toString();
+    value += " ";
+    value += (NOW.getHours() < 10 ? "0" : "") + NOW.getHours().toString();
+    value += ":";
+    value += (NOW.getMinutes() < 10 ? "0" : "") + NOW.getMinutes().toString();
+    return value;
 };

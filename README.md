@@ -238,9 +238,6 @@ the configuration for a specific package, you can create a `Gulp.yaml` in
 the `Configuration` directory, like this:
 
 ```yaml
-root:
-  inlineAssets: true
-
 tasks:
   js:
     rollup:

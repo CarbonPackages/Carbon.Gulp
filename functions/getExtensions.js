@@ -1,7 +1,8 @@
-module.exports = function(extensions, excludeUnderscore = true, prepend = "") {
+module.exports = function(extensions, excludeUnderscore = true) {
     if (Array.isArray(extensions) && extensions.length > 1) {
         extensions = `{${extensions.join(",")}}`;
     }
+
     // Exclude files starting with an underscore
-    return `/${prepend}${excludeUnderscore ? "[^_]" : ""}*.${extensions}`;
+    return `${excludeUnderscore ? "[^_]" : ""}*.${extensions}`;
 };

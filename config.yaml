@@ -40,8 +40,6 @@ root:
   watch: "Resources/Private/**"
   dontWatch: "Resources/Private/Templates/**"
   inlinePath: "Templates/InlineAssets"
-  inlineAssets: false
-  publicAssets: true
 
 packages: {}
 
@@ -80,10 +78,19 @@ tasks:
       activateRtlCss: false
       assets:
         loadPaths:
-          - Assets
-          - "../Private/Sprite"
-          - "../Private/Fusion"
-        cachebuster: false
+          # Need to be a single directory
+          dest: Assets
+          # Need to be an array
+          src:
+            - Sprite
+            - Fusion
+          # Relative path from dest to src directory. This is needed for resolve inline assets
+          srcRelativeToDest: ../../Private/
+        private:
+          cachebuster: false
+          baseUrl: /_Resources/Static/Packages/%KEY%
+        public:
+          cachebuster: false
       momentumScrolling:
         - hidden
         - scroll
@@ -231,6 +238,7 @@ tasks:
     extensions:
       - svg
     config:
+      # If set to false no private Sprite will be rendered
       private:
         mode:
           inline: true
@@ -239,6 +247,7 @@ tasks:
             dest: ""
             sprite: "%srcFolderName%.svg"
             bust: false
+      # If set to false no public Sprite will be rendered
       public:
         svg:
           xmlDeclaration: true
