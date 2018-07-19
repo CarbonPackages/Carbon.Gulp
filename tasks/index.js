@@ -7,10 +7,8 @@ for (const TASK_NAME of [
     "fonts",
     "images",
     "js",
-    "jsLint",
     "optimizeImages",
     "optimizeSvg",
-    "scssLint",
     "showConfig",
     "static",
     "svgSprite"
@@ -65,22 +63,9 @@ if (config.tasks.css) {
 }
 
 if (config.tasks.js) {
-    gulp.task("js", bach.parallel(task.js, task.jsLint));
+    gulp.task("js", task.js);
     gulp.task("js").description = "Render Javascript Files";
     gulp.task("js").flags = flags;
-}
-
-if (config.tasks.scssLint || config.tasks.jsLint) {
-    if (config.tasks.scssLint && config.tasks.jsLint) {
-        gulp.task("lint", bach.parallel(task.scssLint, task.jsLint));
-        gulp.task("lint").description = "Lint Javascript and CSS files";
-    } else if (config.tasks.scssLint) {
-        gulp.task("lint", task.scssLint);
-        gulp.task("lint").description = "Lint CSS files";
-    } else {
-        gulp.task("lint", task.jsLint);
-        gulp.task("lint").description = "Lint Javascript files";
-    }
 }
 
 if (config.tasks.images) {
@@ -122,8 +107,6 @@ task.build = bach.series(
     task.info,
     bach.parallel(
         task.scss,
-        task.scssLint,
-        task.jsLint,
         task.fonts,
         task.images,
         task.static,
@@ -163,19 +146,10 @@ task.watch = () => {
         ) {
             switch (taskName) {
                 case "css":
-                    gulp.watch(
-                        filesToWatch,
-                        bach.parallel(task.css, task.scssLint)
-                    );
+                    gulp.watch(filesToWatch, task.css);
                     break;
                 case "js":
-                    gulp.watch(
-                        filesToWatch,
-                        bach.parallel(
-                            bach.series(task.js, task.reload),
-                            task.jsLint
-                        )
-                    );
+                    gulp.watch(filesToWatch, bach.series(task.js, task.reload));
                     break;
                 default:
                     gulp.watch(filesToWatch, task[taskName]).on(

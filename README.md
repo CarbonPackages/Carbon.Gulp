@@ -83,7 +83,6 @@ Tasks
 │   --b, --beautify  … Beautify and don't compress files
 │   --d, --debug     … Files don't get compressed
 │   --n, --nomaps    … Don't write sourcemaps
-├── lint             Lint Javascript and CSS files
 ├── optimizeImages   Optimize images and overwrite them in the public folder
 ├── sprite           Create SVG Sprite
 ├── optimizeSvg      Optimize SVGs and overwrite them
@@ -121,7 +120,6 @@ Tasks
 | `yarn nomaps`         |    ✓    | Don't write sourcemaps                                         |
 | `yarn css`            |         | Render CSS Files                                               |
 | `yarn js`             |         | Render Javascript Files                                        |
-| `yarn lint`           |         | Lint Javascript and CSS files                                  |
 | `yarn scss`           |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files |
 | `yarn compress`       |         | Compress all CSS/JS/SVG with Brotli and Zopfli                 |
 | `yarn optimizeImages` |         | Optimize images and overwrite them in the public folder        |

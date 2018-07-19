@@ -147,8 +147,6 @@ tasks:
         indent: "  "
         autosemicolon: true
   scss: true
-  scssLint: true
-  jsLint: true
   js:
     custom: false
     src: Assets
