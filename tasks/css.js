@@ -5,22 +5,18 @@ function getConfig() {
         AUTOPREFIXER: require("autoprefixer"),
         CENTER: require("postcss-center"),
         CSS_MQPACKER: require("css-mqpacker"),
-        CUSTOM_MEDIA: require("postcss-custom-media"),
         FIXES: require("postcss-fixes"),
         FLEXBOX: require("postcss-flexbox"),
-        MAGIC_ANIMATIONS: require("postcss-magic-animations"),
-        MEDIA_MINMAX: require("postcss-media-minmax"),
+        FOCUS: require("postcss-focus"),
         MOMENTUM_SCROLLING: require("postcss-momentum-scrolling"),
         PLEEEASE_FILTERS: require("pleeease-filters"),
+        PRESET_ENV: require("postcss-preset-env"),
         PSEUDOELEMENTS: require("postcss-pseudoelements"),
         PXTOREM: require("postcss-pxtorem"),
         QUANTITY_QUERIES: require("postcss-quantity-queries"),
-        REPORTER: require("postcss-reporter"),
         ROUND_SUBPIXELS: require("postcss-round-subpixels"),
         RTL: require("postcss-rtl"),
         RUCKSACK_CSS: require("rucksack-css"),
-        SELECTOR_MATCHES: require("postcss-selector-matches"),
-        SELECTOR_NOT: require("postcss-selector-not"),
         SHORT: require("postcss-short"),
         SORT_CSS_MEDIA_QUERIES: require("sort-css-media-queries"),
         VMAX: require("postcss-vmax")
@@ -68,22 +64,17 @@ function getConfig() {
 
             let postcssConfig = [
                 POSTCSS_PLUGIN.ASSETS(postcssAssetConfig),
-                POSTCSS_PLUGIN.MAGIC_ANIMATIONS(
-                    POSTCSS_CONFIGURATION.magicAnimations
-                ),
+                POSTCSS_PLUGIN.PRESET_ENV(POSTCSS_CONFIGURATION.presetEnv),
                 POSTCSS_PLUGIN.VMAX,
                 POSTCSS_PLUGIN.SHORT(POSTCSS_CONFIGURATION.short),
                 POSTCSS_PLUGIN.CENTER,
                 POSTCSS_PLUGIN.RUCKSACK_CSS(POSTCSS_CONFIGURATION.rucksack),
                 POSTCSS_PLUGIN.FLEXBOX,
+                POSTCSS_PLUGIN.FOCUS,
                 POSTCSS_PLUGIN.PLEEEASE_FILTERS,
-                POSTCSS_PLUGIN.SELECTOR_MATCHES,
-                POSTCSS_PLUGIN.SELECTOR_NOT,
                 POSTCSS_PLUGIN.PSEUDOELEMENTS(
                     POSTCSS_CONFIGURATION.pseudoelements
                 ),
-                POSTCSS_PLUGIN.CUSTOM_MEDIA,
-                POSTCSS_PLUGIN.MEDIA_MINMAX,
                 POSTCSS_PLUGIN.QUANTITY_QUERIES,
                 POSTCSS_PLUGIN.MOMENTUM_SCROLLING(
                     POSTCSS_CONFIGURATION.momentumScrolling
@@ -94,8 +85,7 @@ function getConfig() {
                         ? POSTCSS_PLUGIN.SORT_CSS_MEDIA_QUERIES
                         : false
                 }),
-                POSTCSS_PLUGIN.ROUND_SUBPIXELS,
-                POSTCSS_PLUGIN.REPORTER
+                POSTCSS_PLUGIN.ROUND_SUBPIXELS
             ];
 
             if (POSTCSS_CONFIGURATION.activateRtlCss) {
@@ -158,10 +148,16 @@ function getTask() {
     const postcss = require("gulp-postcss");
     const beautify = require("gulp-cssbeautify");
     const cssnano = require("cssnano");
+    const reporter = require("postcss-reporter");
     const TASK_CONFIG = getConfig();
 
     return merge(
         TASK_CONFIG.map(task => {
+            if (mode.minimize && task.cssnano) {
+                task.postcssConfig.push(cssnano(task.cssnano));
+            }
+            task.postcssConfig.push(reporter);
+
             return gulp
                 .src(task.src)
                 .pipe(plumber(handleErrors))
@@ -173,11 +169,6 @@ function getTask() {
                 .pipe(sass(task.sass))
                 .pipe(flatten())
                 .pipe(postcss(task.postcssConfig))
-                .pipe(
-                    mode.minimize && task.cssnano
-                        ? postcss([cssnano(task.cssnano)])
-                        : noop()
-                )
                 .pipe(mode.beautify ? beautify(task.beautifyOptions) : noop())
                 .pipe(chmod(config.global.chmod))
                 .pipe(task.inlinePath ? gulp.dest(task.inlinePath) : noop())

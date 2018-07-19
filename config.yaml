@@ -84,13 +84,13 @@ tasks:
           - "../Private/Sprite"
           - "../Private/Fusion"
         cachebuster: false
-      magicAnimations:
-        atRoot: true
       momentumScrolling:
         - hidden
         - scroll
         - auto
         - inherit
+      presetEnv:
+        stage: 2
       pseudoelements:
         single: true
         selectors:
