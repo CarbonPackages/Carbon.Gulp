@@ -75,7 +75,6 @@
     "js": "yarn gulp js",
     "optimizeImages": "yarn gulp optimizeImages",
     "optimizeSvg": "yarn gulp optimizeSvg",
-    "compress": "yarn gulp compress",
     "showConfig": "yarn gulp showConfig"
   },
   "dependencies": {},
@@ -97,7 +96,6 @@
     "fs-readdir-recursive": "^1.1.0",
     "glob": "^7.1.2",
     "gulp": "^4.0.0",
-    "gulp-brotli": "^1.2.1",
     "gulp-changed": "^3.2.0",
     "gulp-chmod": "^2.0.0",
     "gulp-cssbeautify": "^1.0.0",
@@ -115,7 +113,6 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-svg-sprite": "^1.4.0",
     "gulp-svgmin": "^1.2.4",
-    "gulp-zopfli": "^1.0.0",
     "merge-stream": "^1.0.1",
     "node-notifier": "^5.2.1",
     "node-sass-tilde-importer": "^1.0.2",

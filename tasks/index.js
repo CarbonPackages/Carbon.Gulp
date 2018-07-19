@@ -2,7 +2,6 @@ let task = {};
 
 for (const TASK_NAME of [
     "clean",
-    "compress",
     "css",
     "fonts",
     "images",
@@ -82,23 +81,6 @@ if (config.tasks.svgSprite) {
 if (config.tasks.optimizeSvg) {
     gulp.task("optimizeSvg", task.optimizeSvg);
     gulp.task("optimizeSvg").description = "Optimize SVGs and overwrite them";
-}
-
-if (config.tasks.compress) {
-    gulp.task("compress", task.compress);
-    gulp.task("compress").description =
-        "Compress all CSS/JS/SVG with Brotli and Zopfli";
-} else {
-    gulp.task("compress", callback => {
-        log(
-            colors.red(
-                "\n\nIf you want to use compress, you have to enable it in the configuration.\n"
-            )
-        );
-        callback();
-    });
-    gulp.task("compress").description =
-        "If you want to use compress, you have to enable it in the configuration";
 }
 
 // Build Task

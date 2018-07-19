@@ -248,16 +248,7 @@ tasks:
             dest: ""
             sprite: "%srcFolderName%.svg"
             bust: false
-  compress:
-    brotli:
-      skipLarger: true
-      quality: 11
-    zopfli:
-      format: gzip
-      numiterations: 15
-      blocksplitting: true
   showConfig: true
   pipeline:
     - build
     - optimizeImages
-    - compress

@@ -86,7 +86,6 @@ Tasks
 ├── optimizeImages   Optimize images and overwrite them in the public folder
 ├── sprite           Create SVG Sprite
 ├── optimizeSvg      Optimize SVGs and overwrite them
-├── compress         Compress all CSS/JS/SVG with Brotli and Zopfli
 ├── build             Generates all  Assets, Javascript and CSS files
 │   --b, --beautify  … Beautify and don't compress files
 │   --d, --debug     … Files don't get compressed
@@ -102,8 +101,7 @@ Tasks
 └─┬ pipeline         Make files production ready
   └─┬ <series>
     ├── build
-    ├── optimizeImages
-    └── compress
+    └── optimizeImages
 ```
 
 ## Overview of commands
@@ -121,7 +119,6 @@ Tasks
 | `yarn css`            |         | Render CSS Files                                               |
 | `yarn js`             |         | Render Javascript Files                                        |
 | `yarn scss`           |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files |
-| `yarn compress`       |         | Compress all CSS/JS/SVG with Brotli and Zopfli                 |
 | `yarn optimizeImages` |         | Optimize images and overwrite them in the public folder        |
 | `yarn optimizeSvg`    |         | Optimize SVGs and overwrite them                               |
 | `yarn showConfig`     |         | Shows the merged configuration.                                |
@@ -304,65 +301,3 @@ module.exports = callback => {
 You can output the merged configuration with `yarn showConfig`. To reduce output
 to a path, you can pass a slash-seperated path ("/") with the argument `--path`:  
 Example: `yarn showConfig --path tasks/js/rollup/plugins`
-
-# Compression
-
-To compress the asset with brotli and zopfli, you need to run `yarn compress` or
-`yarn pipeline`. To enable it on the server, please add following lines to your `.htaccess`:
-
-```apache
-# Rules to correctly serve gzip compressed CSS and JS files.
-# Requires both mod_rewrite and mod_headers to be enabled.
-<IfModule mod_headers.c>
-    # Serve brotli compressed CSS files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} br
-    RewriteCond %{REQUEST_FILENAME}\.br -s
-    RewriteRule ^(.*)\.css $1\.css\.br [QSA]
-
-    # Serve gzip compressed CSS files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} gzip
-    RewriteCond %{REQUEST_FILENAME}\.gz -s
-    RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
-
-    # Serve brotli compressed JS files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} br
-    RewriteCond %{REQUEST_FILENAME}\.br -s
-    RewriteRule ^(.*)\.js $1\.js\.br [QSA]
-
-    # Serve gzip compressed JS files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} gzip
-    RewriteCond %{REQUEST_FILENAME}\.gz -s
-    RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
-
-    # Serve brotli compressed SVG files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} br
-    RewriteCond %{REQUEST_FILENAME}\.br -s
-    RewriteRule ^(.*)\.svg $1\.svg\.br [QSA]
-
-    # Serve gzip compressed SVG files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} gzip
-    RewriteCond %{REQUEST_FILENAME}\.gz -s
-    RewriteRule ^(.*)\.svg $1\.svg\.gz [QSA]
-
-    # Serve correct content types, and prevent mod_deflate double gzip.
-    RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
-    RewriteRule \.css\.br$ - [T=text/css,E=no-gzip:1]
-    RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
-    RewriteRule \.js\.br$ - [T=text/javascript,E=no-gzip:1]
-    RewriteRule \.svg\.gz$ - [T=image/svg+xml,E=no-gzip:1]
-    RewriteRule \.svg\.br$ - [T=image/svg+xml,E=no-gzip:1]
-
-    <FilesMatch "(\.js\.gz|\.css\.gz|\.svg\.gz)$">
-      # Serve correct encoding type.
-      Header set Content-Encoding gzip
-      # Force proxies to cache gzipped & non-gzipped css/js/svg files separately.
-      Header append Vary Accept-Encoding
-    </FilesMatch>
-    <FilesMatch "(\.js\.br|\.css\.br|\.svg\.br)$">
-      # Serve correct encoding type.
-      Header set Content-Encoding br
-      # Force proxies to cache gzipped & non-gzipped css/js/svg files separately.
-      Header append Vary Accept-Encoding
-    </FilesMatch>
-</IfModule>
-```
