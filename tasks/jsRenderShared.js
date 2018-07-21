@@ -164,7 +164,7 @@ function jsRender(taskName) {
                     .pipe(chmod(config.global.chmod))
                     .pipe(pipeBanner(task))
                     .pipe(
-                        mode.maps && task.sourceMaps && task.publicAssets
+                        mode.maps && task.sourceMaps
                             ? sourcemaps.write("")
                             : noop()
                     )
