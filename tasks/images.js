@@ -16,7 +16,7 @@ function getConfig() {
                     KEY,
                     CONFIG.root.src,
                     IMAGES_CONFIG.src,
-                    "/**",
+                    "**",
                     getExtensions(IMAGES_CONFIG.extensions)
                 ),
                 dest: path.join(
@@ -46,7 +46,7 @@ function getTask() {
                 .pipe(chmod(config.global.chmod))
                 .pipe(plumber.stop())
                 .pipe(gulp.dest(task.dest))
-                .pipe(sizeOutput(task.key, "Images", false));
+                .pipe(sizeOutput(task.key, "Images", true, false));
         })
     );
 }

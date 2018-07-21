@@ -27,11 +27,11 @@ const LIBRARIES = {
     callbackTimeout: "./callbackTimeout",
     exportTask: "./exportTask",
     getExtensions: "./getExtensions",
-    getFiles: "./getFiles",
     getFilesToWatch: "./getFilesToWatch",
-    getTimestamp: "./getTimestamp",
+    getSrcPath: "./getSrcPath",
     handleErrors: "./handleErrors",
     notifyText: "./notifyText",
+    pipeBanner: "./pipeBanner",
     sizeOutput: "./sizeOutput"
 };
 

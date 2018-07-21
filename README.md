@@ -83,11 +83,9 @@ Tasks
 │   --b, --beautify  … Beautify and don't compress files
 │   --d, --debug     … Files don't get compressed
 │   --n, --nomaps    … Don't write sourcemaps
-├── lint             Lint Javascript and CSS files
 ├── optimizeImages   Optimize images and overwrite them in the public folder
 ├── sprite           Create SVG Sprite
 ├── optimizeSvg      Optimize SVGs and overwrite them
-├── compress         Compress all CSS/JS/SVG with Brotli and Zopfli
 ├── build             Generates all  Assets, Javascript and CSS files
 │   --b, --beautify  … Beautify and don't compress files
 │   --d, --debug     … Files don't get compressed
@@ -103,8 +101,7 @@ Tasks
 └─┬ pipeline         Make files production ready
   └─┬ <series>
     ├── build
-    ├── optimizeImages
-    └── compress
+    └── optimizeImages
 ```
 
 ## Overview of commands
@@ -121,9 +118,7 @@ Tasks
 | `yarn nomaps`         |    ✓    | Don't write sourcemaps                                         |
 | `yarn css`            |         | Render CSS Files                                               |
 | `yarn js`             |         | Render Javascript Files                                        |
-| `yarn lint`           |         | Lint Javascript and CSS files                                  |
 | `yarn scss`           |         | Render `_all.scss`, `_allsub.scss` and `_allFusion.scss` Files |
-| `yarn compress`       |         | Compress all CSS/JS/SVG with Brotli and Zopfli                 |
 | `yarn optimizeImages` |         | Optimize images and overwrite them in the public folder        |
 | `yarn optimizeSvg`    |         | Optimize SVGs and overwrite them                               |
 | `yarn showConfig`     |         | Shows the merged configuration.                                |
@@ -213,30 +208,28 @@ And the content from `_allsub.Inline.scss` would be:
 
 Following plugins are included:
 
-| Plugin                                                                                 | Description                                                                                    |
-| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| **[postcss-rtl](https://www.npmjs.com/package/postcss-rtl)**                           | PostCSS plugin for RTL-optimizations. **Turned off by default**                                |
-| **[postcss-assets](https://www.npmjs.com/package/postcss-assets)**                     | PostCSS plugin to manage assets                                                                |
-| **[postcss-magic-animations](https://www.npmjs.com/package/postcss-magic-animations)** | Plugin that adds `@keyframes` from [Magic Animations](https://github.com/miniMAC/magic)        |
-| **[postcss-vmax](https://www.npmjs.com/package/postcss-vmax)**                         | Use vmax units in Edge and Internet Explorer                                                   |
-| **[postcss-short](https://www.npmjs.com/package/postcss-short)**                       | Short creates and extends shorthand properties in CSS                                          |
-| **[postcss-center](https://www.npmjs.com/package/postcss-center)**                     | PostCSS plugin to center elements                                                              |
-| **[rucksack-css](https://www.rucksackcss.org/)**                                       | A little bag of CSS superpowers                                                                |
-| **[postcss-flexbox](https://www.npmjs.com/package/postcss-flexbox)**                   | Flexbox layouts made easy with PostCSS                                                         |
-| **[pleeease-filters](https://www.npmjs.com/package/pleeease-filters)**                 | Convert CSS shorthand filters to SVG ones                                                      |
-| **[postcss-selector-matches](https://www.npmjs.com/package/postcss-selector-matches)** | PostCSS plugin to transform :matches() W3C CSS pseudo class to more compatible CSS selectors   |
-| **[postcss-selector-not](https://www.npmjs.com/package/postcss-selector-not)**         | PostCSS plugin to transform :not() W3C CSS leve 4 pseudo class to :not() CSS level 3 selectors |
-| **[postcss-pseudoelements](https://www.npmjs.com/package/postcss-pseudoelements)**     | PostCSS plugin to add single-colon CSS 2.1 syntax pseudo selectors (i.e. :before)              |
-| **[postcss-custom-media](https://www.npmjs.com/package/postcss-custom-media)**         | PostCSS plugin to transform W3C CSS Custom Media Queries syntax to more compatible CSS         |
-| **[postcss-media-minmax](https://www.npmjs.com/package/postcss-media-minmax)**         | Writing simple and graceful media queries.                                                     |
-| **[postcss-quantity-queries](https://www.npmjs.com/package/postcss-quantity-queries)** | PostCSS plugin enabling quantity-queries                                                       |
-| **[postcss-fixes](https://www.npmjs.com/package/postcss-fixes)**                       | PostCSS plugin to fix known Browser Bugs.                                                      |
-| **[css-mqpacker](https://www.npmjs.com/package/css-mqpacker)**                         | Pack same CSS media query rules into one media query rule.                                     |
-| **[sort-css-media-queries](https://www.npmjs.com/package/sort-css-media-queries)**     | The custom sort method (mobile-first / desktop-first) for css-mqpacker.                        |
-| **[postcss-round-subpixels](https://www.npmjs.com/package/postcss-round-subpixels)**   | Plugin that rounds sub-pixel (eg: 12.87378px) values to the nearest full pixel.                |
-| **[postcss-reporter](https://www.npmjs.com/package/postcss-reporter)**                 | Log PostCSS messages in the console                                                            |
-| **[postcss-pxtorem](https://www.npmjs.com/package/postcss-pxtorem)**                   | A plugin for PostCSS that generates rem units from pixel units.                                |
-| **[cssnano](http://cssnano.co)**                                                       | Modern CSS compression                                                                         |
+| Plugin                                                                                 | Description                                                                        |
+| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **[postcss-rtl](https://www.npmjs.com/package/postcss-rtl)**                           | PostCSS plugin for RTL-optimizations. **Turned off by default**                    |
+| **[postcss-assets](https://www.npmjs.com/package/postcss-assets)**                     | PostCSS plugin to manage assets                                                    |
+| **[postcss-preset-env](https://preset-env.cssdb.org)**                                 | Preset Env lets you convert modern CSS into something most browsers can understand |
+| **[postcss-vmax](https://www.npmjs.com/package/postcss-vmax)**                         | Use vmax units in Edge and Internet Explorer                                       |
+| **[postcss-short](https://www.npmjs.com/package/postcss-short)**                       | Short creates and extends shorthand properties in CSS                              |
+| **[postcss-center](https://www.npmjs.com/package/postcss-center)**                     | PostCSS plugin to center elements                                                  |
+| **[rucksack-css](https://www.rucksackcss.org/)**                                       | A little bag of CSS superpowers                                                    |
+| **[postcss-flexbox](https://www.npmjs.com/package/postcss-flexbox)**                   | Flexbox layouts made easy with PostCSS                                             |
+| **[postcss-focus](https://github.com/postcss/postcss-focus)**                          | Plugin to add :focus selector to every :hover for keyboard accessibility           |
+| **[pleeease-filters](https://www.npmjs.com/package/pleeease-filters)**                 | Convert CSS shorthand filters to SVG ones                                          |
+| **[postcss-pseudoelements](https://www.npmjs.com/package/postcss-pseudoelements)**     | PostCSS plugin to add single-colon CSS 2.1 syntax pseudo selectors (i.e. :before)  |
+| **[postcss-quantity-queries](https://www.npmjs.com/package/postcss-quantity-queries)** | PostCSS plugin enabling quantity-queries                                           |
+| **[postcss-fixes](https://www.npmjs.com/package/postcss-fixes)**                       | PostCSS plugin to fix known Browser Bugs.                                          |
+| **[css-mqpacker](https://www.npmjs.com/package/css-mqpacker)**                         | Pack same CSS media query rules into one media query rule.                         |
+| **[sort-css-media-queries](https://www.npmjs.com/package/sort-css-media-queries)**     | The custom sort method (mobile-first / desktop-first) for css-mqpacker.            |
+| **[postcss-round-subpixels](https://www.npmjs.com/package/postcss-round-subpixels)**   | Plugin that rounds sub-pixel (eg: 12.87378px) values to the nearest full pixel.    |
+| **[postcss-reporter](https://www.npmjs.com/package/postcss-reporter)**                 | Log PostCSS messages in the console                                                |
+| **[postcss-pxtorem](https://www.npmjs.com/package/postcss-pxtorem)**                   | A plugin for PostCSS that generates rem units from pixel units.                    |
+| **[autoprefixer](https://github.com/postcss/autoprefixer)**                            | Parse CSS and add vendor prefixes to rules by Can I Use                            |
+| **[cssnano](http://cssnano.co)**                                                       | Modern CSS compression                                                             |
 
 # Configuration
 
@@ -245,9 +238,6 @@ the configuration for a specific package, you can create a `Gulp.yaml` in
 the `Configuration` directory, like this:
 
 ```yaml
-root:
-  inlineAssets: true
-
 tasks:
   js:
     rollup:
@@ -306,65 +296,3 @@ module.exports = callback => {
 You can output the merged configuration with `yarn showConfig`. To reduce output
 to a path, you can pass a slash-seperated path ("/") with the argument `--path`:  
 Example: `yarn showConfig --path tasks/js/rollup/plugins`
-
-# Compression
-
-To compress the asset with brotli and zopfli, you need to run `yarn compress` or
-`yarn pipeline`. To enable it on the server, please add following lines to your `.htaccess`:
-
-```apache
-# Rules to correctly serve gzip compressed CSS and JS files.
-# Requires both mod_rewrite and mod_headers to be enabled.
-<IfModule mod_headers.c>
-    # Serve brotli compressed CSS files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} br
-    RewriteCond %{REQUEST_FILENAME}\.br -s
-    RewriteRule ^(.*)\.css $1\.css\.br [QSA]
-
-    # Serve gzip compressed CSS files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} gzip
-    RewriteCond %{REQUEST_FILENAME}\.gz -s
-    RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
-
-    # Serve brotli compressed JS files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} br
-    RewriteCond %{REQUEST_FILENAME}\.br -s
-    RewriteRule ^(.*)\.js $1\.js\.br [QSA]
-
-    # Serve gzip compressed JS files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} gzip
-    RewriteCond %{REQUEST_FILENAME}\.gz -s
-    RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
-
-    # Serve brotli compressed SVG files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} br
-    RewriteCond %{REQUEST_FILENAME}\.br -s
-    RewriteRule ^(.*)\.svg $1\.svg\.br [QSA]
-
-    # Serve gzip compressed SVG files if they exist and the client accepts gzip.
-    RewriteCond %{HTTP:Accept-encoding} gzip
-    RewriteCond %{REQUEST_FILENAME}\.gz -s
-    RewriteRule ^(.*)\.svg $1\.svg\.gz [QSA]
-
-    # Serve correct content types, and prevent mod_deflate double gzip.
-    RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
-    RewriteRule \.css\.br$ - [T=text/css,E=no-gzip:1]
-    RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
-    RewriteRule \.js\.br$ - [T=text/javascript,E=no-gzip:1]
-    RewriteRule \.svg\.gz$ - [T=image/svg+xml,E=no-gzip:1]
-    RewriteRule \.svg\.br$ - [T=image/svg+xml,E=no-gzip:1]
-
-    <FilesMatch "(\.js\.gz|\.css\.gz|\.svg\.gz)$">
-      # Serve correct encoding type.
-      Header set Content-Encoding gzip
-      # Force proxies to cache gzipped & non-gzipped css/js/svg files separately.
-      Header append Vary Accept-Encoding
-    </FilesMatch>
-    <FilesMatch "(\.js\.br|\.css\.br|\.svg\.br)$">
-      # Serve correct encoding type.
-      Header set Content-Encoding br
-      # Force proxies to cache gzipped & non-gzipped css/js/svg files separately.
-      Header append Vary Accept-Encoding
-    </FilesMatch>
-</IfModule>
-```
