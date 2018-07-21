@@ -21,9 +21,11 @@ tasks:
     dest: ""
   svgSprite:
     dest: ""
+    config:
+      private: false
   test:
     expected:
-      css: :root{--constant-safe-area-inset-top:constant(safe-area-inset-top);--env-safe-area-inset-top:env(safe-area-inset-top)}body{-webkit-overflow-scrolling:touch;margin-left:10px;margin-right:10px;min-height:calc(100vh - var(--constant-safe-area-inset-top));min-height:calc(100vh - var(--env-safe-area-inset-top));overflow:scroll}
+      css: :root{--safe-area-inset-top:0}@supports (top:constant(safe-area-inset-top)){:root{--safe-area-inset-top:constant(safe-area-inset-top)}}@supports (top:env(safe-area-inset-top)){:root{--safe-area-inset-top:env(safe-area-inset-top)}}p{-webkit-overflow-scrolling:touch;margin-bottom:10px;min-height:100vh;min-height:calc(100vh - var(--safe-area-inset-top));overflow:scroll}p a:focus,p a:hover{color:#00f}p a[focus-within]{color:red}p a:focus-within{color:red}
       js:
         - Hello World
         - Hello Carbon.Gulp

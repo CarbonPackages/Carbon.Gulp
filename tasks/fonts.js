@@ -16,7 +16,7 @@ function getConfig() {
                     KEY,
                     CONFIG.root.src,
                     FONTS_CONFIG.src,
-                    "/**",
+                    "**",
                     getExtensions(FONTS_CONFIG.extensions)
                 ),
                 dest: path.join(
@@ -46,7 +46,7 @@ function getTask() {
                 .pipe(chmod(config.global.chmod))
                 .pipe(plumber.stop())
                 .pipe(gulp.dest(task.dest))
-                .pipe(sizeOutput(task.key, "Fonts", false));
+                .pipe(sizeOutput(task.key, "Fonts", true, false));
         })
     );
 }

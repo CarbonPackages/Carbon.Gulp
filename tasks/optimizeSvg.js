@@ -73,7 +73,9 @@ function getTask() {
                 .pipe(chmod(config.global.chmod))
                 .pipe(plumber.stop())
                 .pipe(gulp.dest(task.dest))
-                .pipe(sizeOutput(task.key, "Optimize SVG Images"));
+                .pipe(
+                    sizeOutput(task.key, "Optimize SVG Images", !pretty, false)
+                );
         })
     );
 }

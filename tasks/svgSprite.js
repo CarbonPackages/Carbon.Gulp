@@ -9,13 +9,13 @@ function getConfig() {
             config = JSON.parse(
                 config.replace(/%srcFolderName%/g, SPRITE_CONFIG.src)
             );
-
             TASK_CONFIG.push({
                 key: key
                     ? key
                     : CONFIG.info.package
                         ? CONFIG.info.package
                         : false,
+                svgo: SPRITE_CONFIG.svgo,
                 src: path.join(
                     CONFIG.root.base,
                     key,
@@ -23,26 +23,29 @@ function getConfig() {
                     SPRITE_CONFIG.src,
                     getExtensions(SPRITE_CONFIG.extensions)
                 ),
-                dest: path.join(
-                    CONFIG.root.base,
-                    key,
-                    CONFIG.root.dest,
-                    SPRITE_CONFIG.dest
-                ),
-                inlinePath: CONFIG.root.inlineAssets
-                    ? path.join(
-                          CONFIG.root.base,
-                          key,
-                          CONFIG.root.src,
-                          CONFIG.root.inlinePath
-                      )
-                    : false,
-                publicAssets: CONFIG.root.publicAssets,
-                svgo: SPRITE_CONFIG.svgo,
-                config: config
+                config: config,
+                dest: {
+                    private: config.private
+                        ? path.join(
+                              CONFIG.root.base,
+                              key,
+                              CONFIG.root.src,
+                              CONFIG.root.inlinePath
+                          )
+                        : false,
+                    public: config.public
+                        ? path.join(
+                              CONFIG.root.base,
+                              key,
+                              CONFIG.root.dest,
+                              SPRITE_CONFIG.dest
+                          )
+                        : false
+                }
             });
         }
     }
+
     return TASK_CONFIG;
 }
 
@@ -51,7 +54,8 @@ function getTask() {
     const TASK_CONFIG = getConfig();
     return merge(
         TASK_CONFIG.map(task => {
-            const PRE_SPRITE = gulp
+            const SVG_TASKS = [];
+            const BASIC_TASK = gulp
                 .src(task.src, {
                     since: cache.lastMtime(`${task.key}svgSprite`)
                 })
@@ -64,22 +68,21 @@ function getTask() {
                 )
                 .pipe(imagemin([imagemin.svgo({ plugins: [task.svgo] })]));
 
-            const PRIVATE_TASK = task.inlinePath
-                ? PRE_SPRITE.pipe(SVG_SPRITE(task.config.private))
+            const PRIVATE_TASK = task.dest.private
+                ? BASIC_TASK.pipe(SVG_SPRITE(task.config.private))
                       .pipe(chmod(config.global.chmod))
                       .pipe(plumber.stop())
-                      .pipe(gulp.dest(task.inlinePath))
+                      .pipe(gulp.dest(task.dest.private))
+                      .pipe(sizeOutput(task.key, "SVG Sprite", false))
                 : false;
 
-            const PUBLIC_TASK = task.publicAssets
-                ? PRE_SPRITE.pipe(SVG_SPRITE(task.config.public))
+            const PUBLIC_TASK = task.dest.public
+                ? BASIC_TASK.pipe(SVG_SPRITE(task.config.public))
                       .pipe(chmod(config.global.chmod))
                       .pipe(plumber.stop())
-                      .pipe(gulp.dest(task.dest))
+                      .pipe(gulp.dest(task.dest.public))
                       .pipe(sizeOutput(task.key, "SVG Sprite"))
                 : false;
-
-            const SVG_TASKS = [];
 
             if (PRIVATE_TASK) {
                 SVG_TASKS.push(PRIVATE_TASK);

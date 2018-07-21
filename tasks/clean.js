@@ -15,7 +15,7 @@ function getConfig() {
             )
         );
 
-        if (CONFIG.root.inlineAssets) {
+        if (CONFIG.root.inlinePath) {
             assets.push(
                 path.join(
                     CONFIG.root.base,
