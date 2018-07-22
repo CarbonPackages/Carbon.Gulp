@@ -30,7 +30,6 @@ const LIBRARIES = {
     getFilesToWatch: "./getFilesToWatch",
     getSrcPath: "./getSrcPath",
     handleErrors: "./handleErrors",
-    notifyText: "./notifyText",
     pipeBanner: "./pipeBanner",
     sizeOutput: "./sizeOutput"
 };
@@ -68,6 +67,29 @@ global.gulpIcons = {
     warning: path.join(__dirname, ICON_PATH, "gulp-warning.png"),
     normal: path.join(__dirname, ICON_PATH, "gulp.png")
 };
+
+try {
+    const VERSION = {
+        system: require("../package.json").version,
+        root: require("../../../package.json").version
+    };
+
+    if (VERSION.system == VERSION.root) {
+        log(`
+                Carbon.Gulp (${VERSION.system})
+        `);
+    } else {
+        log(
+            colors.red(
+                `
+                package.json file has not the same version (${
+                    VERSION.root
+                }) as Carbon.Gulp (${VERSION.system})
+                `
+            )
+        );
+    }
+} catch (e) {}
 
 // Overwrite Config with an external files
 mergeConfigAndLoadTasks();

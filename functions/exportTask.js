@@ -1,4 +1,7 @@
-const customTask = require("./customTask");
+function customTask(taskName) {
+    return callback =>
+        require(`./../../../${config.tasks[taskName]["custom"]}`)(callback);
+}
 
 module.exports = function(name, getTask, additionalCheck = true) {
     if (config.tasks[name] && additionalCheck) {
