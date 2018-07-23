@@ -1,7 +1,7 @@
 _oldVersion="$(cat package.json | json version)"
 _newVersion="$(cat Build/Gulp/package.json | json version)"
 
-function _isPatchRelease {
+_isPatchRelease() {
   awk -v u="${_oldVersion}" -v v="${_newVersion}" '
   BEGIN{
     split(u,a,".");
@@ -11,7 +11,7 @@ function _isPatchRelease {
   }'
 }
 
-function _isSameRelease {
+_isSameRelease() {
   awk -v u=${_oldVersion} -v v=${_newVersion} '
   BEGIN{
     split(u,a,".");
@@ -21,9 +21,7 @@ function _isSameRelease {
   }'
 }
 
-echo "${GREEN}package.json${NC}"
-
-if [[ "$(_isSameRelease)" = "true" ]]
+if [ "$(_isSameRelease)" = "true" ]
   then
     echo "No merge necessary. Version ${GREEN}${_oldVersion}${NC}"
   else
@@ -35,7 +33,7 @@ if [[ "$(_isSameRelease)" = "true" ]]
 
     package=$(cat package.json | json)
 
-    if [[ "$(_isPatchRelease)" == "true" ]]
+    if [ "$(_isPatchRelease)" = "true" ]
       then
         echo "Merge from ${GREEN}${_oldVersion}${NC} to ${GREEN}${_newVersion}${NC}"
         echo
