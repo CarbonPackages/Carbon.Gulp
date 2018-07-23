@@ -12,7 +12,7 @@ if ! which yarn > /dev/null
     echo
 fi
 
-function _noNvm {
+_noNvm() {
   echo
   echo "${RED}It is recommend to use nvm:${NC} https://github.com/creationix/nvm"
   echo
@@ -21,7 +21,7 @@ function _noNvm {
 if [ -f ~/.nvm/nvm.sh ]
   then
     . ~/.nvm/nvm.sh
-    if [[ "$(command -v nvm | tr -d '\n')" == "nvm" ]]
+    if [ "$(command -v nvm | tr -d '\n')" = "nvm" ]
       then
         nvm use >/dev/null
       else
