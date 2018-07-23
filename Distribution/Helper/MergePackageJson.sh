@@ -21,6 +21,8 @@ _isSameRelease() {
   }'
 }
 
+echo "${GREEN}package.json${NC}"
+
 if [ "$(_isSameRelease)" = "true" ]
   then
     echo "No merge necessary. Version ${GREEN}${_oldVersion}${NC}"
