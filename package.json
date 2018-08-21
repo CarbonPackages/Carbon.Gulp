@@ -41,6 +41,16 @@
   "prettier": {
     "overrides": [
       {
+        "files": [
+          "*.yaml",
+          "*.yml"
+        ],
+        "options": {
+          "tabWidth": 2,
+          "singleQuote": true
+        }
+      },
+      {
         "files": "*.json",
         "options": {
           "printWidth": 1000
