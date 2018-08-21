@@ -2,6 +2,7 @@ const ROLLUP_PLUGIN = {
     AMD: require("rollup-plugin-amd"),
     BABEL: require("rollup-plugin-babel"),
     BUBLE: require("rollup-plugin-buble"),
+    BUILTINS: require("rollup-plugin-node-builtins"),
     CJS: require("rollup-plugin-commonjs"),
     GLOBALS: require("rollup-plugin-node-globals"),
     INCLUDEPATHS: require("rollup-plugin-includepaths"),
@@ -85,6 +86,11 @@ function getConfig(taskName) {
                 }
 
                 rollup.plugins.push(ROLLUP_PLUGIN.GLOBALS());
+
+                if (rollup.config.plugins.builtins) {
+                    rollup.plugins.push(ROLLUP_PLUGIN.BUILTINS());
+                }
+
                 rollup.plugins.push(ROLLUP_PLUGIN.SOURCEMAPS());
             }
 

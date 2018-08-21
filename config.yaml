@@ -15,8 +15,8 @@ global:
   notifications: false
   browserSync:
     enable: true
-    proxy: "127.0.0.1:8081"
-    proxyRootFolder: "https://"
+    proxy: '127.0.0.1:8081'
+    proxyRootFolder: 'https://'
     open: false
     xip: false
   chmod:
@@ -35,11 +35,11 @@ global:
 
 root:
   base: null
-  src: "Resources/Private"
-  dest: "Resources/Public"
-  watch: "Resources/Private/**"
-  dontWatch: "Resources/Private/Templates/**"
-  inlinePath: "Templates/InlineAssets"
+  src: 'Resources/Private'
+  dest: 'Resources/Public'
+  watch: 'Resources/Private/**'
+  dontWatch: 'Resources/Private/Templates/**'
+  inlinePath: 'Templates/InlineAssets'
 
 packages: {}
 
@@ -48,13 +48,13 @@ tasks:
     - Assets
     - Styles
     - Scripts
-    - "*.css"
-    - "*.js"
-    - "*.map"
-    - "*.js.br"
-    - "*.js.gz"
-    - "*.css.br"
-    - "*.css.gz"
+    - '*.css'
+    - '*.js'
+    - '*.map'
+    - '*.js.br'
+    - '*.js.gz'
+    - '*.css.br'
+    - '*.css.gz'
   css:
     custom: false
     src: Assets
@@ -70,10 +70,10 @@ tasks:
       precision: 10
       sourceComments: true
       includePaths:
-        - "./Packages/Sites/"
-        - "./Packages/Carbon/"
-        - "./Packages/Plugins/"
-        - "./node_modules/"
+        - './Packages/Sites/'
+        - './Packages/Carbon/'
+        - './Packages/Plugins/'
+        - './node_modules/'
     postcss:
       activateRtlCss: false
       assets:
@@ -144,15 +144,15 @@ tasks:
         discardComments:
           removeAll: true
       fixes:
-          preset: safe
+        preset: safe
       imagemin:
-          gifsicle: {}
-          jpegtran: {}
-          optipng: {}
-          svgo: {}
+        gifsicle: {}
+        jpegtran: {}
+        optipng: {}
+        svgo: {}
     cssbeautifyOptions:
-        indent: "  "
-        autosemicolon: true
+      indent: '  '
+      autosemicolon: true
   scss: true
   js:
     custom: false
@@ -166,11 +166,12 @@ tasks:
     compiler: Babel
     babel: {}
     buble:
-      objectAssign: "Object.assign"
+      objectAssign: 'Object.assign'
     rollup:
       enable: true
       format: iife # Available formats are amd, cjs, es6, iife or umd
       plugins:
+        builtins: true
         nodeResolve:
           module: true
           jsnext: true
@@ -179,7 +180,7 @@ tasks:
         includePaths:
           include: {}
           paths:
-            - ""
+            - ''
             - Packages/Carbon
             - Packages/Plugins
           external: []
@@ -227,7 +228,7 @@ tasks:
     dest: Assets
     watchOnlySrc: true
     extensions:
-      - "*"
+      - '*'
   optimizeSvg: src
   svgSprite:
     custom: false
@@ -244,8 +245,8 @@ tasks:
           inline: true
           symbol:
             inline: true
-            dest: ""
-            sprite: "%srcFolderName%.svg"
+            dest: ''
+            sprite: '%srcFolderName%.svg'
             bust: false
       # If set to false no public Sprite will be rendered
       public:
@@ -254,8 +255,8 @@ tasks:
           doctypeDeclaration: false
         mode:
           symbol:
-            dest: ""
-            sprite: "%srcFolderName%.svg"
+            dest: ''
+            sprite: '%srcFolderName%.svg'
             bust: false
   showConfig: true
   pipeline:
