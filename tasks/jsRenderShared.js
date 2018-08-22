@@ -40,18 +40,15 @@ function getConfig(taskName) {
             };
 
             if (rollup.config) {
+                let includePaths = rollup.config.plugins.includePaths;
                 if (
-                    rollup.config.plugins.includePaths.paths.length &&
-                    rollup.config.plugins.includePaths.paths[0] == ""
+                    includePaths.paths &&
+                    includePaths.paths[0] == "COMPOSER_PACKAGES"
                 ) {
-                    rollup.config.plugins.includePaths.paths[0] = path.join(
-                        PATHS.root.src
-                    );
+                    includePaths.paths[0] = PATHS.root.src;
                 }
                 rollup.plugins = [
-                    ROLLUP_PLUGIN.INCLUDEPATHS(
-                        rollup.config.plugins.includePaths
-                    ),
+                    ROLLUP_PLUGIN.INCLUDEPATHS(includePaths),
                     ROLLUP_PLUGIN.RESOLVE(rollup.config.plugins.nodeResolve),
                     ROLLUP_PLUGIN.REPLACE({
                         "process.env.NODE_ENV": JSON.stringify(

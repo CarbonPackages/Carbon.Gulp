@@ -180,7 +180,7 @@ tasks:
         includePaths:
           include: {}
           paths:
-            - ''
+            - COMPOSER_PACKAGES
             - Packages/Carbon
             - Packages/Plugins
           external: []
