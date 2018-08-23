@@ -332,9 +332,9 @@ ansi-colors@^1.0.1:
   dependencies:
     ansi-wrap "^0.1.0"
 
-ansi-colors@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.0.3.tgz#dd08da0bc1c632fbba31efe8655c9f5b71aab73f"
+ansi-colors@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.0.4.tgz#50ceab04f070bf323141652664e104f7d09e3e3b"
 
 ansi-cyan@^0.1.1:
   version "0.1.1"
