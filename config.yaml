@@ -92,7 +92,6 @@ tasks:
         public:
           cachebuster: false
       momentumScrolling:
-        - hidden
         - scroll
         - auto
         - inherit
