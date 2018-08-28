@@ -66,12 +66,6 @@
         }
       },
       {
-        "files": "*.scss",
-        "options": {
-          "printWidth": 1000
-        }
-      },
-      {
         "files": "*.js",
         "options": {
           "tabWidth": 4
