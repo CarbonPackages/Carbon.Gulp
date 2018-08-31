@@ -21,6 +21,7 @@ function getConfig(taskName) {
         const JS_CONFIG = CONFIG.tasks[taskName];
 
         if (JS_CONFIG) {
+            const SOURCEMAP = JS_CONFIG.sourceMaps && mode.maps;
             const PATHS = {
                 key: path.join(CONFIG.root.base, KEY)
             };
@@ -88,12 +89,18 @@ function getConfig(taskName) {
                     rollup.plugins.push(ROLLUP_PLUGIN.BUILTINS());
                 }
 
-                rollup.plugins.push(ROLLUP_PLUGIN.SOURCEMAPS());
+                if (SOURCEMAP) {
+                    rollup.plugins.push(ROLLUP_PLUGIN.SOURCEMAPS());
+                }
             }
 
             if (mode.minimize) {
                 rollup.plugins.push(
-                    ROLLUP_PLUGIN.TERSER(rollup.config.plugins.terser)
+                    ROLLUP_PLUGIN.TERSER(
+                        Object.assign({}, rollup.config.plugins.terser, {
+                            sourcemap: SOURCEMAP
+                        })
+                    )
                 );
             }
 
@@ -104,7 +111,7 @@ function getConfig(taskName) {
                         ? CONFIG.info.package
                         : false,
                 info: CONFIG.info,
-                sourceMaps: JS_CONFIG.sourceMaps,
+                sourcemap: SOURCEMAP,
                 rollup: rollup,
                 dest: PATHS.dest,
                 src: {
@@ -159,18 +166,14 @@ function jsRender(taskName) {
                     .src(task.src.public)
                     .pipe(plumber(handleErrors))
                     .pipe(
-                        mode.maps && task.sourceMaps
+                        task.sourcemap
                             ? sourcemaps.init({ loadMaps: true })
                             : noop()
                     )
                     .pipe(rollupPipe())
                     .pipe(chmod(config.global.chmod))
                     .pipe(pipeBanner(task))
-                    .pipe(
-                        mode.maps && task.sourceMaps
-                            ? sourcemaps.write("")
-                            : noop()
-                    )
+                    .pipe(task.sourcemap ? sourcemaps.write("") : noop())
                     .pipe(plumber.stop())
                     .pipe(gulp.dest(task.dest.public))
                     .pipe(sizeOutput(task.key, taskName.toUpperCase()))
