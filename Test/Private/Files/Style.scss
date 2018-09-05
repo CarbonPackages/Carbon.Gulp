@@ -2,6 +2,7 @@ p {
   margin: x x 10px;
   overflow: scroll;
   min-height: calc(100vh - var(--safe-area-inset-top));
+  clip-path: polygon(0 0, 100% 100%, 100% 0);
 
   a {
     &:hover {

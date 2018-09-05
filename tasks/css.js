@@ -3,6 +3,7 @@ function getConfig() {
     const POSTCSS_PLUGIN = {
         AUTOPREFIXER: require("autoprefixer"),
         CENTER: require("postcss-center"),
+        CLIP_PATH: require("postcss-clip-path-polyfill"),
         CSS_MQPACKER: require("css-mqpacker"),
         FIXES: require("postcss-fixes"),
         FLEXBOX: require("postcss-flexbox"),
@@ -94,6 +95,7 @@ function getConfig() {
             let postcssConfig = [
                 POSTCSS_PLUGIN.PRESET_ENV(POSTCSS_CONFIGURATION.presetEnv),
                 POSTCSS_PLUGIN.VMAX,
+                POSTCSS_PLUGIN.CLIP_PATH,
                 POSTCSS_PLUGIN.SHORT(POSTCSS_CONFIGURATION.short),
                 POSTCSS_PLUGIN.CENTER,
                 POSTCSS_PLUGIN.RUCKSACK_CSS(POSTCSS_CONFIGURATION.rucksack),

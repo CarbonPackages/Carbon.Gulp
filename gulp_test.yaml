@@ -2,30 +2,30 @@ global:
   mergeConfigFromPackages: false
 
 root:
-  base: "./Test"
-  src: "Private"
-  dest: "Public"
-  watch: "Private/**"
-  dontWatch: "Private/Templates/**"
+  base: './Test'
+  src: 'Private'
+  dest: 'Public'
+  watch: 'Private/**'
+  dontWatch: 'Private/Templates/**'
 
 tasks:
   clean:
-    - "*"
+    - '*'
   css:
     file:
       - Test.scss
-    src: ""
-    dest: ""
+    src: ''
+    dest: ''
   js:
-    src: ""
-    dest: ""
+    src: ''
+    dest: ''
   svgSprite:
-    dest: ""
+    dest: ''
     config:
       private: false
   test:
     expected:
-      css: :root{--safe-area-inset-top:0}@supports (top:constant(safe-area-inset-top)){:root{--safe-area-inset-top:constant(safe-area-inset-top)}}@supports (top:env(safe-area-inset-top)){:root{--safe-area-inset-top:env(safe-area-inset-top)}}p{-webkit-overflow-scrolling:touch;margin-bottom:10px;min-height:100vh;min-height:calc(100vh - var(--safe-area-inset-top));overflow:scroll}p a:focus,p a:hover{color:#00f}p a[focus-within]{color:red}p a:focus-within{color:red}
+      css: :root{--safe-area-inset-top:0}@supports (top:constant(safe-area-inset-top)){:root{--safe-area-inset-top:constant(safe-area-inset-top)}}@supports (top:env(safe-area-inset-top)){:root{--safe-area-inset-top:env(safe-area-inset-top)}}p{-webkit-clip-path:polygon(0 0,100% 100%,100% 0);-webkit-overflow-scrolling:touch;clip-path:url('data:image/svg+xml;utf8,%3Csvg xmlns="http://www.w3.org/2000/svg"%3E%3Cdefs%3E%3CclipPath id="p" clipPathUnits="objectBoundingBox"%3E%3Cpolygon points="0 0, 1 1, 1 0" /%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E#p');clip-path:polygon(0 0,100% 100%,100% 0);margin-bottom:10px;min-height:100vh;min-height:calc(100vh - var(--safe-area-inset-top));overflow:scroll}p a:focus,p a:hover{color:#00f}p a[focus-within]{color:red}p a:focus-within{color:red}
       js:
         - Hello World
         - Hello Carbon.Gulp
