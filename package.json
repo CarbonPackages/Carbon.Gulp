@@ -137,7 +137,7 @@
     "postcss-clip-path-polyfill": "^1.0.4",
     "postcss-fixes": "^2.0.1",
     "postcss-flexbox": "^1.0.3",
-    "postcss-focus": "^3.0.0",
+    "postcss-focus": "^4.0.0",
     "postcss-momentum-scrolling": "^1.4.8",
     "postcss-preset-env": "^5.3.0",
     "postcss-pseudoelements": "^5.0.0",
