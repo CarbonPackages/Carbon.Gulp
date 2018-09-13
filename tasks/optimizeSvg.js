@@ -9,23 +9,19 @@ function getConfig() {
             (CONFIG_OPTIMIZE_SVG == "src" || CONFIG_OPTIMIZE_SVG == "dest")
         ) {
             let configuration = {
-                key: KEY
-                    ? KEY
-                    : CONFIG.info.package
-                        ? CONFIG.info.package
-                        : false,
+                key: KEY || CONFIG.info.package || false,
                 src: [
                     path.join(
-                        CONFIG.root.base,
+                        CONFIG.root.base || "",
                         KEY,
-                        CONFIG.root[CONFIG_OPTIMIZE_SVG],
+                        CONFIG.root[CONFIG_OPTIMIZE_SVG] || "",
                         "**/*.svg"
                     )
                 ],
                 dest: path.join(
-                    CONFIG.root.base,
+                    CONFIG.root.base || "",
                     KEY,
-                    CONFIG.root[CONFIG_OPTIMIZE_SVG]
+                    CONFIG.root[CONFIG_OPTIMIZE_SVG] || ""
                 ),
                 pretty: CONFIG_OPTIMIZE_SVG == "src" ? true : false
             };
@@ -34,17 +30,17 @@ function getConfig() {
             if (CONFIG.tasks.svgSprite) {
                 configuration.src.push(
                     path.join(
-                        "!" + CONFIG.root.base,
-                        CONFIG.root.dest,
-                        CONFIG.tasks.svgSprite.dest,
+                        "!" + CONFIG.root.base || "",
+                        CONFIG.root.dest || "",
+                        CONFIG.tasks.svgSprite.dest || "",
                         CONFIG.tasks.svgSprite.src + ".svg"
                     )
                 );
                 configuration.src.push(
                     path.join(
-                        "!" + CONFIG.root.base,
-                        CONFIG.root.src,
-                        CONFIG.root.inlinePath,
+                        "!" + CONFIG.root.base || "",
+                        CONFIG.root.src || "",
+                        CONFIG.root.inlinePath || "",
                         CONFIG.tasks.svgSprite.src + ".svg"
                     )
                 );

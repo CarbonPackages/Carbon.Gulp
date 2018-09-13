@@ -11,17 +11,22 @@ function getConfig() {
 
         assets = assets.concat(
             entries.map(entry =>
-                path.join(CONFIG.root.base, KEY, CONFIG.root.dest, entry)
+                path.join(
+                    CONFIG.root.base || "",
+                    KEY,
+                    CONFIG.root.dest || "",
+                    entry
+                )
             )
         );
 
         if (CONFIG.root.inlinePath) {
             assets.push(
                 path.join(
-                    CONFIG.root.base,
+                    CONFIG.root.base || "",
                     KEY,
-                    CONFIG.root.src,
-                    CONFIG.root.inlinePath
+                    CONFIG.root.src || "",
+                    CONFIG.root.inlinePath || ""
                 )
             );
         }

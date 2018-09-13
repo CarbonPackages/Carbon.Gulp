@@ -6,24 +6,20 @@ function getConfig() {
 
         if (FONTS_CONFIG) {
             TASK_CONFIG.push({
-                key: KEY
-                    ? KEY
-                    : CONFIG.info.package
-                        ? CONFIG.info.package
-                        : false,
+                key: KEY || CONFIG.info.package || false,
                 src: path.join(
-                    CONFIG.root.base,
+                    CONFIG.root.base || "",
                     KEY,
-                    CONFIG.root.src,
-                    FONTS_CONFIG.src,
+                    CONFIG.root.src || "",
+                    FONTS_CONFIG.src || "",
                     "**",
                     getExtensions(FONTS_CONFIG.extensions)
                 ),
                 dest: path.join(
-                    CONFIG.root.base,
+                    CONFIG.root.base || "",
                     KEY,
-                    CONFIG.root.dest,
-                    FONTS_CONFIG.dest
+                    CONFIG.root.dest || "",
+                    FONTS_CONFIG.dest || ""
                 )
             });
         }

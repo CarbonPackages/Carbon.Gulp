@@ -12,10 +12,10 @@ module.exports = function(taskName, configuration = config, key = "**") {
         if (TASK_CONF.watchOnlySrc) {
             filesToWatch.push(
                 path.join(
-                    configuration.root.base,
+                    configuration.root.base || "",
                     key,
-                    configuration.root.src,
-                    TASK_CONF.src,
+                    configuration.root.src || "",
+                    TASK_CONF.src || "",
                     "/**",
                     getExtensions(TASK_CONF.extensions, false)
                 )
@@ -23,7 +23,7 @@ module.exports = function(taskName, configuration = config, key = "**") {
         } else {
             filesToWatch = WATCH_CONFIG.map(value =>
                 path.join(
-                    configuration.root.base,
+                    configuration.root.base || "",
                     key,
                     value,
                     getExtensions(TASK_CONF.extensions, false)
@@ -37,7 +37,7 @@ module.exports = function(taskName, configuration = config, key = "**") {
                     filesToWatch.push(
                         "!" +
                             path.join(
-                                configuration.root.base,
+                                configuration.root.base || "",
                                 key,
                                 value,
                                 getExtensions(TASK_CONF.extensions, false)
@@ -52,7 +52,7 @@ module.exports = function(taskName, configuration = config, key = "**") {
                 filesToWatch.push(
                     "!" +
                         path.join(
-                            configuration.root.base,
+                            configuration.root.base || "",
                             key,
                             value,
                             "**/_{all,allsub}.scss"

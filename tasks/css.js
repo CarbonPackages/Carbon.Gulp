@@ -28,17 +28,20 @@ function getConfig() {
 
         if (CSS_CONFIG) {
             const PATHS = {
-                key: path.join(CONFIG.root.base, KEY)
+                key: path.join(CONFIG.root.base || "", KEY)
             };
             PATHS.root = {
-                src: path.join(PATHS.key, CONFIG.root.src),
-                dest: path.join(PATHS.key, CONFIG.root.dest)
+                src: path.join(PATHS.key, CONFIG.root.src || ""),
+                dest: path.join(PATHS.key, CONFIG.root.dest || "")
             };
             PATHS.dest = {
-                private: path.join(PATHS.root.src, CONFIG.root.inlinePath),
-                public: path.join(PATHS.root.dest, CSS_CONFIG.dest)
+                private: path.join(
+                    PATHS.root.src,
+                    CONFIG.root.inlinePath || ""
+                ),
+                public: path.join(PATHS.root.dest, CSS_CONFIG.dest || "")
             };
-            PATHS.base = path.join(PATHS.root.src, CSS_CONFIG.src);
+            PATHS.base = path.join(PATHS.root.src, CSS_CONFIG.src || "");
 
             // Sass Configuration
             let sassConfig = CSS_CONFIG.sass;
@@ -137,11 +140,7 @@ function getConfig() {
             }
 
             TASK_CONFIG.push({
-                key: KEY
-                    ? KEY
-                    : CONFIG.info.package
-                        ? CONFIG.info.package
-                        : false,
+                key: KEY || CONFIG.info.package || false,
                 info: CONFIG.info,
                 sourceMaps: CSS_CONFIG.sourceMaps,
                 sass: sassConfig,

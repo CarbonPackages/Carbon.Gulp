@@ -27,24 +27,20 @@ function getConfig() {
         if (IMAGES_CONFIG) {
             TASK_CONFIG.push({
                 imagemin: IMAGEMIN_CONFIG,
-                key: KEY
-                    ? KEY
-                    : CONFIG.info.package
-                        ? CONFIG.info.package
-                        : false,
+                key: KEY || CONFIG.info.package || false,
                 src: path.join(
-                    CONFIG.root.base,
+                    CONFIG.root.base || "",
                     KEY,
-                    CONFIG.root.src,
-                    IMAGES_CONFIG.src,
+                    CONFIG.root.src || "",
+                    IMAGES_CONFIG.src || "",
                     "**",
                     getExtensions(IMAGES_CONFIG.extensions)
                 ),
                 dest: path.join(
-                    CONFIG.root.base,
+                    CONFIG.root.base || "",
                     KEY,
-                    CONFIG.root.dest,
-                    IMAGES_CONFIG.dest
+                    CONFIG.root.dest || "",
+                    IMAGES_CONFIG.dest || ""
                 )
             });
         }

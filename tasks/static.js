@@ -6,24 +6,20 @@ function getConfig() {
 
         if (STATIC_CONFIG) {
             TASK_CONFIG.push({
-                key: KEY
-                    ? KEY
-                    : CONFIG.info.package
-                        ? CONFIG.info.package
-                        : false,
+                key: KEY || CONFIG.info.package || false,
                 src: path.join(
-                    CONFIG.root.base,
+                    CONFIG.root.base || "",
                     KEY,
-                    CONFIG.root.src,
-                    STATIC_CONFIG.src,
+                    CONFIG.root.src || "",
+                    STATIC_CONFIG.src || "",
                     "**",
                     getExtensions(STATIC_CONFIG.extensions)
                 ),
                 dest: path.join(
-                    CONFIG.root.base,
+                    CONFIG.root.base || "",
                     KEY,
-                    CONFIG.root.dest,
-                    STATIC_CONFIG.dest
+                    CONFIG.root.dest || "",
+                    STATIC_CONFIG.dest || ""
                 )
             });
         }

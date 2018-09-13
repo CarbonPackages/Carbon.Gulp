@@ -30,9 +30,9 @@ function mergePackageConfig(path) {
         try {
             const CONFIG = {
                 DEFAULT: {
-                    info: config.info ? config.info : false,
-                    root: config.root ? config.root : false,
-                    tasks: config.tasks ? config.tasks : false
+                    info: config.info || false,
+                    root: config.root || false,
+                    tasks: config.tasks || false
                 },
                 BASE: {
                     root: {
@@ -70,12 +70,8 @@ function getInfoFromComposer(path = "") {
     try {
         let composer = require(`../../../${path}composer.json`);
 
-        config.info.author = composer.author
-            ? composer.author
-            : config.info.author;
-        config.info.homepage = composer.homepage
-            ? composer.homepage
-            : config.info.homepage;
+        config.info.author = composer.author || config.info.author;
+        config.info.homepage = composer.homepage || config.info.homepage;
     } catch (error) {}
 }
 
@@ -101,9 +97,9 @@ module.exports = function() {
         config.packages[""] = objectAssignDeep(
             {},
             {
-                info: config.info ? config.info : false,
-                root: config.root ? config.root : false,
-                tasks: config.tasks ? config.tasks : false
+                info: config.info || false,
+                root: config.root || false,
+                tasks: config.tasks || false
             }
         );
     }

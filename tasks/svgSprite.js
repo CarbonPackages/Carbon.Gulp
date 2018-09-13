@@ -10,16 +10,12 @@ function getConfig() {
                 config.replace(/%srcFolderName%/g, SPRITE_CONFIG.src)
             );
             TASK_CONFIG.push({
-                key: key
-                    ? key
-                    : CONFIG.info.package
-                        ? CONFIG.info.package
-                        : false,
+                key: key || CONFIG.info.package || false,
                 svgo: SPRITE_CONFIG.svgo,
                 src: path.join(
-                    CONFIG.root.base,
+                    CONFIG.root.base || "",
                     key,
-                    CONFIG.root.src,
+                    CONFIG.root.src || "",
                     SPRITE_CONFIG.src,
                     getExtensions(SPRITE_CONFIG.extensions)
                 ),
@@ -27,18 +23,18 @@ function getConfig() {
                 dest: {
                     private: config.private
                         ? path.join(
-                              CONFIG.root.base,
+                              CONFIG.root.base || "",
                               key,
-                              CONFIG.root.src,
-                              CONFIG.root.inlinePath
+                              CONFIG.root.src || "",
+                              CONFIG.root.inlinePath || ""
                           )
                         : false,
                     public: config.public
                         ? path.join(
-                              CONFIG.root.base,
+                              CONFIG.root.base || "",
                               key,
-                              CONFIG.root.dest,
-                              SPRITE_CONFIG.dest
+                              CONFIG.root.dest || "",
+                              SPRITE_CONFIG.dest || ""
                           )
                         : false
                 }
