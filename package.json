@@ -94,7 +94,7 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.1",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "ansi-colors": "^3.0.5",
     "autoprefixer": "^9.1.5",
     "browser-sync": "2.24.7",
