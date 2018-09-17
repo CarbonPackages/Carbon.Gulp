@@ -43,6 +43,7 @@ if [ "$(_isSameRelease)" = "true" ]
       else
         echo "Major/minor merge from ${RED}${_oldVersion}${NC} to ${RED}${_newVersion}${NC}"
         echo "${RED}Deleting${NC} node_modules and yarn.lock"
+        echo "Please enter ${RED}nvm use${NC} to ensure the right node version"
         rm -rf node_modules yarn.lock
     fi
     echo $package,$_version,$_babel,$_prettier,$_scripts,$_devDependencies | json --merge > package.json
