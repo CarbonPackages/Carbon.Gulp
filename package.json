@@ -92,7 +92,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
+    "@babel/cli": "^7.1.0",
     "@babel/core": "^7.0.1",
     "@babel/preset-env": "^7.0.0",
     "ansi-colors": "^3.0.5",
