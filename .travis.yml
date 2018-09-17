@@ -1,6 +1,2 @@
 language: node_js
 script: gulp --cwd ./ --gulpfile ./index.js test --carbon
-cache:
-  yarn: true
-  directories:
-    - "node_modules"

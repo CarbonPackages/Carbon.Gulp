@@ -17,7 +17,7 @@ module.exports = function(error) {
         this.emit("end");
     }
 
-    if (mode.pipeline) {
+    if (mode.pipeline || mode.test) {
         process.exit(1);
     }
 };
