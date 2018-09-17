@@ -23,7 +23,6 @@ function testIfExpected(entry) {
         if (entry.data == expected) {
             log(colors.green(`${entry.key} test successful`));
         } else {
-            console.log(entry);
             passAllTest = false;
             log(colors.red(`${entry.key} test failed`));
             log(

@@ -182,6 +182,11 @@ if (mode.test) {
     const test = require("./test");
     gulp.task(
         "test",
-        bach.series(task.build, task.optimizeImages, task.optimizeSvg, test)
+        bach.series(
+            task.build,
+            bach.series(task.optimizeImages, callbackTimeout),
+            bach.series(task.optimizeSvg, callbackTimeout),
+            test
+        )
     );
 }
