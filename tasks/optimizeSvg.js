@@ -70,7 +70,12 @@ function getTask() {
                 .pipe(plumber.stop())
                 .pipe(gulp.dest(task.dest))
                 .pipe(
-                    sizeOutput(task.key, "Optimize SVG Images", !pretty, false)
+                    sizeOutput(
+                        task.key,
+                        "Optimize SVG Images",
+                        !task.pretty,
+                        false
+                    )
                 );
         })
     );

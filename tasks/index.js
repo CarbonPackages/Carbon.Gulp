@@ -180,5 +180,8 @@ if (config.tasks.pipeline && typeof config.tasks.pipeline == "object") {
 
 if (mode.test) {
     const test = require("./test");
-    gulp.task("test", bach.series(task.build, test));
+    gulp.task(
+        "test",
+        bach.series(task.build, task.optimizeImages, task.optimizeSvg, test)
+    );
 }
