@@ -1,2 +1,4 @@
+before_install:
+  - touch yarn.lock
 language: node_js
 script: gulp --cwd ./ --gulpfile ./index.js test --carbon
