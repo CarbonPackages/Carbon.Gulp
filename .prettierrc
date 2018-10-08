@@ -1,0 +1,22 @@
+overrides:
+  - files: '*.json'
+    options:
+      tabWidth: 4
+      printWidth: 1000
+  - files: 'package.json'
+    options:
+      tabWidth: 2
+  - files:
+      - '*.yaml'
+      - '*.yml'
+      - '.prettierrc'
+    options:
+      tabWidth: 2
+      singleQuote: true
+  - files: '*.js'
+    options:
+      tabWidth: 4
+      singleQuote: true
+  - files: '*.scss'
+    options:
+      printWidth: 300

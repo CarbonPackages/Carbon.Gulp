@@ -35,44 +35,6 @@
     "not bb <= 10",
     "not op_mob <= 12.1"
   ],
-  "prettier": {
-    "overrides": [
-      {
-        "files": "*.json",
-        "options": {
-          "tabWidth": 4
-        }
-      },
-      {
-        "files": "package.json",
-        "options": {
-          "tabWidth": 2
-        }
-      },
-      {
-        "files": [
-          "*.yaml",
-          "*.yml"
-        ],
-        "options": {
-          "tabWidth": 2,
-          "singleQuote": true
-        }
-      },
-      {
-        "files": "*.json",
-        "options": {
-          "printWidth": 1000
-        }
-      },
-      {
-        "files": "*.js",
-        "options": {
-          "tabWidth": 4
-        }
-      }
-    ]
-  },
   "scripts": {
     "gulp": "gulp --cwd ./ --gulpfile ./Build/Gulp",
     "tasks": "yarn gulp -T",

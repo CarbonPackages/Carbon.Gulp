@@ -29,7 +29,6 @@ if [ "$(_isSameRelease)" = "true" ]
   else
     _version="{\"version\": \"$(cat Build/Gulp/package.json | json version)\"}"
     _babel="{\"babel\": $(cat Build/Gulp/package.json | json babel)}"
-    _prettier="{\"prettier\": $(cat Build/Gulp/package.json | json prettier)}"
     _scripts="{\"scripts\": $(cat Build/Gulp/package.json | json scripts)}"
     _devDependencies="{\"devDependencies\": $(cat Build/Gulp/package.json | json devDependencies)}"
 
@@ -46,6 +45,6 @@ if [ "$(_isSameRelease)" = "true" ]
         echo "Please enter ${RED}nvm use${NC} to ensure the right node version"
         rm -rf node_modules yarn.lock
     fi
-    echo $package,$_version,$_babel,$_prettier,$_scripts,$_devDependencies | json --merge > package.json
+    echo $package,$_version,$_babel,$_scripts,$_devDependencies | json --merge > package.json
 fi
 echo
