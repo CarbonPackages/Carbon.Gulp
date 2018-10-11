@@ -5,18 +5,18 @@ function getConfig() {
         CENTER: require("postcss-center"),
         CLIP_PATH: require("postcss-clip-path-polyfill"),
         CSS_MQPACKER: require("css-mqpacker"),
-        FIXES: require("postcss-fixes"),
-        FLEXBOX: require("postcss-flexbox"),
+        FLEXBUGS_FIXES: require("postcss-flexbugs-fixes"),
         FOCUS: require("postcss-focus"),
         MOMENTUM_SCROLLING: require("postcss-momentum-scrolling"),
         PLEEEASE_FILTERS: require("pleeease-filters"),
         PRESET_ENV: require("postcss-preset-env"),
-        PSEUDOELEMENTS: require("postcss-pseudoelements"),
         PXTOREM: require("postcss-pxtorem"),
         QUANTITY_QUERIES: require("postcss-quantity-queries"),
         ROUND_SUBPIXELS: require("postcss-round-subpixels"),
         RTL: require("postcss-rtl"),
-        RUCKSACK_CSS: require("rucksack-css"),
+        RESPONSIVE_TYPE: require("postcss-responsive-type"),
+        CLEARFIX: require("postcss-clearfix"),
+        EASINGS: require("postcss-easings"),
         SHORT: require("postcss-short"),
         SORT_CSS_MEDIA_QUERIES: require("sort-css-media-queries"),
         VMAX: require("postcss-vmax")
@@ -101,18 +101,16 @@ function getConfig() {
                 POSTCSS_PLUGIN.CLIP_PATH,
                 POSTCSS_PLUGIN.SHORT(POSTCSS_CONFIGURATION.short),
                 POSTCSS_PLUGIN.CENTER,
-                POSTCSS_PLUGIN.RUCKSACK_CSS(POSTCSS_CONFIGURATION.rucksack),
-                POSTCSS_PLUGIN.FLEXBOX,
+                POSTCSS_PLUGIN.RESPONSIVE_TYPE,
+                POSTCSS_PLUGIN.CLEARFIX,
+                POSTCSS_PLUGIN.EASINGS,
                 POSTCSS_PLUGIN.FOCUS,
                 POSTCSS_PLUGIN.PLEEEASE_FILTERS,
-                POSTCSS_PLUGIN.PSEUDOELEMENTS(
-                    POSTCSS_CONFIGURATION.pseudoelements
-                ),
                 POSTCSS_PLUGIN.QUANTITY_QUERIES,
                 POSTCSS_PLUGIN.MOMENTUM_SCROLLING(
                     POSTCSS_CONFIGURATION.momentumScrolling
                 ),
-                POSTCSS_PLUGIN.FIXES(POSTCSS_CONFIGURATION.fixes),
+                POSTCSS_PLUGIN.FLEXBUGS_FIXES,
                 POSTCSS_PLUGIN.CSS_MQPACKER({
                     sort: POSTCSS_CONFIGURATION.mqpacker.sort
                         ? POSTCSS_PLUGIN.SORT_CSS_MEDIA_QUERIES
@@ -205,7 +203,6 @@ function getTask() {
                     .pipe(chmod(config.global.chmod))
                     .pipe(plumber.stop())
                     .pipe(gulp.dest(task.dest.private))
-                    .pipe(browserSync ? browserSync.stream() : noop())
                     .pipe(sizeOutput(task.key, "CSS", false)),
 
                 gulp
