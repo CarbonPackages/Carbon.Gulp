@@ -1,0 +1,10 @@
+@import "~bs-recipes/recipes/gulp.sass/app/scss/main";
+
+$color: #000 !default;
+
+.scss-nesting {
+  a {
+    color: rgba(#000, 0.5);
+    background: $color;
+  }
+}

@@ -1,0 +1,116 @@
+/* rtl:begin:ignore */
+// PostCSS Packages Test == class name
+
+.postcss-center {
+  top: center;
+}
+
+.postcss-clip-path-polyfill {
+  clip-path: polygon(0 0, 100% 100%, 100% 0);
+}
+
+.css-mqpacker.sort-css-media-queries {
+  @media (max-width: 60px) and (min-width: 40px) {
+    display: inline;
+  }
+
+  @media screen and (min-width: 20px) {
+    width: 16px;
+  }
+
+  @media screen and (max-width: 30px) {
+    line-height: 1;
+  }
+
+  @media screen and (min-width: 10px) {
+    width: 10px;
+  }
+
+  @media screen and (max-width: 30px) {
+    font-size: 30px;
+  }
+
+  @media screen and (min-width: 10px) {
+    height: 10px;
+  }
+}
+
+.postcss-flexbugs-fixes {
+  flex: 1;
+}
+
+.postcss-focus:hover {
+  outline: 0;
+}
+
+.postcss-momentum-scrolling {
+  overflow: scroll;
+}
+
+.pleeease-filters {
+  filter: blur(4px);
+}
+
+// postcss-preset-env
+:root {
+  --mainColor: #12345678;
+  font-family: system-ui;
+}
+
+.postcss-pxtorem {
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+.postcss-quantity-queries:at-least(4) {
+  color: rebeccapurple;
+}
+
+.postcss-round-subpixels {
+  height: 123.456px;
+  width: 1234.567px;
+  min-height: 12.345rem;
+  min-width: 98.7654%;
+}
+
+.postcss-short {
+  margin: x 10px x x;
+}
+
+.postcss-responsive-type {
+  font-size: responsive;
+}
+
+.postcss-clearfix {
+  clear: fix;
+}
+
+.postcss-easings {
+  transition: transform 1s easeInSine, opacity 2s ease-in-sine;
+}
+
+.postcss-vmax {
+  font-size: 1vmax;
+}
+
+.postcss-assets {
+  background-size: size("Circle.svg");
+  background-image: resolve("Circle.svg");
+
+  &.inline {
+    background-image: inline("Circle.svg");
+  }
+}
+/* rtl:end:ignore */
+
+.postcss-rtl {
+  margin-left: 20px;
+}
+
+/* rtl:ignore */
+.postcss-rtl-ignore {
+  padding-left: 5px;
+}
+
+/* rtl:begin:ignore */
