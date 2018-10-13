@@ -59,7 +59,7 @@
     "@babel/preset-env": "^7.1.0",
     "ansi-colors": "^3.1.0",
     "autoprefixer": "^9.1.5",
-    "browser-sync": "2.26.0",
+    "browser-sync": "2.26.2",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.4",
     "del": "^3.0.0",
