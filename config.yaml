@@ -76,7 +76,9 @@ tasks:
         - './Packages/Plugins/'
         - './node_modules/'
     postcss:
-      activateRtlCss: false
+      additionalPlugins:
+        atStart: false
+        atEnd: false
       assets:
         loadPaths:
           # Need to be a single directory

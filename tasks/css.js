@@ -1,3 +1,21 @@
+function additionalPlugins(object) {
+    let array = [];
+    if (typeof object == "object") {
+        for (const key in object) {
+            let config = object[key];
+            if (config) {
+                let plugin = require(key);
+                if (typeof config == "object") {
+                    array.push(plugin(config));
+                } else if (config === true) {
+                    array.push(plugin);
+                }
+            }
+        }
+    }
+    return array;
+}
+
 function getConfig() {
     const sassTildeImporter = require("node-sass-tilde-importer");
     const POSTCSS_PLUGIN = {
@@ -13,7 +31,6 @@ function getConfig() {
         PXTOREM: require("postcss-pxtorem"),
         QUANTITY_QUERIES: require("postcss-quantity-queries"),
         ROUND_SUBPIXELS: require("postcss-round-subpixels"),
-        RTL: require("postcss-rtl"),
         RESPONSIVE_TYPE: require("postcss-responsive-type"),
         CLEARFIX: require("postcss-clearfix"),
         EASINGS: require("postcss-easings"),
@@ -51,6 +68,7 @@ function getConfig() {
 
             // PostCSS Configuration
             const POSTCSS_CONFIGURATION = CSS_CONFIG.postcss;
+            const ADDITIONAL_PLUGINS = POSTCSS_CONFIGURATION.additionalPlugins;
 
             let loadPathsConf = POSTCSS_CONFIGURATION.assets.loadPaths;
             let loadPaths = [];
@@ -116,18 +134,18 @@ function getConfig() {
                         ? POSTCSS_PLUGIN.SORT_CSS_MEDIA_QUERIES
                         : false
                 }),
-                POSTCSS_PLUGIN.ROUND_SUBPIXELS
+                POSTCSS_PLUGIN.ROUND_SUBPIXELS,
+                POSTCSS_PLUGIN.PXTOREM(POSTCSS_CONFIGURATION.pxtorem)
             ];
 
-            if (POSTCSS_CONFIGURATION.activateRtlCss) {
-                postcssConfig.unshift(POSTCSS_PLUGIN.RTL);
-            }
-
-            if (POSTCSS_CONFIGURATION.pxtorem) {
-                postcssConfig.push(
-                    POSTCSS_PLUGIN.PXTOREM(POSTCSS_CONFIGURATION.pxtorem)
-                );
-            }
+            Array.prototype.unshift.apply(
+                postcssConfig,
+                additionalPlugins(ADDITIONAL_PLUGINS.atStart)
+            );
+            Array.prototype.push.apply(
+                postcssConfig,
+                additionalPlugins(ADDITIONAL_PLUGINS.atEnd)
+            );
 
             if (POSTCSS_CONFIGURATION.autoprefixer) {
                 postcssConfig.push(

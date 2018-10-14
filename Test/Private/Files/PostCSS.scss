@@ -1,5 +1,17 @@
-/* rtl:begin:ignore */
+
 // PostCSS Packages Test == class name
+
+.postcss-flexbox {
+  box: horizontal;
+}
+
+.postcss-zindex--one {
+  z-index: 10000;
+}
+
+.postcss-zindex--two {
+  z-index: 20000;
+}
 
 .postcss-center {
   top: center;
@@ -102,15 +114,4 @@
     background-image: inline("Circle.svg");
   }
 }
-/* rtl:end:ignore */
 
-.postcss-rtl {
-  margin-left: 20px;
-}
-
-/* rtl:ignore */
-.postcss-rtl-ignore {
-  padding-left: 5px;
-}
-
-/* rtl:begin:ignore */

@@ -16,7 +16,6 @@ overrides:
   - files: '*.js'
     options:
       tabWidth: 4
-      singleQuote: true
   - files: '*.scss'
     options:
       printWidth: 300
