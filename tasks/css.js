@@ -1,52 +1,80 @@
-function additionalPlugins(object) {
+const sureArray = require("../functions/sureArray");
+
+const PATHS = {};
+
+function addPostCSSPlugin(key, config) {
+    let plugin = require(key);
+    if (typeof config == "object") {
+        // Special case
+        if (key == "css-mqpacker") {
+            config = {
+                sort: config.sort ? require("sort-css-media-queries") : false
+            };
+        }
+        return plugin(config);
+    } else if (config === true) {
+        return plugin;
+    }
+    return null;
+}
+
+function addPostCSSPlugins(object) {
     let array = [];
     if (typeof object == "object") {
         for (const key in object) {
-            let config = object[key];
-            if (config) {
-                let plugin = require(key);
-                if (typeof config == "object") {
-                    array.push(plugin(config));
-                } else if (config === true) {
-                    array.push(plugin);
-                }
-            }
+            array.push(addPostCSSPlugin(key, object[key]));
         }
     }
     return array;
 }
 
+function postcssAssets(config, KEY) {
+    if (!config || typeof config != "object") {
+        return { private: null, public: null };
+    }
+    let plugin = require("postcss-assets");
+    let loadPaths = [];
+    ["dest", "src"].forEach(target => {
+        let conf = sureArray(config.loadPaths[target]);
+        if (conf) {
+            conf.forEach(value => {
+                loadPaths.push(path.join(PATHS.root[target], value));
+            });
+        }
+    });
+
+    return {
+        private: plugin(
+            objectAssignDeep({}, config.private, {
+                relative: false,
+                loadPaths: sureArray(config.loadPaths.src).map(value =>
+                    path.join(config.loadPaths.srcRelativeToDest, value)
+                ),
+                basePath: path.join(PATHS.root.dest, config.loadPaths.dest),
+                baseUrl: path.join(
+                    config.private.baseUrl.replace("%KEY%", KEY),
+                    config.loadPaths.dest
+                )
+            })
+        ),
+        public: plugin(
+            objectAssignDeep({}, config.public, {
+                loadPaths: loadPaths,
+                relative: PATHS.dest.public
+            })
+        )
+    };
+}
+
 function getConfig() {
     const sassTildeImporter = require("node-sass-tilde-importer");
-    const POSTCSS_PLUGIN = {
-        AUTOPREFIXER: require("autoprefixer"),
-        CENTER: require("postcss-center"),
-        CLIP_PATH: require("postcss-clip-path-polyfill"),
-        CSS_MQPACKER: require("css-mqpacker"),
-        FLEXBUGS_FIXES: require("postcss-flexbugs-fixes"),
-        FOCUS: require("postcss-focus"),
-        MOMENTUM_SCROLLING: require("postcss-momentum-scrolling"),
-        PLEEEASE_FILTERS: require("pleeease-filters"),
-        PRESET_ENV: require("postcss-preset-env"),
-        PXTOREM: require("postcss-pxtorem"),
-        QUANTITY_QUERIES: require("postcss-quantity-queries"),
-        ROUND_SUBPIXELS: require("postcss-round-subpixels"),
-        RESPONSIVE_TYPE: require("postcss-responsive-type"),
-        CLEARFIX: require("postcss-clearfix"),
-        EASINGS: require("postcss-easings"),
-        SHORT: require("postcss-short"),
-        SORT_CSS_MEDIA_QUERIES: require("sort-css-media-queries"),
-        VMAX: require("postcss-vmax")
-    };
     const TASK_CONFIG = [];
     for (const KEY in config.packages) {
         const CONFIG = config.packages[KEY];
         const CSS_CONFIG = CONFIG.tasks.css;
 
         if (CSS_CONFIG) {
-            const PATHS = {
-                key: path.join(CONFIG.root.base || "", KEY)
-            };
+            PATHS.key = path.join(CONFIG.root.base || "", KEY);
             PATHS.root = {
                 src: path.join(PATHS.key, CONFIG.root.src || ""),
                 dest: path.join(PATHS.key, CONFIG.root.dest || "")
@@ -67,102 +95,54 @@ function getConfig() {
             sassConfig.importer = sassTildeImporter;
 
             // PostCSS Configuration
-            const POSTCSS_CONFIGURATION = CSS_CONFIG.postcss;
-            const ADDITIONAL_PLUGINS = POSTCSS_CONFIGURATION.additionalPlugins;
-
-            let loadPathsConf = POSTCSS_CONFIGURATION.assets.loadPaths;
-            let loadPaths = [];
-            if (loadPathsConf.dest) {
-                loadPaths.push(path.join(PATHS.root.dest, loadPathsConf.dest));
-            }
-            if (loadPathsConf.src && Array.isArray(loadPathsConf.src)) {
-                loadPathsConf.src.forEach(value => {
-                    loadPaths.push(path.join(PATHS.root.src, value));
-                });
-            }
-
-            const POSTCSS_ASSET_CONFIG = {
-                private: objectAssignDeep(
-                    {},
-                    POSTCSS_CONFIGURATION.assets.private,
-                    {
-                        relative: false,
-                        loadPaths: loadPathsConf.src.map(value =>
-                            path.join(loadPathsConf.srcRelativeToDest, value)
-                        ),
-                        basePath: path.join(
-                            PATHS.root.dest,
-                            loadPathsConf.dest
-                        ),
-                        baseUrl: path.join(
-                            POSTCSS_CONFIGURATION.assets.private.baseUrl.replace(
-                                "%KEY%",
-                                KEY
-                            ),
-                            loadPathsConf.dest
-                        )
-                    }
-                ),
-                public: objectAssignDeep(
-                    {},
-                    POSTCSS_CONFIGURATION.assets.public,
-                    {
-                        loadPaths: loadPaths,
-                        relative: PATHS.dest.public
-                    }
-                )
-            };
-
-            let postcssConfig = [
-                POSTCSS_PLUGIN.PRESET_ENV(POSTCSS_CONFIGURATION.presetEnv),
-                POSTCSS_PLUGIN.VMAX,
-                POSTCSS_PLUGIN.CLIP_PATH,
-                POSTCSS_PLUGIN.SHORT(POSTCSS_CONFIGURATION.short),
-                POSTCSS_PLUGIN.CENTER,
-                POSTCSS_PLUGIN.RESPONSIVE_TYPE,
-                POSTCSS_PLUGIN.CLEARFIX,
-                POSTCSS_PLUGIN.EASINGS,
-                POSTCSS_PLUGIN.FOCUS,
-                POSTCSS_PLUGIN.PLEEEASE_FILTERS,
-                POSTCSS_PLUGIN.QUANTITY_QUERIES,
-                POSTCSS_PLUGIN.MOMENTUM_SCROLLING(
-                    POSTCSS_CONFIGURATION.momentumScrolling
-                ),
-                POSTCSS_PLUGIN.FLEXBUGS_FIXES,
-                POSTCSS_PLUGIN.CSS_MQPACKER({
-                    sort: POSTCSS_CONFIGURATION.mqpacker.sort
-                        ? POSTCSS_PLUGIN.SORT_CSS_MEDIA_QUERIES
-                        : false
-                }),
-                POSTCSS_PLUGIN.ROUND_SUBPIXELS,
-                POSTCSS_PLUGIN.PXTOREM(POSTCSS_CONFIGURATION.pxtorem)
-            ];
-
-            Array.prototype.unshift.apply(
+            let postcssConfig = [];
+            Array.prototype.push.apply(
                 postcssConfig,
-                additionalPlugins(ADDITIONAL_PLUGINS.atStart)
+                addPostCSSPlugins(CSS_CONFIG.postcss.beforeDefault)
             );
             Array.prototype.push.apply(
                 postcssConfig,
-                additionalPlugins(ADDITIONAL_PLUGINS.atEnd)
+                addPostCSSPlugins(CSS_CONFIG.postcss.default)
+            );
+            Array.prototype.push.apply(
+                postcssConfig,
+                addPostCSSPlugins(CSS_CONFIG.postcss.afterDefault)
             );
 
-            if (POSTCSS_CONFIGURATION.autoprefixer) {
+            // special treatment
+            let SPECIAL = CSS_CONFIG.postcss.specialTreatment;
+            const POSTCSS_ASSETS = postcssAssets(
+                SPECIAL["postcss-assets"],
+                KEY
+            );
+            postcssConfig.push(
+                addPostCSSPlugin("autoprefixer", SPECIAL.autoprefixer)
+            );
+            if (mode.minimize) {
                 postcssConfig.push(
-                    POSTCSS_PLUGIN.AUTOPREFIXER(
-                        POSTCSS_CONFIGURATION.autoprefixer
-                    )
+                    addPostCSSPlugin("cssnano", SPECIAL.cssnano)
                 );
             }
+            postcssConfig.push(
+                addPostCSSPlugin(
+                    "postcss-reporter",
+                    SPECIAL["postcss-reporter"]
+                )
+            );
 
             TASK_CONFIG.push({
                 key: KEY || CONFIG.info.package || false,
                 info: CONFIG.info,
                 sourceMaps: CSS_CONFIG.sourceMaps,
                 sass: sassConfig,
-                postcssConfig: postcssConfig,
-                postcssAsset: POSTCSS_ASSET_CONFIG,
-                cssnano: POSTCSS_CONFIGURATION.cssnano,
+                postcss: {
+                    private: [POSTCSS_ASSETS.private]
+                        .concat(postcssConfig)
+                        .filter(value => value),
+                    public: [POSTCSS_ASSETS.public]
+                        .concat(postcssConfig)
+                        .filter(value => value)
+                },
                 beautifyOptions: CSS_CONFIG.cssbeautifyOptions,
                 dest: PATHS.dest,
                 src: {
@@ -188,33 +168,17 @@ function getTask() {
     const sass = require("gulp-sass");
     const postcss = require("gulp-postcss");
     const beautify = require("gulp-cssbeautify");
-    const cssnano = require("cssnano");
-    const assets = require("postcss-assets");
-    const reporter = require("postcss-reporter");
     const TASK_CONFIG = getConfig();
 
     return merge(
         TASK_CONFIG.map(task => {
-            if (mode.minimize && task.cssnano) {
-                task.postcssConfig.push(cssnano(task.cssnano));
-            }
-            task.postcssConfig.push(reporter);
-            const POSTCSS_CONFIG = {
-                private: [assets(task.postcssAsset.private)].concat(
-                    task.postcssConfig
-                ),
-                public: [assets(task.postcssAsset.public)].concat(
-                    task.postcssConfig
-                )
-            };
-
             return merge([
                 gulp
                     .src(task.src.private)
                     .pipe(plumber(handleErrors))
                     .pipe(sass(task.sass))
                     .pipe(flatten())
-                    .pipe(postcss(POSTCSS_CONFIG.private))
+                    .pipe(postcss(task.postcss.private))
                     .pipe(
                         mode.beautify ? beautify(task.beautifyOptions) : noop()
                     )
@@ -233,7 +197,7 @@ function getTask() {
                     )
                     .pipe(sass(task.sass))
                     .pipe(flatten())
-                    .pipe(postcss(POSTCSS_CONFIG.public))
+                    .pipe(postcss(task.postcss.public))
                     .pipe(
                         mode.beautify ? beautify(task.beautifyOptions) : noop()
                     )

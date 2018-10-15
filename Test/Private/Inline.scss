@@ -1,0 +1,8 @@
+.postcss-assets {
+  background-size: size("Circle.svg");
+  background-image: resolve("Circle.svg");
+
+  &.inline {
+    background-image: inline("Circle.svg");
+  }
+}

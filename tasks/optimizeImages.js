@@ -10,18 +10,16 @@ function getConfig() {
             svgo: {}
         };
         try {
-            IMAGEMIN_CONFIG.gifsicle =
-                CONFIG.tasks.css.postcss.imagemin.gifsicle;
+            IMAGEMIN_CONFIG.gifsicle = CONFIG.tasks.optimizeImages.gifsicle;
         } catch (error) {}
         try {
-            IMAGEMIN_CONFIG.jpegtran =
-                CONFIG.tasks.css.postcss.imagemin.jpegtran;
+            IMAGEMIN_CONFIG.jpegtran = CONFIG.tasks.optimizeImages.jpegtran;
         } catch (error) {}
         try {
-            IMAGEMIN_CONFIG.optipng = CONFIG.tasks.css.postcss.imagemin.optipng;
+            IMAGEMIN_CONFIG.optipng = CONFIG.tasks.optimizeImages.optipng;
         } catch (error) {}
         try {
-            IMAGEMIN_CONFIG.svgo = CONFIG.tasks.css.postcss.imagemin.svgo;
+            IMAGEMIN_CONFIG.svgo = CONFIG.tasks.optimizeImages.svgo;
         } catch (error) {}
 
         if (IMAGES_CONFIG) {

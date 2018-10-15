@@ -76,58 +76,66 @@ tasks:
         - './Packages/Plugins/'
         - './node_modules/'
     postcss:
-      additionalPlugins:
-        atStart: false
-        atEnd: false
-      assets:
-        loadPaths:
-          # Need to be a single directory
-          dest: Assets
-          # Need to be an array
-          src:
-            - Sprite
-            - Fusion
-          # Relative path from dest to src directory. This is needed for resolve inline assets
-          srcRelativeToDest: ../../Private/
-        private:
-          cachebuster: false
-          baseUrl: /_Resources/Static/Packages/%KEY%
-        public:
-          cachebuster: false
-      momentumScrolling:
-        - scroll
-        - auto
-        - inherit
-      presetEnv:
-        stage: 2
-      short:
-        skip: x
-      mqpacker:
-        sort: true
-      pxtorem:
-        rootValue: 16
-        unitPrecision: 5
-        propList:
-          - font
-          - font-size
-          - line-height
-          - letter-spacing
-        selectorBlackList: []
-        replace: true
-        mediaQuery: false
-        minPixelValue: 0
-      autoprefixer:
-        grid: true
-      cssnano:
-        reduceIdents: false
-        zindex: false
-        discardComments:
-          removeAll: true
-      imagemin:
-        gifsicle: {}
-        jpegtran: {}
-        optipng: {}
-        svgo: {}
+      beforeDefault: false
+      afterDefault: false
+      default:
+        postcss-preset-env:
+          stage: 2
+        postcss-vmax: true
+        postcss-clip-path-polyfill: true
+        postcss-short:
+          skip: x
+        postcss-center: true
+        postcss-responsive-type: true
+        postcss-clearfix: true
+        postcss-easings: true
+        postcss-focus: true
+        pleeease-filters: true
+        postcss-quantity-queries: true
+        postcss-momentum-scrolling:
+          - scroll
+          - auto
+          - inherit
+        postcss-flexbugs-fixes: true
+        css-mqpacker:
+          sort: true
+        postcss-round-subpixels: true
+        postcss-pxtorem:
+          rootValue: 16
+          unitPrecision: 5
+          propList:
+            - font
+            - font-size
+            - line-height
+            - letter-spacing
+          selectorBlackList: []
+          replace: true
+          mediaQuery: false
+          minPixelValue: 0
+      specialTreatment:
+        postcss-assets:
+          loadPaths:
+            # Need to be an single value
+            dest: Assets
+            # Can be an array or a single value
+            src:
+              - Sprite
+              - Fusion
+            # Relative path from dest to src directory. This is needed for resolve inline assets
+            srcRelativeToDest: ../../Private/
+          private:
+            cachebuster: false
+            baseUrl: /_Resources/Static/Packages/%KEY%
+          public:
+            cachebuster: false
+        autoprefixer:
+          grid: true
+        cssnano:
+          reduceIdents: false
+          zindex: false
+          discardComments:
+            removeAll: true
+        postcss-reporter: true
     cssbeautifyOptions:
       indent: '  '
       autosemicolon: true
@@ -177,6 +185,10 @@ tasks:
           module: false
   optimizeImages:
     custom: false
+    gifsicle: {}
+    jpegtran: {}
+    optipng: {}
+    svgo: {}
   images:
     custom: false
     src: Images

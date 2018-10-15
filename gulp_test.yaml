@@ -7,6 +7,7 @@ root:
   dest: 'Public'
   watch: 'Private/**'
   dontWatch: 'Private/Templates/**'
+  inlinePath: '../Public'
 
 tasks:
   clean:
@@ -14,19 +15,19 @@ tasks:
   css:
     file:
       - Test.scss
+      - Inline.scss
     src: ''
     dest: ''
     postcss:
-      additionalPlugins:
-        atStart:
-          postcss-flexbox: true
-        atEnd:
-          postcss-zindex:
-            startIndex: 10
-      assets:
-        loadPaths:
-          src:
-            - Images
+      specialTreatment:
+        postcss-assets:
+          loadPaths:
+            src: Images
+      beforeDefault:
+        postcss-flexbox: true
+      afterDefault:
+        postcss-zindex:
+          startIndex: 10
   js:
     src: ''
     dest: ''
@@ -37,6 +38,7 @@ tasks:
   test:
     expected:
       'Test/Public/Test.css': :root{--safe-area-inset-top:0}@supports (top:constant(safe-area-inset-top)){:root{--safe-area-inset-top:constant(safe-area-inset-top)}}@supports (top:env(safe-area-inset-top)){:root{--safe-area-inset-top:env(safe-area-inset-top)}}.postcss-flexbox{display:flex;flex-direction:row}.postcss-zindex--one{z-index:10}.postcss-zindex--two{z-index:11}.postcss-center{position:absolute;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.postcss-clip-path-polyfill{-webkit-clip-path:polygon(0 0,100% 100%,100% 0);clip-path:url('data:image/svg+xml;utf8,%3Csvg xmlns="http://www.w3.org/2000/svg"%3E%3Cdefs%3E%3CclipPath id="p" clipPathUnits="objectBoundingBox"%3E%3Cpolygon points="0 0, 1 1, 1 0" /%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E#p');clip-path:polygon(0 0,100% 100%,100% 0)}.postcss-flexbugs-fixes{flex:1 1}.postcss-focus:focus,.postcss-focus:hover{outline:0}.postcss-momentum-scrolling{overflow:scroll;-webkit-overflow-scrolling:touch}.pleeease-filters{-webkit-filter:blur(4px);filter:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /></filter></svg>#filter');filter:blur(4px)}:root{--mainColor:rgba(18,52,86,0.47059);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}.postcss-pxtorem{font-size:2rem;line-height:1.2;letter-spacing:.0625rem}.postcss-quantity-queries:nth-last-child(n+4),.postcss-quantity-queries:nth-last-child(n+4)~.postcss-quantity-queries{color:#639}.postcss-round-subpixels{height:123px;width:1235px;min-height:12.345rem;min-width:98.7654%}.postcss-short{margin-right:10px}.postcss-responsive-type{font-size:calc(.47529rem + 1.04651vw)}.postcss-clearfix:after{content:"";display:block;clear:both}.postcss-easings{transition:opacity 2s cubic-bezier(.47,0,.745,.715),-webkit-transform 1s cubic-bezier(.47,0,.745,.715);transition:transform 1s cubic-bezier(.47,0,.745,.715),opacity 2s cubic-bezier(.47,0,.745,.715);transition:transform 1s cubic-bezier(.47,0,.745,.715),opacity 2s cubic-bezier(.47,0,.745,.715),-webkit-transform 1s cubic-bezier(.47,0,.745,.715)}.postcss-vmax{font-size:1vmax}.postcss-assets{background-size:260px 260px;background-image:url(Assets/Circle.svg)}.postcss-assets.inline{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='260' height='260' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle fill='%23FFF' cx='130' cy='130' r='130'/%3E%3C/svg%3E")}body{background:#fff}.scss-nesting a{color:rgba(0,0,0,.5);background:#fff}@media screen and (min-width:10px){.css-mqpacker.sort-css-media-queries{width:10px;height:10px}}@media screen and (min-width:20px){.css-mqpacker.sort-css-media-queries{width:16px}}@media screen and (min-width:1280px){.postcss-responsive-type{font-size:1.3125rem}}@media screen and (max-width:420px){.postcss-responsive-type{font-size:.75rem}}@media (max-width:60px) and (min-width:40px){.css-mqpacker.sort-css-media-queries{display:inline}}@media screen and (max-width:30px){.css-mqpacker.sort-css-media-queries{line-height:1;font-size:1.875rem}}@media (orientation:landscape){.postcss-vmax{font-size:1vw}}@media (orientation:portrait){.postcss-vmax{font-size:1vh}}
+      'Test/Public/Inline.css': .postcss-assets{background-size:260px 260px;background-image:url(/_Resources/Static/Packages/Assets/Circle.svg)}.postcss-assets.inline{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='260' height='260' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle fill='%23FFF' cx='130' cy='130' r='130'/%3E%3C/svg%3E")}
       'Test/Public/Test.js': '["Hello World","Hello Carbon.Gulp"]'
       'Test/Public/Sprite.svg': <?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol viewBox="0 0 260 260" id="icon-circle" xmlns="http://www.w3.org/2000/svg"><circle fill="#FFF" cx="130" cy="130" r="130"/></symbol></svg>
       'Test/Public/Assets/Circle.svg': '<svg width="260" height="260" xmlns="http://www.w3.org/2000/svg"><circle fill="#FFF" cx="130" cy="130" r="130"/></svg>'
