@@ -169,6 +169,7 @@ function getTask() {
     const postcss = require("gulp-postcss");
     const beautify = require("gulp-cssbeautify");
     const TASK_CONFIG = getConfig();
+    sass.compiler = require("node-sass");
 
     return merge(
         TASK_CONFIG.map(task => {
