@@ -1,3 +1,9 @@
+# Copy the defaults (no overwriting)
+cp -nv Build/Gulp/Distribution/.gitignore  ./
+cp -nv Build/Gulp/package.json ./
+cp -nv Build/Gulp/gulp_global.yaml ./
+cp -nv Build/Gulp/gulp_local.yaml ./
+
 # Copy the essentials
 cp Build/Gulp/.editorconfig ./
 cp Build/Gulp/.eslintignore ./
