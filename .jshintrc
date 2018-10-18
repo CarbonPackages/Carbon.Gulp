@@ -3,16 +3,8 @@
   "undef": true,
   "unused": true,
   "asi": true,
-  "predef": [
-    "$",
-    "Carbon",
-    "console",
-    "document",
-    "jQuery",
-    "location",
-    "require",
-    "window"
-  ],
+  "browser": true,
+  "predef": ["$", "Carbon", "jQuery", "require"],
   "esversion": 6,
   "eqeqeq": false,
   "eqnull": false,
