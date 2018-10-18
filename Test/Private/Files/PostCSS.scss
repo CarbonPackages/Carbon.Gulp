@@ -1,4 +1,3 @@
-
 // PostCSS Packages Test == class name
 
 .postcss-flexbox {
@@ -115,3 +114,10 @@
   }
 }
 
+.postcss-calc {
+  width: calc(3rem * 2 - 1rem);
+  height: calc(1px - (2em + 3%));
+  font-size: calc(calc(calc(1rem * 0.75) * 1.5) - 1px);
+  margin-top: calc(calc(calc(1rem * 0.75) * 1.5) - 1rem);
+  padding-top: calc(var(--h) * 1em);
+}
