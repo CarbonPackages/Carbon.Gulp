@@ -81,6 +81,7 @@ tasks:
       default:
         postcss-preset-env:
           stage: 2
+          autoprefixer: false
         postcss-vmax: true
         postcss-clip-path-polyfill: true
         postcss-short:
