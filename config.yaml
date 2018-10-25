@@ -97,6 +97,7 @@ tasks:
         - inherit
       presetEnv:
         stage: 2
+        autoprefixer: false
       pseudoelements:
         single: true
         selectors:
