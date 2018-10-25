@@ -121,3 +121,16 @@
   margin-top: calc(calc(calc(1rem * 0.75) * 1.5) - 1rem);
   padding-top: calc(var(--h) * 1em);
 }
+
+.postcss-autoprefixer {
+  display: grid;
+  grid-template:
+    ". ." 1fr
+    "autoprefixer ." auto
+    / auto 1fr;
+}
+
+.postcss-autoprefixer-element {
+  grid-area: autoprefixer;
+  place-self: center;
+}

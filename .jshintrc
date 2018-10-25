@@ -4,7 +4,7 @@
   "unused": true,
   "asi": true,
   "browser": true,
-  "predef": ["$", "Carbon", "jQuery", "require"],
+  "predef": ["$", "Carbon", "console", "jQuery", "require"],
   "esversion": 6,
   "eqeqeq": false,
   "eqnull": false,
