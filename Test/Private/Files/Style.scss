@@ -14,3 +14,16 @@ p {
     }
   }
 }
+
+.postcss-autoprefixer {
+  display: grid;
+  grid-template:
+    ". ." 1fr
+    "autoprefixer ." auto
+    / auto 1fr;
+}
+
+.postcss-autoprefixer-element {
+  grid-area: autoprefixer;
+  place-self: center;
+}
