@@ -122,6 +122,7 @@ tasks:
             src:
               - Sprite
               - Fusion
+              - Images
             # Relative path from dest to src directory. This is needed for resolve inline assets
             srcRelativeToDest: ../../Private/
           private:
