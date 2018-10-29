@@ -173,47 +173,58 @@ function getTask() {
 
     return merge(
         TASK_CONFIG.map(task => {
-            return merge([
-                gulp
-                    .src(task.src.private)
-                    .pipe(plumber(handleErrors))
-                    .pipe(sass(task.sass))
-                    .pipe(flatten())
-                    .pipe(postcss(task.postcss.private))
-                    .pipe(
-                        mode.beautify ? beautify(task.beautifyOptions) : noop()
-                    )
-                    .pipe(chmod(config.global.chmod))
-                    .pipe(plumber.stop())
-                    .pipe(gulp.dest(task.dest.private))
-                    .pipe(sizeOutput(task.key, "CSS", false)),
-
-                gulp
-                    .src(task.src.public)
-                    .pipe(plumber(handleErrors))
-                    .pipe(
-                        mode.maps && task.sourceMaps
-                            ? sourcemaps.init({ loadMaps: true })
-                            : noop()
-                    )
-                    .pipe(sass(task.sass))
-                    .pipe(flatten())
-                    .pipe(postcss(task.postcss.public))
-                    .pipe(
-                        mode.beautify ? beautify(task.beautifyOptions) : noop()
-                    )
-                    .pipe(chmod(config.global.chmod))
-                    .pipe(pipeBanner(task))
-                    .pipe(
-                        mode.maps && task.sourceMaps
-                            ? sourcemaps.write("")
-                            : noop()
-                    )
-                    .pipe(plumber.stop())
-                    .pipe(gulp.dest(task.dest.public))
-                    .pipe(browserSync ? browserSync.stream() : noop())
-                    .pipe(sizeOutput(task.key, "CSS"))
-            ]);
+            let array = [];
+            if (task.src.private) {
+                array.push(
+                    gulp
+                        .src(task.src.private)
+                        .pipe(plumber(handleErrors))
+                        .pipe(sass(task.sass))
+                        .pipe(flatten())
+                        .pipe(postcss(task.postcss.private))
+                        .pipe(
+                            mode.beautify
+                                ? beautify(task.beautifyOptions)
+                                : noop()
+                        )
+                        .pipe(chmod(config.global.chmod))
+                        .pipe(plumber.stop())
+                        .pipe(gulp.dest(task.dest.private))
+                        .pipe(sizeOutput(task.key, "CSS", false))
+                );
+            }
+            if (task.src.public) {
+                array.push(
+                    gulp
+                        .src(task.src.public)
+                        .pipe(plumber(handleErrors))
+                        .pipe(
+                            mode.maps && task.sourceMaps
+                                ? sourcemaps.init({ loadMaps: true })
+                                : noop()
+                        )
+                        .pipe(sass(task.sass))
+                        .pipe(flatten())
+                        .pipe(postcss(task.postcss.public))
+                        .pipe(
+                            mode.beautify
+                                ? beautify(task.beautifyOptions)
+                                : noop()
+                        )
+                        .pipe(chmod(config.global.chmod))
+                        .pipe(pipeBanner(task))
+                        .pipe(
+                            mode.maps && task.sourceMaps
+                                ? sourcemaps.write("")
+                                : noop()
+                        )
+                        .pipe(plumber.stop())
+                        .pipe(gulp.dest(task.dest.public))
+                        .pipe(browserSync ? browserSync.stream() : noop())
+                        .pipe(sizeOutput(task.key, "CSS"))
+                );
+            }
+            return merge(array);
         })
     );
 }

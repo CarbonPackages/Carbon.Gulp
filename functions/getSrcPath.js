@@ -43,8 +43,9 @@ module.exports = function({
     let excludeUnderscore = "[^_]";
 
     if (file) {
-        let files = checkFile(file);
-        return path.join(basePath, inline ? files.inline : files.extern);
+        let checkFiles = checkFile(file);
+        let files = inline ? checkFiles.inline : checkFiles.extern;
+        return files ? path.join(basePath, files) : false;
     }
 
     if (inline) {
