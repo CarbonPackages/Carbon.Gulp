@@ -152,31 +152,41 @@ function jsRender(taskName) {
                     require("rollup")
                 );
             }
-            return merge([
-                gulp
-                    .src(task.src.private)
-                    .pipe(plumber(handleErrors))
-                    .pipe(rollupPipe())
-                    .pipe(chmod(config.global.chmod))
-                    .pipe(plumber.stop())
-                    .pipe(gulp.dest(task.dest.private))
-                    .pipe(sizeOutput(task.key, taskName.toUpperCase(), false)),
-                gulp
-                    .src(task.src.public)
-                    .pipe(plumber(handleErrors))
-                    .pipe(
-                        task.sourcemap
-                            ? sourcemaps.init({ loadMaps: true })
-                            : noop()
-                    )
-                    .pipe(rollupPipe())
-                    .pipe(chmod(config.global.chmod))
-                    .pipe(pipeBanner(task))
-                    .pipe(task.sourcemap ? sourcemaps.write("") : noop())
-                    .pipe(plumber.stop())
-                    .pipe(gulp.dest(task.dest.public))
-                    .pipe(sizeOutput(task.key, taskName.toUpperCase()))
-            ]);
+            let array = [];
+            if (task.src.private) {
+                array.push(
+                    gulp
+                        .src(task.src.private)
+                        .pipe(plumber(handleErrors))
+                        .pipe(rollupPipe())
+                        .pipe(chmod(config.global.chmod))
+                        .pipe(plumber.stop())
+                        .pipe(gulp.dest(task.dest.private))
+                        .pipe(
+                            sizeOutput(task.key, taskName.toUpperCase(), false)
+                        )
+                );
+            }
+            if (task.src.public) {
+                array.push(
+                    gulp
+                        .src(task.src.public)
+                        .pipe(plumber(handleErrors))
+                        .pipe(
+                            task.sourcemap
+                                ? sourcemaps.init({ loadMaps: true })
+                                : noop()
+                        )
+                        .pipe(rollupPipe())
+                        .pipe(chmod(config.global.chmod))
+                        .pipe(pipeBanner(task))
+                        .pipe(task.sourcemap ? sourcemaps.write("") : noop())
+                        .pipe(plumber.stop())
+                        .pipe(gulp.dest(task.dest.public))
+                        .pipe(sizeOutput(task.key, taskName.toUpperCase()))
+                );
+            }
+            return merge(array);
         })
     );
 }
