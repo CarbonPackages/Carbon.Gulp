@@ -173,9 +173,7 @@ function jsRender(taskName) {
                         .src(task.src.public)
                         .pipe(plumber(handleErrors))
                         .pipe(
-                            task.sourcemap
-                                ? sourcemaps.init({ loadMaps: true })
-                                : noop()
+                            task.sourcemap ? sourcemaps.identityMap() : noop()
                         )
                         .pipe(rollupPipe())
                         .pipe(chmod(config.global.chmod))

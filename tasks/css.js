@@ -200,7 +200,7 @@ function getTask() {
                         .pipe(plumber(handleErrors))
                         .pipe(
                             mode.maps && task.sourceMaps
-                                ? sourcemaps.init({ loadMaps: true })
+                                ? sourcemaps.identityMap()
                                 : noop()
                         )
                         .pipe(sass(task.sass))
