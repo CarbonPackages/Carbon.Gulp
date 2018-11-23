@@ -64,7 +64,6 @@ tasks:
     extensions:
       - sass
       - scss
-      - css
     sass:
       imagePath: Assets
       precision: 10
