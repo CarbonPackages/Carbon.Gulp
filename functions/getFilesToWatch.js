@@ -1,7 +1,7 @@
 const sureArray = require("./sureArray");
 const getExtensions = require("./getExtensions");
 
-module.exports = function(taskName, configuration = config, key = "**") {
+module.exports = function(taskName, configuration = config, key = "") {
     const TASK_CONF = configuration.tasks[taskName];
     const WATCH_CONFIG = sureArray(configuration.root.watch);
     const DONT_WATCH = sureArray(configuration.root.dontWatch);
