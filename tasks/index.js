@@ -142,12 +142,13 @@ task.watch = () => {
         }
     }
 
+    const WATCH_KEY = config.global.mergeConfigFromPackages ? "**" : "";
     WATCH_TASK.forEach(taskName => {
         let filesToWatch = [];
         for (const KEY in config.packages) {
             const CONFIG = config.packages[KEY];
             filesToWatch = filesToWatch.concat(
-                getFilesToWatch(taskName, CONFIG)
+                getFilesToWatch(taskName, CONFIG, WATCH_KEY)
             );
         }
         watchTask(taskName, filesToWatch);
