@@ -21,7 +21,7 @@ function getConfig(taskName) {
         const JS_CONFIG = CONFIG.tasks[taskName];
 
         if (JS_CONFIG) {
-            const SOURCEMAP = JS_CONFIG.sourceMaps && mode.maps;
+            const SOURCEMAP = mode.maps && JS_CONFIG.sourceMaps;
             const PATHS = {
                 key: path.join(CONFIG.root.base || "", KEY)
             };
@@ -101,7 +101,7 @@ function getConfig(taskName) {
                 rollup.plugins.push(
                     ROLLUP_PLUGIN.TERSER(
                         Object.assign({}, rollup.config.plugins.terser, {
-                            sourcemap: SOURCEMAP
+                            sourcemap: !!SOURCEMAP
                         })
                     )
                 );
@@ -173,7 +173,16 @@ function jsRender(taskName) {
                         .src(task.src.public)
                         .pipe(plumber(handleErrors))
                         .pipe(
-                            task.sourcemap ? sourcemaps.identityMap() : noop()
+                            task.sourcemap
+                                ? task.sourcemap.options
+                                    ? sourcemaps.init(task.sourcemap.options)
+                                    : sourcemaps.init()
+                                : noop()
+                        )
+                        .pipe(
+                            task.sourcemap && task.sourcemap.identityMap
+                                ? sourcemaps.identityMap()
+                                : noop()
                         )
                         .pipe(rollupPipe())
                         .pipe(chmod(config.global.chmod))

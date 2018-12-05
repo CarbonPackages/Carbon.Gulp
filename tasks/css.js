@@ -200,6 +200,15 @@ function getTask() {
                         .pipe(plumber(handleErrors))
                         .pipe(
                             mode.maps && task.sourceMaps
+                                ? task.sourceMaps.options
+                                    ? sourcemaps.init(task.sourceMaps.options)
+                                    : sourcemaps.init()
+                                : noop()
+                        )
+                        .pipe(
+                            mode.maps &&
+                                task.sourceMaps &&
+                                task.sourceMaps.identityMap
                                 ? sourcemaps.identityMap()
                                 : noop()
                         )
