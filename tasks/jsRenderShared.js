@@ -97,7 +97,7 @@ function getConfig(taskName) {
                 }
             }
 
-            if (mode.minimize) {
+            if (mode.minimize && rollup.config.plugins.terser) {
                 rollup.plugins.push(
                     ROLLUP_PLUGIN.TERSER(
                         Object.assign({}, rollup.config.plugins.terser, {
