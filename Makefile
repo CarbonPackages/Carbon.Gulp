@@ -27,12 +27,12 @@ push_release:
 
 patch_release:
 	yarn version --patch
-	push_release
+	make push_release
 
 minor_release:
 	yarn version --minor
-	push_release
+	make push_release
 
 major_release:
 	yarn version --major
-	push_release
+	make push_release
