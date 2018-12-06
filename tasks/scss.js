@@ -159,4 +159,4 @@ function getTask(callback) {
     }
 }
 
-module.exports = exportTask("scss", getTask, !!config.tasks.css);
+module.exports = exportTask("scss", getTask);
