@@ -1,6 +1,6 @@
 before_install:
   - touch yarn.lock
 before_script:
-  - yarn add postcss-flexbox postcss-zindex
+  - make before_test
 language: node_js
-script: gulp --cwd ./ --gulpfile ./index.js test --carbon
+script: make before_test

@@ -4,5 +4,6 @@
 /.travis.yaml export-ignore
 /CODE_OF_CONDUCT.md export-ignore
 /gulp_test.yaml export-ignore
+/Makefile export-ignore
 /Test export-ignore
 /yarn.lock export-ignore

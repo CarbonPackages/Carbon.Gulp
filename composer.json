@@ -34,6 +34,7 @@
             ".travis.yaml",
             "CODE_OF_CONDUCT.md",
             "gulp_test.yaml",
+            "Makefile",
             "Test",
             "yarn.lock"
         ]
