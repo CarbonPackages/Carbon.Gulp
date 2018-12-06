@@ -3,4 +3,4 @@ before_install:
 before_script:
   - make before_test
 language: node_js
-script: make before_test
+script: make test
