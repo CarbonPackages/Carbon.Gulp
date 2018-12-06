@@ -55,7 +55,9 @@ if (config.tasks.css) {
     gulp.task("css", bach.series(task.scss, task.css));
     gulp.task("css").description = "Render CSS Files";
     gulp.task("css").flags = flags;
+}
 
+if (config.tasks.scss) {
     gulp.task("scss", task.scss);
     gulp.task("scss").description =
         "Render _all.scss, _allsub.scss and _allFusion.scss Files";
