@@ -1,3 +1,37 @@
+.PHONY: default
+
+default:
+	@echo ""
+	@echo ""
+	@echo "      Usage: make COMMAND"
+	@echo ""
+	@echo "--------------------------------------------------------------------------"
+	@echo ""
+	@echo "      upgrade          Check if there are any new dependencies available"
+	@echo ""
+	@echo "--------------------------------------------------------------------------"
+	@echo ""
+	@echo "      local_test       Prepare and run the test and reset the files"
+	@echo "      before_test      Prepare the test"
+	@echo "      test             Run the test"
+	@echo "      reset_git_files  Reset the files to a commitable status"
+	@echo ""
+	@echo "--------------------------------------------------------------------------"
+	@echo ""
+	@echo "      patch_release    Relase a patch version and push it to git"
+	@echo "      minor_release    Relase a minor version and push it to git"
+	@echo "      major_release    Relase a major version and push it to git"
+	@echo "      push_release     Push the release to git"
+	@echo ""
+	@echo "--------------------------------------------------------------------------"
+
+# Upgrade
+.PHONY: upgrade
+
+upgrade:
+	yarn upgrade-interactive --latest
+
+
 # Test
 
 .PHONY: test before_test reset_git_files local_test
