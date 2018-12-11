@@ -12,7 +12,7 @@ default:
 	@echo ""
 	@echo "--------------------------------------------------------------------------"
 	@echo ""
-	@echo "      local_test       Prepare and run the test and reset the files"
+	@echo "      local_test       Prepare, run the test, and reset the files"
 	@echo "      before_test      Prepare the test"
 	@echo "      test             Run the test"
 	@echo "      reset_git_files  Reset the files to a commitable status"
@@ -25,6 +25,7 @@ default:
 	@echo "      push_release     Push the release to git"
 	@echo ""
 	@echo "--------------------------------------------------------------------------"
+	@echo ""
 
 # Upgrade
 .PHONY: upgrade
