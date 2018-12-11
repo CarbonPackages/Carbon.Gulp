@@ -8,6 +8,7 @@ default:
 	@echo "--------------------------------------------------------------------------"
 	@echo ""
 	@echo "      upgrade          Check if there are any new dependencies available"
+	@echo "      commit           Commit upgraded dependencies"
 	@echo ""
 	@echo "--------------------------------------------------------------------------"
 	@echo ""
@@ -31,6 +32,14 @@ default:
 upgrade:
 	yarn upgrade-interactive --latest
 
+# commit
+
+.PHONY: commit
+
+commit:
+	git add package.json
+	git commit -m ":arrow_up: Upgrading dependencies"
+	git push
 
 # Test
 
