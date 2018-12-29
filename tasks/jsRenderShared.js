@@ -141,6 +141,7 @@ function jsRender(taskName) {
             function rollupPipe() {
                 return ROLLUP_EACH(
                     {
+                        isCache: task.rollup.config.useCache,
                         plugins: task.rollup.plugins
                     },
                     file => {

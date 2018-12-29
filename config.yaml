@@ -172,6 +172,7 @@ tasks:
       # -  umd     Universal Module Definition, works as amd, cjs and iife all in one
       # -  system  Native format of the SystemJS loader
       format: iife
+      useCache: true
       plugins:
         builtins: true
         nodeResolve:
