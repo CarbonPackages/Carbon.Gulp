@@ -12,6 +12,7 @@ const ROLLUP_PLUGIN = {
     TERSER: require("rollup-plugin-terser").terser
 };
 
+const ROLLUP_LIBRARY = require("rollup");
 const ROLLUP_EACH = require("gulp-rollup-each");
 
 function getConfig(taskName) {
@@ -150,7 +151,7 @@ function jsRender(taskName) {
                             name: path.parse(file.path)["name"]
                         };
                     },
-                    require("rollup")
+                    ROLLUP_LIBRARY
                 );
             }
             let array = [];
