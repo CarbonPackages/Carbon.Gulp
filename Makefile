@@ -53,6 +53,7 @@ test:
 	gulp --cwd ./ --gulpfile ./index.js test --carbon
 
 reset_git_files:
+	rm -rf Test/Public
 	git checkout Test/Private/*
 	yarn remove postcss-flexbox postcss-zindex
 
