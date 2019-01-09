@@ -45,6 +45,13 @@ if [ "$(_isSameRelease)" = "true" ]
         echo "Please enter ${RED}nvm use${NC} to ensure the right node version"
         rm -rf node_modules yarn.lock
     fi
-    echo $package,$_version,$_babel,$_scripts,$_devDependencies | json --merge > package.json
+
+    # Merge babel only if it is here
+    if [ "$(cat package.json | json babel)" ]
+      then
+        echo $package,$_version,$_babel,$_scripts,$_devDependencies | json --merge > package.json
+      else
+        echo $package,$_version,$_scripts,$_devDependencies | json --merge > package.json
+    fi
 fi
 echo
