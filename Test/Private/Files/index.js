@@ -1,5 +1,11 @@
-export default function(string = "Hello Carbon.Gulp") {
+const returnFunction = value => value;
+
+const arrowFunction = string => {
     if (array) {
-        array.push(string);
+        array.push(returnFunction(string));
     }
+};
+
+export default function(string = "Hello Carbon.Gulp") {
+    arrowFunction(string);
 }
