@@ -13,9 +13,20 @@ overrides:
     options:
       tabWidth: 2
       singleQuote: true
-  - files: '*.js'
+  - files:
+    - '*.js'
+    - '*.jsx'
+    - '*.mjs'
+    - '*.mjsx'
+    - '*.ts'
+    - '*.tsx'
+    - '*.mts'
+    - '*.mtsx'
+    - '*.vue'
+    - '*.mvue'
     options:
       tabWidth: 4
+      singleQuote: true
   - files: '*.scss'
     options:
       printWidth: 300
