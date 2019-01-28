@@ -56,7 +56,7 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
     "ansi-colors": "^3.2.3",
-    "autoprefixer": "^9.4.6",
+    "autoprefixer": "^9.4.7",
     "browser-sync": "2.26.3",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.8",
