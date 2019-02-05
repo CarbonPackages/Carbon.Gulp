@@ -40,6 +40,7 @@
         ]
     },
     "extra": {
+        "author": "Jon Uhlmann",
         "marketplace-account": "me@jonnitto.ch",
         "installer-name": "Gulp"
     }

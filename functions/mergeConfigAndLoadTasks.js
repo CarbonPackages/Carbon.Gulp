@@ -70,7 +70,8 @@ function getInfoFromComposer(path = "") {
     try {
         let composer = require(`../../../${path}composer.json`);
 
-        config.info.author = composer.author || config.info.author;
+        config.info.author = 
+            composer.author || composer.extra.author || config.info.author;
         config.info.homepage = composer.homepage || config.info.homepage;
     } catch (error) {}
 }
