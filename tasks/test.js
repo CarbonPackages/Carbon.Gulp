@@ -47,7 +47,10 @@ function test(callback) {
                         eval(entry.data);
                         entry.data = JSON.stringify(array);
                     }
-                    if (entry.file == "Test/Private/Images/Polygon.svg") {
+                    if (
+                        entry.file == "Test/Public/Test.css" || 
+                        entry.file == "Test/Private/Images/Polygon.svg"
+                    ) {
                         entry.data = entry.data.replace(/\n/g, "XXX");
                     }
                     testIfExpected(entry);
