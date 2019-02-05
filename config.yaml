@@ -82,6 +82,9 @@ tasks:
       beforeDefault: false
       afterDefault: false
       default:
+        postcss-normalize:
+          allowDuplicates: false
+          forceImport: false
         postcss-preset-env:
           stage: 2
           autoprefixer: false

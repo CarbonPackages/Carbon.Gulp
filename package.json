@@ -101,6 +101,7 @@
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-focus": "^4.0.0",
     "postcss-momentum-scrolling": "^1.5.10",
+    "postcss-normalize": "^7.0.1",
     "postcss-preset-env": "^6.5.0",
     "postcss-pxtorem": "^4.0.1",
     "postcss-quantity-queries": "^0.5.0",
