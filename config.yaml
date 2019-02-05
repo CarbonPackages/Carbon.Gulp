@@ -88,6 +88,10 @@ tasks:
         postcss-preset-env:
           stage: 2
           autoprefixer: false
+        postcss-easing-gradients:
+          colorStops: 15
+          alphaDecimals: 5
+          colorMode: lrgb
         postcss-vmax: true
         postcss-clip-path-polyfill: true
         postcss-short:

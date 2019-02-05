@@ -97,6 +97,7 @@
     "postcss-center": "^1.1.0",
     "postcss-clearfix": "^2.0.1",
     "postcss-clip-path-polyfill": "^1.0.4",
+    "postcss-easing-gradients": "^3.0.1",
     "postcss-easings": "^2.0.0",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-focus": "^4.0.0",
