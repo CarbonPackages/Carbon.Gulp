@@ -130,7 +130,7 @@
     "sort-css-media-queries": "^1.4.3",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
-    "stylelint-scss": "^3.5.2",
+    "stylelint-scss": "^3.5.3",
     "text-table": "^0.2.0"
   }
 }
