@@ -60,7 +60,7 @@
     "browser-sync": "2.26.3",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
-    "del": "^3.0.0",
+    "del": "^4.0.0",
     "eslint": "^5.15.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-config-xo": "^0.26.0",
