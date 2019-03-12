@@ -69,7 +69,7 @@ if (config.tasks.js) {
     gulp.task("js").flags = flags;
 }
 
-if (config.tasks.images) {
+if (config.tasks.images && config.tasks.optimizeImages) {
     gulp.task("optimizeImages", task.optimizeImages);
     gulp.task("optimizeImages").description =
         "Optimize images and overwrite them in the public folder";
@@ -176,7 +176,10 @@ function setPipelineEnvironment(callback) {
 }
 
 if (config.tasks.pipeline && typeof config.tasks.pipeline == "object") {
-    let series = gulp.series(setPipelineEnvironment, config.tasks.pipeline);
+    let series = gulp.series(
+        setPipelineEnvironment,
+        config.tasks.pipeline.filter(task => !!task[task] || task == "build")
+    );
     gulp.task("pipeline", series);
     gulp.task("pipeline").description = "Make files production ready";
 }
