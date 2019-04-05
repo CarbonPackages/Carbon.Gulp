@@ -1,17 +1,17 @@
 info:
   author: false
   homepage: false
-  banner: "/*!\n * <%= package %> - created by <%= author %>\n * @build <%= timestamp %>\n * @link <%= homepage %>\n */\n"
+  banner: "/*!\n * <%= package %> - created by <%= author %>\n * @link <%= homepage %>\n */\n"
   package: false
 
 global:
   mergeConfigFromPackages:
-    - src
-    - .src
-    - _src
-    - Source
-    - LocalPackages
     - DistributionPackages
+    - LocalPackages
+    - Source
+    - _src
+    - .src
+    - src
   notifications: false
   browserSync:
     enable: true
