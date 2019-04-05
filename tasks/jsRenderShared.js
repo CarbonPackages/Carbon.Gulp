@@ -1,19 +1,19 @@
 const ROLLUP_PLUGIN = {
-    AMD: require("rollup-plugin-amd"),
-    BABEL: require("rollup-plugin-babel"),
-    BUBLE: require("rollup-plugin-buble"),
-    BUILTINS: require("rollup-plugin-node-builtins"),
-    CJS: require("rollup-plugin-commonjs"),
-    GLOBALS: require("rollup-plugin-node-globals"),
-    INCLUDEPATHS: require("rollup-plugin-includepaths"),
-    REPLACE: require("rollup-plugin-replace"),
-    RESOLVE: require("rollup-plugin-node-resolve"),
-    SOURCEMAPS: require("rollup-plugin-sourcemaps"),
-    TERSER: require("rollup-plugin-terser").terser
+    AMD: require('rollup-plugin-amd'),
+    BABEL: require('rollup-plugin-babel'),
+    BUBLE: require('rollup-plugin-buble'),
+    BUILTINS: require('rollup-plugin-node-builtins'),
+    CJS: require('rollup-plugin-commonjs'),
+    GLOBALS: require('rollup-plugin-node-globals'),
+    INCLUDEPATHS: require('rollup-plugin-includepaths'),
+    REPLACE: require('rollup-plugin-replace'),
+    RESOLVE: require('rollup-plugin-node-resolve'),
+    SOURCEMAPS: require('rollup-plugin-sourcemaps'),
+    TERSER: require('rollup-plugin-terser').terser
 };
 
-const ROLLUP_LIBRARY = require("rollup");
-const ROLLUP_EACH = require("gulp-rollup-each");
+const ROLLUP_LIBRARY = require('rollup');
+const ROLLUP_EACH = require('gulp-rollup-each');
 
 function getConfig(taskName) {
     const TASK_CONFIG = [];
@@ -24,20 +24,20 @@ function getConfig(taskName) {
         if (JS_CONFIG) {
             const SOURCEMAP = mode.maps && JS_CONFIG.sourceMaps;
             const PATHS = {
-                key: path.join(CONFIG.root.base || "", KEY)
+                key: path.join(CONFIG.root.base || '', KEY)
             };
             PATHS.root = {
-                src: path.join(PATHS.key, CONFIG.root.src || ""),
-                dest: path.join(PATHS.key, CONFIG.root.dest || "")
+                src: path.join(PATHS.key, CONFIG.root.src || ''),
+                dest: path.join(PATHS.key, CONFIG.root.dest || '')
             };
             PATHS.dest = {
                 private: path.join(
                     PATHS.root.src,
-                    CONFIG.root.inlinePath || ""
+                    CONFIG.root.inlinePath || ''
                 ),
-                public: path.join(PATHS.root.dest, JS_CONFIG.dest || "")
+                public: path.join(PATHS.root.dest, JS_CONFIG.dest || '')
             };
-            PATHS.base = path.join(PATHS.root.src, JS_CONFIG.src || "");
+            PATHS.base = path.join(PATHS.root.src, JS_CONFIG.src || '');
 
             let rollup = {
                 config: JS_CONFIG.rollup,
@@ -48,7 +48,7 @@ function getConfig(taskName) {
                 let includePaths = rollup.config.plugins.includePaths;
                 if (
                     includePaths.paths &&
-                    includePaths.paths[0] == "COMPOSER_PACKAGES"
+                    includePaths.paths[0] == 'COMPOSER_PACKAGES'
                 ) {
                     includePaths.paths[0] = PATHS.root.src;
                 }
@@ -56,14 +56,14 @@ function getConfig(taskName) {
                     ROLLUP_PLUGIN.INCLUDEPATHS(includePaths),
                     ROLLUP_PLUGIN.RESOLVE(rollup.config.plugins.nodeResolve),
                     ROLLUP_PLUGIN.REPLACE({
-                        "process.env.NODE_ENV": JSON.stringify(
-                            mode.minimize ? "production" : "development"
+                        'process.env.NODE_ENV': JSON.stringify(
+                            mode.minimize ? 'production' : 'development'
                         )
                     })
                 ];
 
                 if (rollup.config.plugins.commonjs) {
-                    if (typeof rollup.config.plugins.commonjs == "boolean") {
+                    if (typeof rollup.config.plugins.commonjs == 'boolean') {
                         rollup.plugins.push(ROLLUP_PLUGIN.CJS());
                     } else {
                         rollup.plugins.push(
@@ -72,7 +72,7 @@ function getConfig(taskName) {
                     }
                 }
                 if (rollup.config.plugins.amd) {
-                    if (typeof rollup.config.plugins.amd == "boolean") {
+                    if (typeof rollup.config.plugins.amd == 'boolean') {
                         rollup.plugins.push(ROLLUP_PLUGIN.AMD());
                     } else {
                         rollup.plugins.push(
@@ -81,7 +81,7 @@ function getConfig(taskName) {
                     }
                 }
 
-                if (JS_CONFIG.compiler.toLowerCase() == "babel") {
+                if (JS_CONFIG.compiler.toLowerCase() == 'babel') {
                     rollup.plugins.push(ROLLUP_PLUGIN.BABEL(JS_CONFIG.babel));
                 } else {
                     rollup.plugins.push(ROLLUP_PLUGIN.BUBLE(JS_CONFIG.buble));
@@ -148,7 +148,7 @@ function jsRender(taskName) {
                     file => {
                         return {
                             format: task.rollup.config.format,
-                            name: path.parse(file.path)["name"]
+                            name: path.parse(file.path)['name']
                         };
                     },
                     ROLLUP_LIBRARY
@@ -189,7 +189,7 @@ function jsRender(taskName) {
                         .pipe(rollupPipe())
                         .pipe(chmod(config.global.chmod))
                         .pipe(pipeBanner(task))
-                        .pipe(task.sourcemap ? sourcemaps.write("") : noop())
+                        .pipe(task.sourcemap ? sourcemaps.write('') : noop())
                         .pipe(plumber.stop())
                         .pipe(gulp.dest(task.dest.public))
                         .pipe(sizeOutput(task.key, taskName.toUpperCase()))

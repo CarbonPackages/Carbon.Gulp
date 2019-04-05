@@ -1,44 +1,44 @@
-const readYaml = require("./readYaml");
-const mergeConfigAndLoadTasks = require("./mergeConfigAndLoadTasks");
+const readYaml = require('./readYaml');
+const mergeConfigAndLoadTasks = require('./mergeConfigAndLoadTasks');
 const LIBRARIES = {
-    bach: "bach",
-    cache: "gulp-memory-cache",
-    changed: "gulp-changed",
-    chmod: "gulp-chmod",
-    colors: "ansi-colors",
-    flatten: "gulp-flatten",
-    fs: "fs",
-    glob: "glob",
-    gulp: "gulp",
-    header: "gulp-header",
-    imagemin: "gulp-imagemin",
-    log: "fancy-log",
-    merge: "merge-stream",
-    noop: "gulp-noop",
-    notifier: "node-notifier",
-    objectAssignDeep: "object-assign-deep",
-    path: "path",
-    plumber: "gulp-plumber",
-    rename: "gulp-rename",
-    sourcemaps: "gulp-sourcemaps",
-    textTable: "text-table",
-    yaml: "js-yaml",
-    callbackFunc: "./callbackFunc",
-    callbackTimeout: "./callbackTimeout",
-    exportTask: "./exportTask",
-    getExtensions: "./getExtensions",
-    getFilesToWatch: "./getFilesToWatch",
-    getSrcPath: "./getSrcPath",
-    handleErrors: "./handleErrors",
-    pipeBanner: "./pipeBanner",
-    sizeOutput: "./sizeOutput"
+    bach: 'bach',
+    cache: 'gulp-memory-cache',
+    changed: 'gulp-changed',
+    chmod: 'gulp-chmod',
+    colors: 'ansi-colors',
+    flatten: 'gulp-flatten',
+    fs: 'fs',
+    glob: 'glob',
+    gulp: 'gulp',
+    header: 'gulp-header',
+    imagemin: 'gulp-imagemin',
+    log: 'fancy-log',
+    merge: 'merge-stream',
+    noop: 'gulp-noop',
+    notifier: 'node-notifier',
+    objectAssignDeep: 'object-assign-deep',
+    path: 'path',
+    plumber: 'gulp-plumber',
+    rename: 'gulp-rename',
+    sourcemaps: 'gulp-sourcemaps',
+    textTable: 'text-table',
+    yaml: 'js-yaml',
+    callbackFunc: './callbackFunc',
+    callbackTimeout: './callbackTimeout',
+    exportTask: './exportTask',
+    getExtensions: './getExtensions',
+    getFilesToWatch: './getFilesToWatch',
+    getSrcPath: './getSrcPath',
+    handleErrors: './handleErrors',
+    pipeBanner: './pipeBanner',
+    sizeOutput: './sizeOutput'
 };
 
 for (const KEY in LIBRARIES) {
     global[KEY] = require(LIBRARIES[KEY]);
 }
 
-global.env = require("minimist")(process.argv.slice(2));
+global.env = require('minimist')(process.argv.slice(2));
 
 global.mode = {
     beautify: env.beautify || env.b ? true : false,
@@ -49,29 +49,29 @@ global.mode = {
 };
 
 global.config = readYaml(
-    mode.test ? "./config.yaml" : "./Build/Gulp/config.yaml"
+    mode.test ? './config.yaml' : './Build/Gulp/config.yaml'
 );
 
 global.browserSync = null;
 
 global.flags = {
-    "--b, --beautify": " Beautify and dont't compress files",
-    "--d, --debug": " Files dont't get compressed",
-    "--n, --nomaps": " Don't write sourcemaps"
+    '--b, --beautify': " Beautify and dont't compress files",
+    '--d, --debug': " Files dont't get compressed",
+    '--n, --nomaps': " Don't write sourcemaps"
 };
 
-const ICON_PATH = "../assets/";
+const ICON_PATH = '../assets/';
 
 global.gulpIcons = {
-    error: path.join(__dirname, ICON_PATH, "gulp-error.png"),
-    warning: path.join(__dirname, ICON_PATH, "gulp-warning.png"),
-    normal: path.join(__dirname, ICON_PATH, "gulp.png")
+    error: path.join(__dirname, ICON_PATH, 'gulp-error.png'),
+    warning: path.join(__dirname, ICON_PATH, 'gulp-warning.png'),
+    normal: path.join(__dirname, ICON_PATH, 'gulp.png')
 };
 
 try {
     const VERSION = {
-        system: require("../package.json").version,
-        root: require("../../../package.json").version
+        system: require('../package.json').version,
+        root: require('../../../package.json').version
     };
 
     if (VERSION.system == VERSION.root) {

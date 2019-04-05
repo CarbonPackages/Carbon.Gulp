@@ -1,4 +1,4 @@
-const readYaml = require("./readYaml");
+const readYaml = require('./readYaml');
 
 function mergeRootConfig(filename) {
     try {
@@ -14,7 +14,7 @@ function mergePackageConfig(path) {
     let gulpYamlFiles = [];
     if (fs.existsSync(path)) {
         fs.readdirSync(path).forEach(folder => {
-            if (!folder.startsWith(".") && !folder.startsWith("_")) {
+            if (!folder.startsWith('.') && !folder.startsWith('_')) {
                 const GULP_YAML_PATH = `${path}/${folder}/Configuration/Gulp.yaml`;
                 if (fs.existsSync(GULP_YAML_PATH)) {
                     gulpYamlFiles.push({
@@ -53,24 +53,24 @@ function mergePackageConfig(path) {
 
             log(
                 `Loaded config file ${colors.red(
-                    "Gulp.yaml"
+                    'Gulp.yaml'
                 )} from the package ${colors.red(file.package)}`
             );
         } catch (error) {
             handleErrors({
                 name: file.package,
-                plugin: "Error in merging configuration",
-                message: "There is an error in the Gulp.yaml file"
+                plugin: 'Error in merging configuration',
+                message: 'There is an error in the Gulp.yaml file'
             });
         }
     });
 }
 
-function getInfoFromComposer(path = "") {
+function getInfoFromComposer(path = '') {
     try {
         let composer = require(`../../../${path}composer.json`);
 
-        config.info.author = 
+        config.info.author =
             composer.author || composer.extra.author || config.info.author;
         config.info.homepage = composer.homepage || config.info.homepage;
     } catch (error) {}
@@ -79,11 +79,11 @@ function getInfoFromComposer(path = "") {
 module.exports = function() {
     getInfoFromComposer();
 
-    mergeRootConfig("gulp_global.yaml");
-    mergeRootConfig("gulp_local.yaml");
+    mergeRootConfig('gulp_global.yaml');
+    mergeRootConfig('gulp_local.yaml');
 
     if (mode.test) {
-        mergeRootConfig("gulp_test.yaml");
+        mergeRootConfig('gulp_test.yaml');
     }
 
     if (
@@ -95,7 +95,7 @@ module.exports = function() {
             mergePackageConfig(folder);
         });
     } else {
-        config.packages[""] = objectAssignDeep(
+        config.packages[''] = objectAssignDeep(
             {},
             {
                 info: config.info || false,
@@ -107,17 +107,17 @@ module.exports = function() {
 
     if (config.global.browserSync.proxyRootFolder) {
         let prepend =
-            typeof config.global.browserSync.proxyRootFolder == "string"
+            typeof config.global.browserSync.proxyRootFolder == 'string'
                 ? config.global.browserSync.proxyRootFolder
-                : "";
+                : '';
         config.global.browserSync.proxy =
-            prepend + path.basename(path.join(__dirname, "../../.."));
+            prepend + path.basename(path.join(__dirname, '../../..'));
     }
 
     if (config.global.browserSync.enable) {
         delete config.global.browserSync.enable;
-        browserSync = require("browser-sync").create();
+        browserSync = require('browser-sync').create();
     }
 
-    require("./../tasks");
+    require('./../tasks');
 };

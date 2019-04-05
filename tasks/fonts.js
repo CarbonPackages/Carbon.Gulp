@@ -8,18 +8,18 @@ function getConfig() {
             TASK_CONFIG.push({
                 key: KEY || CONFIG.info.package || false,
                 src: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.src || "",
-                    FONTS_CONFIG.src || "",
-                    "**",
+                    CONFIG.root.src || '',
+                    FONTS_CONFIG.src || '',
+                    '**',
                     getExtensions(FONTS_CONFIG.extensions)
                 ),
                 dest: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.dest || "",
-                    FONTS_CONFIG.dest || ""
+                    CONFIG.root.dest || '',
+                    FONTS_CONFIG.dest || ''
                 )
             });
         }
@@ -42,9 +42,9 @@ function getTask() {
                 .pipe(chmod(config.global.chmod))
                 .pipe(plumber.stop())
                 .pipe(gulp.dest(task.dest))
-                .pipe(sizeOutput(task.key, "Fonts", true, false));
+                .pipe(sizeOutput(task.key, 'Fonts', true, false));
         })
     );
 }
 
-module.exports = exportTask("fonts", getTask);
+module.exports = exportTask('fonts', getTask);

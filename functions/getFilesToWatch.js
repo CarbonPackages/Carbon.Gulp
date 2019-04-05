@@ -1,7 +1,7 @@
-const sureArray = require("./sureArray");
-const getExtensions = require("./getExtensions");
+const sureArray = require('./sureArray');
+const getExtensions = require('./getExtensions');
 
-module.exports = function(taskName, configuration = config, key = "") {
+module.exports = function(taskName, configuration = config, key = '') {
     const TASK_CONF = configuration.tasks[taskName];
     const WATCH_CONFIG = sureArray(configuration.root.watch);
     const DONT_WATCH = sureArray(configuration.root.dontWatch);
@@ -12,18 +12,18 @@ module.exports = function(taskName, configuration = config, key = "") {
         if (TASK_CONF.watchOnlySrc) {
             filesToWatch.push(
                 path.join(
-                    configuration.root.base || "",
+                    configuration.root.base || '',
                     key,
-                    configuration.root.src || "",
-                    TASK_CONF.src || "",
-                    "/**",
+                    configuration.root.src || '',
+                    TASK_CONF.src || '',
+                    '/**',
                     getExtensions(TASK_CONF.extensions, false)
                 )
             );
         } else {
             filesToWatch = WATCH_CONFIG.map(value =>
                 path.join(
-                    configuration.root.base || "",
+                    configuration.root.base || '',
                     key,
                     value,
                     getExtensions(TASK_CONF.extensions, false)
@@ -35,9 +35,9 @@ module.exports = function(taskName, configuration = config, key = "") {
             DONT_WATCH.forEach(value => {
                 if (value) {
                     filesToWatch.push(
-                        "!" +
+                        '!' +
                             path.join(
-                                configuration.root.base || "",
+                                configuration.root.base || '',
                                 key,
                                 value,
                                 getExtensions(TASK_CONF.extensions, false)
@@ -47,15 +47,15 @@ module.exports = function(taskName, configuration = config, key = "") {
             });
         }
 
-        if (taskName === "css") {
+        if (taskName === 'css') {
             WATCH_CONFIG.forEach(value => {
                 filesToWatch.push(
-                    "!" +
+                    '!' +
                         path.join(
-                            configuration.root.base || "",
+                            configuration.root.base || '',
                             key,
                             value,
-                            "**/_{all,allsub}.scss"
+                            '**/_{all,allsub}.scss'
                         )
                 );
             });

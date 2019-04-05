@@ -1,4 +1,4 @@
-const DEL = require("del");
+const DEL = require('del');
 const EXPECTED = config.tasks.test.expected;
 EXPECTED.js = JSON.stringify(EXPECTED.js);
 
@@ -6,7 +6,7 @@ let passAllTest = true;
 
 function readFileAsync(file) {
     return new Promise((resolve, reject) => {
-        fs.readFile(file, "utf8", (error, data) => {
+        fs.readFile(file, 'utf8', (error, data) => {
             let key = path.basename(file);
             if (error) {
                 reject(error);
@@ -35,23 +35,23 @@ function testIfExpected(entry) {
 }
 
 function test(callback) {
-    const DEST = path.join(config.root.base, config.root.dest, "**");
+    const DEST = path.join(config.root.base, config.root.dest, '**');
     glob(DEST, (error, entry) => {
         let files = entry.filter(file => fs.lstatSync(file).isFile());
-        files.push("Test/Private/Images/Polygon.svg");
+        files.push('Test/Private/Images/Polygon.svg');
         Promise.all(files.map(readFileAsync))
             .then(entries => {
                 entries.forEach(entry => {
-                    if (entry.file == "Test/Public/Test.js") {
+                    if (entry.file == 'Test/Public/Test.js') {
                         let array = [];
                         eval(entry.data);
                         entry.data = JSON.stringify(array);
                     }
                     if (
-                        entry.file == "Test/Public/Test.css" || 
-                        entry.file == "Test/Private/Images/Polygon.svg"
+                        entry.file == 'Test/Public/Test.css' ||
+                        entry.file == 'Test/Private/Images/Polygon.svg'
                     ) {
-                        entry.data = entry.data.replace(/\n/g, "XXX");
+                        entry.data = entry.data.replace(/\n/g, 'XXX');
                     }
                     testIfExpected(entry);
                 });

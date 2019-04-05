@@ -13,9 +13,9 @@ function getConfig() {
                 key: key || CONFIG.info.package || false,
                 svgo: SPRITE_CONFIG.svgo,
                 src: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     key,
-                    CONFIG.root.src || "",
+                    CONFIG.root.src || '',
                     SPRITE_CONFIG.src,
                     getExtensions(SPRITE_CONFIG.extensions)
                 ),
@@ -23,18 +23,18 @@ function getConfig() {
                 dest: {
                     private: config.private
                         ? path.join(
-                              CONFIG.root.base || "",
+                              CONFIG.root.base || '',
                               key,
-                              CONFIG.root.src || "",
-                              CONFIG.root.inlinePath || ""
+                              CONFIG.root.src || '',
+                              CONFIG.root.inlinePath || ''
                           )
                         : false,
                     public: config.public
                         ? path.join(
-                              CONFIG.root.base || "",
+                              CONFIG.root.base || '',
                               key,
-                              CONFIG.root.dest || "",
-                              SPRITE_CONFIG.dest || ""
+                              CONFIG.root.dest || '',
+                              SPRITE_CONFIG.dest || ''
                           )
                         : false
                 }
@@ -46,7 +46,7 @@ function getConfig() {
 }
 
 function getTask() {
-    const SVG_SPRITE = require("gulp-svg-sprite");
+    const SVG_SPRITE = require('gulp-svg-sprite');
     const TASK_CONFIG = getConfig();
     return merge(
         TASK_CONFIG.map(task => {
@@ -59,7 +59,7 @@ function getTask() {
                 .pipe(cache(`${task.key}svgSprite`))
                 .pipe(
                     rename(file => {
-                        file.basename = "icon-" + file.basename.toLowerCase();
+                        file.basename = 'icon-' + file.basename.toLowerCase();
                     })
                 )
                 .pipe(imagemin([imagemin.svgo({ plugins: [task.svgo] })]));
@@ -69,7 +69,7 @@ function getTask() {
                       .pipe(chmod(config.global.chmod))
                       .pipe(plumber.stop())
                       .pipe(gulp.dest(task.dest.private))
-                      .pipe(sizeOutput(task.key, "SVG Sprite", false))
+                      .pipe(sizeOutput(task.key, 'SVG Sprite', false))
                 : false;
 
             const PUBLIC_TASK = task.dest.public
@@ -77,7 +77,7 @@ function getTask() {
                       .pipe(chmod(config.global.chmod))
                       .pipe(plumber.stop())
                       .pipe(gulp.dest(task.dest.public))
-                      .pipe(sizeOutput(task.key, "SVG Sprite"))
+                      .pipe(sizeOutput(task.key, 'SVG Sprite'))
                 : false;
 
             if (PRIVATE_TASK) {
@@ -92,4 +92,4 @@ function getTask() {
     );
 }
 
-module.exports = exportTask("svgSprite", getTask);
+module.exports = exportTask('svgSprite', getTask);

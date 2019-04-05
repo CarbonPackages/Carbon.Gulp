@@ -5,16 +5,16 @@ function getConfig() {
         const CONFIG = config.packages[KEY];
         let entries = CONFIG.tasks.clean;
 
-        if (typeof entries == "string") {
+        if (typeof entries == 'string') {
             entries = [entries];
         }
 
         assets = assets.concat(
             entries.map(entry =>
                 path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.dest || "",
+                    CONFIG.root.dest || '',
                     entry
                 )
             )
@@ -23,10 +23,10 @@ function getConfig() {
         if (CONFIG.root.inlinePath) {
             assets.push(
                 path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.src || "",
-                    CONFIG.root.inlinePath || ""
+                    CONFIG.root.src || '',
+                    CONFIG.root.inlinePath || ''
                 )
             );
         }
@@ -35,9 +35,9 @@ function getConfig() {
 }
 
 function getTask(callback) {
-    const del = require("del");
+    const del = require('del');
     const assets = getConfig();
     return del(assets, { force: true }, callback);
 }
 
-module.exports = exportTask("clean", getTask);
+module.exports = exportTask('clean', getTask);

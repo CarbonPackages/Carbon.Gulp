@@ -1,5 +1,5 @@
 function getTask(callback) {
-    const PRETTYJSON = require("prettyjson");
+    const PRETTYJSON = require('prettyjson');
     let options = {
         inlineArrays: true
     };
@@ -11,9 +11,9 @@ function getTask(callback) {
     )} merged configuration`;
 
     if (path) {
-        path.split("/").every(part => {
+        path.split('/').every(part => {
             if (part) {
-                if (typeof output[part] == "undefined") {
+                if (typeof output[part] == 'undefined') {
                     render = false;
                     headline = `There is no configuration for ${colors.inverse(
                         ` ${path} `
@@ -32,9 +32,9 @@ function getTask(callback) {
         }
     }
 
-    render = render ? `${PRETTYJSON.render(output, options)}\n\n` : "";
+    render = render ? `${PRETTYJSON.render(output, options)}\n\n` : '';
     log(`\n\n ${colors.white(headline)}\n\n${render}`);
     return callback();
 }
 
-module.exports = exportTask("showConfig", getTask);
+module.exports = exportTask('showConfig', getTask);

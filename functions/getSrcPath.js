@@ -4,15 +4,15 @@ function checkFile(file) {
         extern: []
     };
 
-    if (typeof file == "string") {
+    if (typeof file == 'string') {
         file = [file];
     }
     if (Array.isArray(file)) {
         file.forEach(item => {
             files[
-                item.startsWith("Inline.") || item.includes(".Inline.")
-                    ? "inline"
-                    : "extern"
+                item.startsWith('Inline.') || item.includes('.Inline.')
+                    ? 'inline'
+                    : 'extern'
             ].push(item);
         });
     }
@@ -26,9 +26,9 @@ function checkFile(file) {
 function joinFiles(files) {
     return files.length
         ? files.length > 1
-            ? `{${files.join(",")}}`
+            ? `{${files.join(',')}}`
             : files[0]
-        : "";
+        : '';
 }
 
 module.exports = function({
@@ -38,9 +38,9 @@ module.exports = function({
     file = null
 }) {
     if (Array.isArray(extensions) && extensions.length > 1) {
-        extensions = `{${extensions.join(",")}}`;
+        extensions = `{${extensions.join(',')}}`;
     }
-    let excludeUnderscore = "[^_]";
+    let excludeUnderscore = '[^_]';
 
     if (file) {
         let checkFiles = checkFile(file);
@@ -57,7 +57,7 @@ module.exports = function({
 
     return [
         path.join(basePath, `${excludeUnderscore}*.${extensions}`),
-        "!" + path.join(basePath, `Inline.${extensions}`),
-        "!" + path.join(basePath, `*.Inline.${extensions}`)
+        '!' + path.join(basePath, `Inline.${extensions}`),
+        '!' + path.join(basePath, `*.Inline.${extensions}`)
     ];
 };

@@ -1,5 +1,5 @@
 function getTask() {
-    return require("./jsRenderShared")("js");
+    return require('./jsRenderShared')('js');
 }
 
-module.exports = exportTask("js", getTask);
+module.exports = exportTask('js', getTask);

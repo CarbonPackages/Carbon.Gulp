@@ -8,18 +8,18 @@ function getConfig() {
             TASK_CONFIG.push({
                 key: KEY || CONFIG.info.package || false,
                 src: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.src || "",
-                    IMAGES_CONFIG.src || "",
-                    "**",
+                    CONFIG.root.src || '',
+                    IMAGES_CONFIG.src || '',
+                    '**',
                     getExtensions(IMAGES_CONFIG.extensions)
                 ),
                 dest: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.dest || "",
-                    IMAGES_CONFIG.dest || ""
+                    CONFIG.root.dest || '',
+                    IMAGES_CONFIG.dest || ''
                 )
             });
         }
@@ -42,9 +42,9 @@ function getTask() {
                 .pipe(chmod(config.global.chmod))
                 .pipe(plumber.stop())
                 .pipe(gulp.dest(task.dest))
-                .pipe(sizeOutput(task.key, "Images", true, false));
+                .pipe(sizeOutput(task.key, 'Images', true, false));
         })
     );
 }
 
-module.exports = exportTask("images", getTask);
+module.exports = exportTask('images', getTask);

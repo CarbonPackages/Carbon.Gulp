@@ -8,18 +8,18 @@ function getConfig() {
             TASK_CONFIG.push({
                 key: KEY || CONFIG.info.package || false,
                 src: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.src || "",
-                    STATIC_CONFIG.src || "",
-                    "**",
+                    CONFIG.root.src || '',
+                    STATIC_CONFIG.src || '',
+                    '**',
                     getExtensions(STATIC_CONFIG.extensions)
                 ),
                 dest: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.dest || "",
-                    STATIC_CONFIG.dest || ""
+                    CONFIG.root.dest || '',
+                    STATIC_CONFIG.dest || ''
                 )
             });
         }
@@ -41,9 +41,9 @@ function getTask() {
                 .pipe(chmod(config.global.chmod))
                 .pipe(plumber.stop())
                 .pipe(gulp.dest(task.dest))
-                .pipe(sizeOutput(task.key, "Static Files", true, false));
+                .pipe(sizeOutput(task.key, 'Static Files', true, false));
         })
     );
 }
 
-module.exports = exportTask("static", getTask);
+module.exports = exportTask('static', getTask);

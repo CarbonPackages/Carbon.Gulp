@@ -27,18 +27,18 @@ function getConfig() {
                 imagemin: IMAGEMIN_CONFIG,
                 key: KEY || CONFIG.info.package || false,
                 src: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.src || "",
-                    IMAGES_CONFIG.src || "",
-                    "**",
+                    CONFIG.root.src || '',
+                    IMAGES_CONFIG.src || '',
+                    '**',
                     getExtensions(IMAGES_CONFIG.extensions)
                 ),
                 dest: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root.dest || "",
-                    IMAGES_CONFIG.dest || ""
+                    CONFIG.root.dest || '',
+                    IMAGES_CONFIG.dest || ''
                 )
             });
         }
@@ -69,9 +69,9 @@ function getTask() {
                 .pipe(chmod(config.global.chmod))
                 .pipe(plumber.stop())
                 .pipe(gulp.dest(task.dest))
-                .pipe(sizeOutput(task.key, "Optimize Images", true, false));
+                .pipe(sizeOutput(task.key, 'Optimize Images', true, false));
         })
     );
 }
 
-module.exports = exportTask("optimizeImages", getTask);
+module.exports = exportTask('optimizeImages', getTask);

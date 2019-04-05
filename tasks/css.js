@@ -1,14 +1,14 @@
-const sureArray = require("../functions/sureArray");
+const sureArray = require('../functions/sureArray');
 
 const PATHS = {};
 
 function addPostCSSPlugin(key, config) {
     let plugin = require(key);
-    if (typeof config == "object") {
+    if (typeof config == 'object') {
         // Special case
-        if (key == "css-mqpacker") {
+        if (key == 'css-mqpacker') {
             config = {
-                sort: config.sort ? require("sort-css-media-queries") : false
+                sort: config.sort ? require('sort-css-media-queries') : false
             };
         }
         return plugin(config);
@@ -20,7 +20,7 @@ function addPostCSSPlugin(key, config) {
 
 function addPostCSSPlugins(object) {
     let array = [];
-    if (typeof object == "object") {
+    if (typeof object == 'object') {
         for (const key in object) {
             array.push(addPostCSSPlugin(key, object[key]));
         }
@@ -29,12 +29,12 @@ function addPostCSSPlugins(object) {
 }
 
 function postcssAssets(config, KEY) {
-    if (!config || typeof config != "object") {
+    if (!config || typeof config != 'object') {
         return { private: null, public: null };
     }
-    let plugin = require("postcss-assets");
+    let plugin = require('postcss-assets');
     let loadPaths = [];
-    ["dest", "src"].forEach(target => {
+    ['dest', 'src'].forEach(target => {
         let conf = sureArray(config.loadPaths[target]);
         if (conf) {
             conf.forEach(value => {
@@ -52,7 +52,7 @@ function postcssAssets(config, KEY) {
                 ),
                 basePath: path.join(PATHS.root.dest, config.loadPaths.dest),
                 baseUrl: path.join(
-                    config.private.baseUrl.replace("%KEY%", KEY),
+                    config.private.baseUrl.replace('%KEY%', KEY),
                     config.loadPaths.dest
                 )
             })
@@ -67,31 +67,31 @@ function postcssAssets(config, KEY) {
 }
 
 function getConfig() {
-    const sassTildeImporter = require("node-sass-tilde-importer");
+    const sassTildeImporter = require('node-sass-tilde-importer');
     const TASK_CONFIG = [];
     for (const KEY in config.packages) {
         const CONFIG = config.packages[KEY];
         const CSS_CONFIG = CONFIG.tasks.css;
 
         if (CSS_CONFIG) {
-            PATHS.key = path.join(CONFIG.root.base || "", KEY);
+            PATHS.key = path.join(CONFIG.root.base || '', KEY);
             PATHS.root = {
-                src: path.join(PATHS.key, CONFIG.root.src || ""),
-                dest: path.join(PATHS.key, CONFIG.root.dest || "")
+                src: path.join(PATHS.key, CONFIG.root.src || ''),
+                dest: path.join(PATHS.key, CONFIG.root.dest || '')
             };
             PATHS.dest = {
                 private: path.join(
                     PATHS.root.src,
-                    CONFIG.root.inlinePath || ""
+                    CONFIG.root.inlinePath || ''
                 ),
-                public: path.join(PATHS.root.dest, CSS_CONFIG.dest || "")
+                public: path.join(PATHS.root.dest, CSS_CONFIG.dest || '')
             };
-            PATHS.base = path.join(PATHS.root.src, CSS_CONFIG.src || "");
+            PATHS.base = path.join(PATHS.root.src, CSS_CONFIG.src || '');
 
             // Sass Configuration
             let sassConfig = CSS_CONFIG.sass;
             sassConfig.imagePath =
-                (CSS_CONFIG.dest ? "../" : "") + sassConfig.imagePath;
+                (CSS_CONFIG.dest ? '../' : '') + sassConfig.imagePath;
             sassConfig.importer = sassTildeImporter;
 
             // PostCSS Configuration
@@ -112,21 +112,21 @@ function getConfig() {
             // special treatment
             let SPECIAL = CSS_CONFIG.postcss.specialTreatment;
             const POSTCSS_ASSETS = postcssAssets(
-                SPECIAL["postcss-assets"],
+                SPECIAL['postcss-assets'],
                 KEY
             );
             postcssConfig.push(
-                addPostCSSPlugin("autoprefixer", SPECIAL.autoprefixer)
+                addPostCSSPlugin('autoprefixer', SPECIAL.autoprefixer)
             );
             if (mode.minimize) {
                 postcssConfig.push(
-                    addPostCSSPlugin("cssnano", SPECIAL.cssnano)
+                    addPostCSSPlugin('cssnano', SPECIAL.cssnano)
                 );
             }
             postcssConfig.push(
                 addPostCSSPlugin(
-                    "postcss-reporter",
-                    SPECIAL["postcss-reporter"]
+                    'postcss-reporter',
+                    SPECIAL['postcss-reporter']
                 )
             );
 
@@ -165,11 +165,11 @@ function getConfig() {
 }
 
 function getTask() {
-    const sass = require("gulp-sass");
-    const postcss = require("gulp-postcss");
-    const beautify = require("gulp-cssbeautify");
+    const sass = require('gulp-sass');
+    const postcss = require('gulp-postcss');
+    const beautify = require('gulp-cssbeautify');
     const TASK_CONFIG = getConfig();
-    sass.compiler = require("node-sass");
+    sass.compiler = require('node-sass');
 
     return merge(
         TASK_CONFIG.map(task => {
@@ -190,7 +190,7 @@ function getTask() {
                         .pipe(chmod(config.global.chmod))
                         .pipe(plumber.stop())
                         .pipe(gulp.dest(task.dest.private))
-                        .pipe(sizeOutput(task.key, "CSS", false))
+                        .pipe(sizeOutput(task.key, 'CSS', false))
                 );
             }
             if (task.src.public) {
@@ -224,13 +224,13 @@ function getTask() {
                         .pipe(pipeBanner(task))
                         .pipe(
                             mode.maps && task.sourceMaps
-                                ? sourcemaps.write("")
+                                ? sourcemaps.write('')
                                 : noop()
                         )
                         .pipe(plumber.stop())
                         .pipe(gulp.dest(task.dest.public))
                         .pipe(browserSync ? browserSync.stream() : noop())
-                        .pipe(sizeOutput(task.key, "CSS"))
+                        .pipe(sizeOutput(task.key, 'CSS'))
                 );
             }
             return merge(array);
@@ -238,4 +238,4 @@ function getTask() {
     );
 }
 
-module.exports = exportTask("css", getTask);
+module.exports = exportTask('css', getTask);

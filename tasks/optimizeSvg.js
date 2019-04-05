@@ -6,42 +6,42 @@ function getConfig() {
 
         if (
             CONFIG_OPTIMIZE_SVG &&
-            (CONFIG_OPTIMIZE_SVG == "src" || CONFIG_OPTIMIZE_SVG == "dest")
+            (CONFIG_OPTIMIZE_SVG == 'src' || CONFIG_OPTIMIZE_SVG == 'dest')
         ) {
             let configuration = {
                 key: KEY || CONFIG.info.package || false,
                 src: [
                     path.join(
-                        CONFIG.root.base || "",
+                        CONFIG.root.base || '',
                         KEY,
-                        CONFIG.root[CONFIG_OPTIMIZE_SVG] || "",
-                        "**/*.svg"
+                        CONFIG.root[CONFIG_OPTIMIZE_SVG] || '',
+                        '**/*.svg'
                     )
                 ],
                 dest: path.join(
-                    CONFIG.root.base || "",
+                    CONFIG.root.base || '',
                     KEY,
-                    CONFIG.root[CONFIG_OPTIMIZE_SVG] || ""
+                    CONFIG.root[CONFIG_OPTIMIZE_SVG] || ''
                 ),
-                pretty: CONFIG_OPTIMIZE_SVG == "src" ? true : false
+                pretty: CONFIG_OPTIMIZE_SVG == 'src' ? true : false
             };
 
             // we don't want the Sprite to be optimized
             if (CONFIG.tasks.svgSprite) {
                 configuration.src.push(
                     path.join(
-                        "!" + CONFIG.root.base || "",
-                        CONFIG.root.dest || "",
-                        CONFIG.tasks.svgSprite.dest || "",
-                        CONFIG.tasks.svgSprite.src + ".svg"
+                        '!' + CONFIG.root.base || '',
+                        CONFIG.root.dest || '',
+                        CONFIG.tasks.svgSprite.dest || '',
+                        CONFIG.tasks.svgSprite.src + '.svg'
                     )
                 );
                 configuration.src.push(
                     path.join(
-                        "!" + CONFIG.root.base || "",
-                        CONFIG.root.src || "",
-                        CONFIG.root.inlinePath || "",
-                        CONFIG.tasks.svgSprite.src + ".svg"
+                        '!' + CONFIG.root.base || '',
+                        CONFIG.root.src || '',
+                        CONFIG.root.inlinePath || '',
+                        CONFIG.tasks.svgSprite.src + '.svg'
                     )
                 );
             }
@@ -54,7 +54,7 @@ function getConfig() {
 
 function getTask() {
     const TASK_CONFIG = getConfig();
-    const SVGMIN = require("gulp-svgmin");
+    const SVGMIN = require('gulp-svgmin');
     const PRETTY_OPTIONS = {
         js2svg: {
             pretty: true
@@ -72,7 +72,7 @@ function getTask() {
                 .pipe(
                     sizeOutput(
                         task.key,
-                        "Optimize SVG Images",
+                        'Optimize SVG Images',
                         !task.pretty,
                         false
                     )
@@ -82,7 +82,7 @@ function getTask() {
 }
 
 module.exports = exportTask(
-    "optimizeSvg",
+    'optimizeSvg',
     getTask,
-    !!(config.tasks.optimizeSvg == "src" || config.tasks.optimizeSvg == "dest")
+    !!(config.tasks.optimizeSvg == 'src' || config.tasks.optimizeSvg == 'dest')
 );

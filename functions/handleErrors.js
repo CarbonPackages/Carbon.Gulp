@@ -9,12 +9,12 @@ module.exports = function(error) {
             message: error.message,
             icon: gulpIcons.error,
             wait: true,
-            sound: "Basso"
+            sound: 'Basso'
         });
     }
 
-    if (this && typeof this.emit == "function") {
-        this.emit("end");
+    if (this && typeof this.emit == 'function') {
+        this.emit('end');
     }
 
     if (mode.pipeline || mode.test) {
