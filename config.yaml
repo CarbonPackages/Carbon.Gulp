@@ -183,10 +183,11 @@ tasks:
       plugins:
         builtins: true
         nodeResolve:
-          module: true
-          jsnext: true
-          main: true
-          browser: true
+          mainFields:
+            - module
+            - jsnext
+            - main
+            - browser
         includePaths:
           include: {}
           paths:
