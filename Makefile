@@ -57,10 +57,7 @@ reset_git_files:
 	git checkout Test/Private/*
 	yarn remove postcss-flexbox postcss-zindex
 
-local_test:
-	make before_test
-	make test
-	make reset_git_files
+local_test: before_test test reset_git_files
 
 # Release
 
