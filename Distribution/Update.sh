@@ -5,8 +5,6 @@
 ## yarn global add json
 
 . "$PWD/Build/Gulp/Distribution/Helper/SetColors.sh"
-echo "${GREEN}Update files on root${NC}"
-. "$PWD/Build/Gulp/Distribution/Helper/CopyFiles.sh"
 if which json > /dev/null
   then
     . "$PWD/Build/Gulp/Distribution/Helper/MergePackageJson.sh"

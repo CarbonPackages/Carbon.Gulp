@@ -27,6 +27,8 @@ if [ "$(_isSameRelease)" = "true" ]
   then
     echo "No merge necessary. Version ${GREEN}${_oldVersion}${NC}"
   else
+    echo "${GREEN}Update files on root${NC}"
+    . "$PWD/Build/Gulp/Distribution/Helper/CopyFiles.sh"
     _version="{\"version\": \"$(cat Build/Gulp/package.json | json version)\"}"
     _babel="{\"babel\": $(cat Build/Gulp/package.json | json babel)}"
     _scripts="{\"scripts\": $(cat Build/Gulp/package.json | json scripts)}"
