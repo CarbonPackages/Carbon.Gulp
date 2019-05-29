@@ -69,7 +69,7 @@
     "fs-readdir-recursive": "^1.1.0",
     "glob": "^7.1.4",
     "gulp": "^4.0.2",
-    "gulp-changed": "^3.2.0",
+    "gulp-changed": "^4.0.0",
     "gulp-chmod": "^2.0.0",
     "gulp-cssbeautify": "^1.0.1",
     "gulp-flatten": "^0.4.0",
