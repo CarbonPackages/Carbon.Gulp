@@ -20,6 +20,10 @@ _noNvm() {
 
 if [ -f ~/.nvm/nvm.sh ]
   then
+    if [ -f ~/.bashrc ]
+      then
+        . ~/.bashrc
+    fi
     . ~/.nvm/nvm.sh
     if [ "$(command -v nvm | tr -d '\n')" = "nvm" ]
       then
