@@ -52,9 +52,9 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.0",
+    "@babel/core": "^7.5.4",
     "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.5.2",
+    "@babel/preset-env": "^7.5.4",
     "ansi-colors": "^4.1.1",
     "autoprefixer": "^9.6.1",
     "browser-sync": "2.26.7",
@@ -130,7 +130,7 @@
     "sort-css-media-queries": "^1.4.3",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
-    "stylelint-scss": "^3.9.0",
+    "stylelint-scss": "^3.9.1",
     "text-table": "^0.2.0"
   }
 }
