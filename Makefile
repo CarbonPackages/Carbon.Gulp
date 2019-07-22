@@ -8,11 +8,11 @@ default:
 	@echo "--------------------------------------------------------------------------"
 	@echo ""
 	@echo "      upgrade          Check if there are any new dependencies available"
-	@echo "      commit           Commit upgraded dependencies"
+	@echo "      commit           Reset the files and commit upgraded dependencies"
 	@echo ""
 	@echo "--------------------------------------------------------------------------"
 	@echo ""
-	@echo "      local_test       Prepare, run the test, and reset the files"
+	@echo "      local_test       Prepare amd run the test"
 	@echo "      before_test      Prepare the test"
 	@echo "      test             Run the test"
 	@echo "      reset_git_files  Reset the files to a commitable status"
@@ -37,7 +37,7 @@ upgrade:
 
 .PHONY: commit
 
-commit:
+commit: reset_git_files
 	git add package.json
 	git commit -m ":arrow_up: Upgrading dependencies"
 	git push
@@ -47,7 +47,7 @@ commit:
 .PHONY: test before_test reset_git_files local_test
 
 before_test:
-	yarn add postcss-flexbox postcss-zindex
+	yarn add postcss-flexbox postcss-zindex --no-lockfile
 
 test:
 	gulp --cwd ./ --gulpfile ./index.js test --carbon
@@ -55,9 +55,9 @@ test:
 reset_git_files:
 	rm -rf Test/Public
 	git checkout Test/Private/*
-	yarn remove postcss-flexbox postcss-zindex
+	yarn remove postcss-flexbox postcss-zindex --no-lockfile || exit 0
 
-local_test: before_test test reset_git_files
+local_test: before_test test
 
 # Release
 

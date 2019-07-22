@@ -3,6 +3,7 @@ const EXPECTED = config.tasks.test.expected;
 EXPECTED.js = JSON.stringify(EXPECTED.js);
 
 let passAllTest = true;
+let deleteFiles = [];
 
 function readFileAsync(file) {
     return new Promise((resolve, reject) => {
@@ -17,21 +18,26 @@ function readFileAsync(file) {
     });
 }
 
+function pushToDeleteFiles(entry) {
+    if (!entry.file.match('/Private/')) {
+        deleteFiles.push(entry.file);
+    }
+}
+
 function testIfExpected(entry) {
     let expected = EXPECTED[entry.file];
     if (expected) {
         if (entry.data == expected) {
             log(colors.green(`${entry.key} test successful`));
+            pushToDeleteFiles(entry);
         } else {
             passAllTest = false;
-            log(colors.red(`${entry.key} test failed`));
-            log(
-                `${colors.yellow(entry.data)} didn't match with ${colors.yellow(
-                    expected
-                )}`
-            );
+            fs.writeFileSync(`Test/Public/Expected-${entry.key}`, expected);
+            log(colors.red(`${entry.key} didn't match with expected result`));
         }
+        return;
     }
+    pushToDeleteFiles(entry);
 }
 
 function test(callback) {
@@ -55,7 +61,7 @@ function test(callback) {
                     }
                     testIfExpected(entry);
                 });
-                DEL(DEST, { force: true }).then(() => {
+                DEL(deleteFiles, { force: true }).then(() => {
                     callback();
                     if (!passAllTest) {
                         process.exit(1);
