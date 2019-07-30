@@ -143,10 +143,13 @@ tasks:
         autoprefixer:
           grid: true
         cssnano:
-          reduceIdents: false
-          zindex: false
-          discardComments:
-            removeAll: true
+          preset:
+            - default
+            -
+              reduceIdents: false
+              zindex: false
+              discardComments:
+                removeAll: true
         postcss-reporter: true
     cssbeautifyOptions:
       indent: '  '
