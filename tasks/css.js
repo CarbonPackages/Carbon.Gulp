@@ -3,7 +3,6 @@ const sureArray = require('../functions/sureArray');
 const PATHS = {};
 
 function addPostCSSPlugin(key, config) {
-    let plugin = require(key);
     if (typeof config == 'object') {
         // Special case
         if (key == 'css-mqpacker') {
@@ -11,9 +10,9 @@ function addPostCSSPlugin(key, config) {
                 sort: config.sort ? require('sort-css-media-queries') : false
             };
         }
-        return plugin(config);
+        return require(key)(config);
     } else if (config === true) {
-        return plugin;
+        return require(key);
     }
     return null;
 }
