@@ -104,7 +104,7 @@
     "postcss-easings": "^2.0.0",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-focus": "^4.0.0",
-    "postcss-momentum-scrolling": "^1.9.15",
+    "postcss-momentum-scrolling": "^2.3.12",
     "postcss-normalize": "^8.0.1",
     "postcss-preset-env": "^6.7.0",
     "postcss-pxtorem": "^4.0.1",
