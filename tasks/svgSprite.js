@@ -51,6 +51,8 @@ function getTask() {
     return merge(
         TASK_CONFIG.map(task => {
             const SVG_TASKS = [];
+            const SVGO_PLUGINS =
+                task.svgo && task.svgo.length ? { plugins: [task.svgo] } : {};
             const BASIC_TASK = gulp
                 .src(task.src, {
                     since: cache.lastMtime(`${task.key}svgSprite`)
@@ -62,7 +64,7 @@ function getTask() {
                         file.basename = 'icon-' + file.basename.toLowerCase();
                     })
                 )
-                .pipe(imagemin([imagemin.svgo({ plugins: [task.svgo] })]));
+                .pipe(imagemin([imagemin.svgo(SVGO_PLUGINS)]));
 
             const PRIVATE_TASK = task.dest.private
                 ? BASIC_TASK.pipe(SVG_SPRITE(task.config.private))
