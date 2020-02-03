@@ -49,10 +49,7 @@
     "optimizeSvg": "yarn gulp optimizeSvg",
     "showConfig": "yarn gulp showConfig"
   },
-  "dependencies": {
-    "postcss-flexbox": "^1.0.3",
-    "postcss-zindex": "^4.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
