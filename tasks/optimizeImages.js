@@ -5,7 +5,7 @@ function getConfig() {
         const IMAGES_CONFIG = CONFIG.tasks.images;
         const IMAGEMIN_CONFIG = {
             gifsicle: {},
-            jpegtran: {},
+            mozjpeg: {},
             optipng: {},
             svgo: {}
         };
@@ -13,7 +13,7 @@ function getConfig() {
             IMAGEMIN_CONFIG.gifsicle = CONFIG.tasks.optimizeImages.gifsicle;
         } catch (error) {}
         try {
-            IMAGEMIN_CONFIG.jpegtran = CONFIG.tasks.optimizeImages.jpegtran;
+            IMAGEMIN_CONFIG.mozjpeg = CONFIG.tasks.optimizeImages.mozjpeg;
         } catch (error) {}
         try {
             IMAGEMIN_CONFIG.optipng = CONFIG.tasks.optimizeImages.optipng;
@@ -57,7 +57,7 @@ function getTask() {
                     imagemin(
                         [
                             imagemin.gifsicle(task.imagemin.gifsicle),
-                            imagemin.jpegtran(task.imagemin.jpegtran),
+                            imagemin.mozjpeg(task.imagemin.mozjpeg),
                             imagemin.optipng(task.imagemin.optipng),
                             imagemin.svgo(task.imagemin.svgo)
                         ],
