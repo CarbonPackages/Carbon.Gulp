@@ -27,18 +27,17 @@ function pushToDeleteFiles(entry) {
 function testIfExpected(entry) {
     let expected = EXPECTED[entry.file];
     if (expected) {
-        if (entry.data == expected) {
+        if (
+            (typeof expected == 'string' && expected == entry.data) ||
+            (typeof expected == 'object' && expected.includes(entry.data))
+        ) {
             log(colors.green(`${entry.key} test successful`));
             pushToDeleteFiles(entry);
         } else {
             passAllTest = false;
             fs.writeFileSync(`Test/Public/Expected-${entry.key}`, expected);
-            log(colors.red(`${entry.key} didn't match with expected result`));
-            log(
-                `${colors.yellow(entry.data)} didn't match with ${colors.yellow(
-                    expected
-                )}`
-            );
+            log(colors.red(`${entry.key} didn't match with expected result:`));
+            log(entry.data);
         }
         return;
     }
