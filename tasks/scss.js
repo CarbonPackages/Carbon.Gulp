@@ -62,6 +62,11 @@ function scanSubdirectories(directory, subset) {
         let ext = path.extname(name);
         let visible = !name.startsWith('_') && !name.startsWith('.');
         let isFolder = subset ? !ext.replace(`.${subset}`, '') : !ext;
+        
+        // Don't scan node_modules folders
+        if (isFolder && name == 'node_modules') {
+            return false;
+        }
 
         // Scss file check
         let isScssFile = false;
