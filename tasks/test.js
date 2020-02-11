@@ -34,6 +34,11 @@ function testIfExpected(entry) {
             passAllTest = false;
             fs.writeFileSync(`Test/Public/Expected-${entry.key}`, expected);
             log(colors.red(`${entry.key} didn't match with expected result`));
+            log(
+                `${colors.yellow(entry.data)} didn't match with ${colors.yellow(
+                    expected
+                )}`
+            );
         }
         return;
     }
