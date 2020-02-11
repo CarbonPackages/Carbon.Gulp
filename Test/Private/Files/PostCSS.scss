@@ -25,7 +25,7 @@
   clip-path: polygon(0 0, 100% 100%, 100% 0);
 }
 
-.css-mqpacker.sort-css-media-queries {
+.postcss-sort-media-queries {
   @media (max-width: 60px) and (min-width: 40px) {
     display: inline;
   }
@@ -70,6 +70,7 @@
 // postcss-preset-env
 :root {
   --mainColor: #12345678;
+
   font-family: system-ui;
 }
 
@@ -103,7 +104,7 @@
 }
 
 .postcss-easings {
-  transition: transform 1s easeInSine, opacity 2s ease-in-sine;
+  transition: transform 1s easeinsine, opacity 2s ease-in-sine;
 }
 
 .postcss-vmax {
