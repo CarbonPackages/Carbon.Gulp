@@ -4,12 +4,6 @@ const PATHS = {};
 
 function addPostCSSPlugin(key, config) {
     if (typeof config == 'object') {
-        // Special case
-        if (key == 'css-mqpacker') {
-            config = {
-                sort: config.sort ? require('sort-css-media-queries') : false
-            };
-        }
         return require(key)(config);
     } else if (config === true) {
         return require(key);

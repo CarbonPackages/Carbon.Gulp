@@ -108,8 +108,7 @@ tasks:
           - auto
           - inherit
         postcss-flexbugs-fixes: true
-        css-mqpacker:
-          sort: true
+        postcss-sort-media-queries: true
         postcss-round-subpixels: true
         postcss-pxtorem:
           rootValue: 16
@@ -145,8 +144,7 @@ tasks:
         cssnano:
           preset:
             - default
-            -
-              reduceIdents: false
+            - reduceIdents: false
               zindex: false
               discardComments:
                 removeAll: true
