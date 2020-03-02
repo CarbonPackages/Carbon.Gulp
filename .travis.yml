@@ -1,5 +1,6 @@
 before_install:
   - touch yarn.lock
+  - yarn install
 before_script:
   - make before_test
 language: node_js
