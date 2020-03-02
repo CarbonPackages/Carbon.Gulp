@@ -103,7 +103,7 @@
     "postcss-momentum-scrolling": "^2.3.14",
     "postcss-normalize": "^8.0.1",
     "postcss-preset-env": "^6.7.0",
-    "postcss-pxtorem": "^4.0.1",
+    "postcss-pxtorem": "^5.0.0",
     "postcss-quantity-queries": "^0.5.0",
     "postcss-reporter": "^6.0.1",
     "postcss-responsive-type": "^1.0.0",
