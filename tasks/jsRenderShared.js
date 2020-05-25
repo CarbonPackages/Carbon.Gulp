@@ -1,13 +1,13 @@
 const ROLLUP_PLUGIN = {
     AMD: require('rollup-plugin-amd'),
-    BABEL: require('rollup-plugin-babel'),
-    BUBLE: require('rollup-plugin-buble'),
+    BABEL: require('@rollup/plugin-babel').babel,
+    BUBLE: require('@rollup/plugin-buble'),
     BUILTINS: require('rollup-plugin-node-builtins'),
-    CJS: require('rollup-plugin-commonjs'),
+    CJS: require('@rollup/plugin-commonjs'),
     GLOBALS: require('rollup-plugin-node-globals'),
     INCLUDEPATHS: require('rollup-plugin-includepaths'),
-    REPLACE: require('rollup-plugin-replace'),
-    RESOLVE: require('rollup-plugin-node-resolve'),
+    REPLACE: require('@rollup/plugin-replace'),
+    RESOLVE: require('@rollup/plugin-node-resolve').default,
     SOURCEMAPS: require('rollup-plugin-sourcemaps'),
     TERSER: require('rollup-plugin-terser').terser
 };
@@ -100,11 +100,7 @@ function getConfig(taskName) {
 
             if (mode.minimize && rollup.config.plugins.terser) {
                 rollup.plugins.push(
-                    ROLLUP_PLUGIN.TERSER(
-                        Object.assign({}, rollup.config.plugins.terser, {
-                            sourcemap: !!SOURCEMAP
-                        })
-                    )
+                    ROLLUP_PLUGIN.TERSER(rollup.config.plugins.terser)
                 );
             }
 

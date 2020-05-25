@@ -167,7 +167,8 @@ tasks:
       - js
       - jsx
     compiler: Babel
-    babel: {}
+    babel:
+      babelHelpers: bundled
     buble:
       objectAssign: 'Object.assign'
     rollup:
