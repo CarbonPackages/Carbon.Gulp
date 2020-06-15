@@ -111,7 +111,9 @@ module.exports = function() {
                 ? config.global.browserSync.proxyRootFolder
                 : '';
         config.global.browserSync.proxy =
-            prepend + path.basename(path.join(__dirname, '../../..'));
+            typeof config.global.browserSync.proxy == 'string'
+                ? prepend + config.global.browserSync.proxy
+                : prepend + path.basename(path.join(__dirname, '../../..'));
     }
 
     if (config.global.browserSync.enable) {
