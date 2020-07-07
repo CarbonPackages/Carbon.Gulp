@@ -33,21 +33,21 @@
     "not op_mob <= 12.1"
   ],
   "scripts": {
-    "gulp": "gulp --cwd ./ --gulpfile ./Build/Gulp",
-    "tasks": "yarn gulp -T",
-    "start": "yarn;yarn gulp",
-    "debug": "yarn gulp --debug",
     "beautify": "yarn gulp --beautify",
-    "nomaps": "yarn gulp --nomaps",
     "build": "yarn;yarn gulp build",
-    "watch": "yarn;yarn gulp watch",
-    "pipeline": "yarn;yarn gulp pipeline",
     "css": "yarn gulp css",
-    "scss": "yarn gulp scss",
+    "debug": "yarn gulp --debug",
+    "gulp": "gulp --cwd ./ --gulpfile ./Build/Gulp",
     "js": "yarn gulp js",
+    "nomaps": "yarn gulp --nomaps",
     "optimizeImages": "yarn gulp optimizeImages",
     "optimizeSvg": "yarn gulp optimizeSvg",
-    "showConfig": "yarn gulp showConfig"
+    "pipeline": "yarn;yarn gulp pipeline",
+    "scss": "yarn gulp scss",
+    "showConfig": "yarn gulp showConfig",
+    "start": "yarn;yarn gulp",
+    "tasks": "yarn gulp -T",
+    "watch": "yarn;yarn gulp watch"
   },
   "dependencies": {},
   "devDependencies": {
