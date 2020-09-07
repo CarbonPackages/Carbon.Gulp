@@ -42,7 +42,7 @@ function testIfExpected(entry) {
                 fs.writeFileSync(`Test/Public/Expected-${entry.key}`, expected);
                 log(expected);
             } else {
-                forEach.expected((string, index) => {
+                expected.forEach((string, index) => {
                     fs.writeFileSync(
                         `Test/Public/Expected-${index}-${entry.key}`,
                         string
