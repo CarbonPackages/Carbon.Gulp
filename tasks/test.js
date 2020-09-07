@@ -36,12 +36,24 @@ function testIfExpected(entry) {
             log(colors.green(`${entry.key} test successful`));
             pushToDeleteFiles(entry);
         } else {
-            passAllTest = false;
-            fs.writeFileSync(
-                `Test/Public/Expected-${entry.key}`,
-                isString ? expected : expected[0]
-            );
             log(colors.red(`${entry.key} didn't match with expected result:`));
+            passAllTest = false;
+            if (isString) {
+                fs.writeFileSync(`Test/Public/Expected-${entry.key}`, expected);
+                log(expected);
+            } else {
+                forEach.expected((string, index) => {
+                    fs.writeFileSync(
+                        `Test/Public/Expected-${index}-${entry.key}`,
+                        string
+                    );
+                    if (index) {
+                        log('or');
+                    }
+                    log(string);
+                });
+            }
+            log(colors.red('Following file was generated:'));
             log(entry.data);
         }
         return;
