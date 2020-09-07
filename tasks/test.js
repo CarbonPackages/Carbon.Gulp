@@ -27,15 +27,20 @@ function pushToDeleteFiles(entry) {
 function testIfExpected(entry) {
     let expected = EXPECTED[entry.file];
     if (expected) {
+        let isString = typeof expected == 'string';
+        let isObject = typeof expected == 'object';
         if (
-            (typeof expected == 'string' && expected == entry.data) ||
-            (typeof expected == 'object' && expected.includes(entry.data))
+            (isString && expected == entry.data) ||
+            (isObject && expected.includes(entry.data))
         ) {
             log(colors.green(`${entry.key} test successful`));
             pushToDeleteFiles(entry);
         } else {
             passAllTest = false;
-            fs.writeFileSync(`Test/Public/Expected-${entry.key}`, expected);
+            fs.writeFileSync(
+                `Test/Public/Expected-${entry.key}`,
+                isString ? expected : expected[0]
+            );
             log(colors.red(`${entry.key} didn't match with expected result:`));
             log(entry.data);
         }
@@ -47,11 +52,11 @@ function testIfExpected(entry) {
 function test(callback) {
     const DEST = path.join(config.root.base, config.root.dest, '**');
     glob(DEST, (error, entry) => {
-        let files = entry.filter(file => fs.lstatSync(file).isFile());
+        let files = entry.filter((file) => fs.lstatSync(file).isFile());
         files.push('Test/Private/Images/Polygon.svg');
         Promise.all(files.map(readFileAsync))
-            .then(entries => {
-                entries.forEach(entry => {
+            .then((entries) => {
+                entries.forEach((entry) => {
                     if (entry.file == 'Test/Public/Test.js') {
                         let array = [];
                         eval(entry.data);
@@ -72,7 +77,7 @@ function test(callback) {
                     }
                 });
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
             });
     });
