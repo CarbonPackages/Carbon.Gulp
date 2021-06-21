@@ -58,7 +58,7 @@
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "^15.0.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-replace": "^2.3.3",
     "ansi-colors": "^4.1.1",
     "autoprefixer": "^9.8.6",
