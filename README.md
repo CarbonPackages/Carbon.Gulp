@@ -43,7 +43,7 @@ If you have troubles to get it running, [drop me a line by creating an issue](ht
 **[You find the documentation in the wiki](https://github.com/CarbonPackages/Carbon.Gulp/wiki)** and an example installation [here](https://github.com/jonnitto/CarbonGulpExample).
 
 [carbon.pipeline]: https://github.com/CarbonPackages/Carbon.Pipeline#readme
-[preview]: https://repository-images.githubusercontent.com/377838441/8d66c680-d27d-11eb-99a4-85ab35081318
+[preview]: https://repository-images.githubusercontent.com/377838441/de0f0b80-d2df-11eb-86a9-7988d27d4ab0
 [esbuild]: https://esbuild.github.io
 [postcss]: https://postcss.org
 [typescript]: https://www.typescriptlang.org
